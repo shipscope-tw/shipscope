@@ -8,9 +8,10 @@ import json, re, sys, os, time, datetime, urllib.request, csv, io
 UA={"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/126 Safari/537.36"}
 out_p=sys.argv[1]; prev_p=sys.argv[2] if len(sys.argv)>2 else None; ind_p=sys.argv[3] if len(sys.argv)>3 else None
 TODAY=datetime.date.today(); KEEP_FROM=(TODAY-datetime.timedelta(days=int(6.2*365))).isoformat()
-def get(url,timeout=40):
+FRED_UA={"User-Agent":"ShipScope-updater/1.0 (+https://shipscope-tw.github.io/shipscope/)"}   # FRED stalls on browser-like UAs
+def get(url,timeout=40,headers=None):
     for i in range(3):
-        try: return urllib.request.urlopen(urllib.request.Request(url,headers=UA),timeout=timeout).read().decode("utf8","ignore")
+        try: return urllib.request.urlopen(urllib.request.Request(url,headers=headers or UA),timeout=timeout).read().decode("utf8","ignore")
         except Exception as e:
             if "404" in str(e): return ""
             err=e; time.sleep(2+2*i)
@@ -69,7 +70,7 @@ FRED_M=[("ironore","PIORECRUSDM","FRED（世界銀行／IMF，月均）"),("coal
 cosd=(TODAY-datetime.timedelta(days=int(6*365))).isoformat()
 for kind,lst in ((() if os.environ.get("SKIP_FRED") else (("series",FRED_D),("monthly",FRED_M)))):
     for id_,sid,src in lst:
-        t=get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}&cosd={cosd}",timeout=30)
+        t=get(f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={sid}&cosd={cosd}",timeout=40,headers=FRED_UA)
         if not t or not t.lstrip().lower().startswith(("observation_date","date")): print("fred miss",sid,file=sys.stderr); continue
         pts=[]
         for r in csv.reader(io.StringIO(t)):
