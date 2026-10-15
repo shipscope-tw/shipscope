@@ -79,6 +79,22 @@ for kind,lst in ((() if os.environ.get("SKIP_FRED") else (("series",FRED_D),("mo
             except ValueError: pass
         if pts: merge(kind,id_,pts); H["src"][id_]=src; print("fred",sid,len(pts),file=sys.stderr)
         time.sleep(0.5)
+# ---------- Yahoo Finance futures (5y daily): TTF, soybeans, iron ore, crack spread ----------
+def yahoo(sym):
+    t=get(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=5y&interval=1d",timeout=30,headers={"User-Agent":"Mozilla/5.0"})
+    try:
+        r=json.loads(t)["chart"]["result"][0]; ts=r.get("timestamp") or []; cl=r["indicators"]["quote"][0]["close"]
+        return {datetime.datetime.fromtimestamp(a,datetime.timezone.utc).date().isoformat():round(c,4) for a,c in zip(ts,cl) if c is not None}
+    except Exception as e: print("yahoo miss",sym,e,file=sys.stderr); return {}
+YAHOO=[("ttf","TTF=F","ICE Endex 荷蘭 TTF 期貨（經 Yahoo Finance）"),("soy","ZS=F","CBOT 黃豆期貨（經 Yahoo Finance）"),("ironore","TIO=F","SGX 鐵礦砂 62% 期貨（經 Yahoo Finance）")]
+if not os.environ.get("SKIP_YAHOO"):
+    for id_,sym,src in YAHOO:
+        d=yahoo(sym)
+        if d: merge("series",id_,[[k,round(v,2)] for k,v in d.items()]); H["src"][id_]=src; print("yahoo",sym,len(d),file=sys.stderr)
+        time.sleep(0.5)
+    cl,rb,ho=yahoo("CL=F"),yahoo("RB=F"),yahoo("HO=F")
+    pts=[[k,round((2*rb[k]*42+ho[k]*42-3*cl[k])/3,2)] for k in sorted(cl) if k in rb and k in ho and cl[k]>0]
+    if pts: merge("series","crack",pts); H["src"]["crack"]="NYMEX WTI／RBOB 汽油／熱燃油期貨推算（經 Yahoo Finance）"; print("crack",len(pts),file=sys.stderr)
 # ---------- accumulate today's indicators ----------
 I=load(ind_p) if ind_p else None
 for it in (I or {}).get("items",[]):
@@ -86,6 +102,9 @@ for it in (I or {}).get("items",[]):
     if it.get("date") and isinstance(it.get("value"),(int,float)): pts.append([it["date"],it["value"]])
     if pts:
         merge("series",it["id"],pts); H["src"].setdefault(it["id"],it.get("source",""))
+    if it.get("id")=="wci" and it.get("date"):   # Drewry route rates "上海→Los Angeles $7,624；..."
+        for city,v in re.findall(r"上海→([A-Za-z ]+?) \$([\d,]+)",it.get("note") or ""):
+            rid="wci_"+re.sub(r"[^a-z]","",city.lower())[:6]; merge("series",rid,[[it["date"],int(v.replace(",",""))]]); H["src"][rid]="Drewry"
 H["updated"]=datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 json.dump(H,open(out_p,"w",encoding="utf-8"),ensure_ascii=False,separators=(",",":"))
 print("hist ids",{k:len(v) for k,v in H["series"].items()},"monthly",{k:len(v) for k,v in H["monthly"].items()},file=sys.stderr)

@@ -46,13 +46,16 @@ m=re.search(r"WCI\), the benchmark[^.]*?(fell|rose|increased|decreased|remained 
 if m and dp:
     routes=re.findall(r"from (Shanghai) to ([A-Za-z ]+?) (?:fell|rose|increased|decreased|remained stable at|was stable at|declined|grew)[^$]*?\$([\d,]+) per 40ft",s) + re.findall(r"(Shanghai) to ([A-Za-z ]+?) (?:fell|rose|increased|decreased|remained stable at|declined|grew)[^$]*?\$([\d,]+) per 40ft",s)
     rt={}; [rt.setdefault(b.strip(),int(c.replace(",",""))) for a,b,c in routes]
-    add(id="wci",name="Drewry WCI 世界貨櫃指數（綜合）",en="Drewry World Container Index",sector="貨櫃",value=int(m.group(2).replace(",","")),unit="US$/40呎櫃",date=dp[0],chg=None,chg_label="",note="；".join(f"上海→{k} ${v:,}" for k,v in rt.items()),series=[],freq="週",source="Drewry",source_url="https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry")
+    w1=re.search(r"WCI\), the benchmark[^.]*?(fell|rose|increased|decreased|declined|grew|dropped|climbed|jumped)(?: by)? ([\d.]+)%",s)
+    y1=re.search(r"([\d.]+)% (higher|lower|above|below) than (?:the same week (?:last year|in \d{4}|a year ago)|a year ago|last year)",s)
+    wx=dict(w1_pct=(-1 if w1.group(1) in("fell","decreased","declined","dropped") else 1)*float(w1.group(2)) if w1 else None,y1_pct=(1 if y1.group(2) in("higher","above") else -1)*float(y1.group(1)) if y1 else None)
+    add(id="wci",name="Drewry WCI 世界貨櫃指數（綜合）",en="Drewry World Container Index",sector="貨櫃",value=int(m.group(2).replace(",","")),unit="US$/40呎櫃",date=dp[0],chg=None,chg_label="",note="；".join(f"上海→{k} ${v:,}" for k,v in rt.items()),series=[],freq="週",**wx,source="Drewry",source_url="https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry")
 # ---- Singapore VLSFO (Ship & Bunker) ----
 t=get("https://shipandbunker.com/prices/apac/sea/sg-sin-singapore")
 for fuel,zh in [("VLSFO","新加坡 VLSFO 極低硫燃油"),("MGO","新加坡 MGO 船用柴油")]:
     i=t.find(f'caption="{fuel} in Singapore"')
     if i>0:
-        seg=re.sub(r"\s+"," ",re.sub(r"<[^>]+>"," ",t[i:i+6000]))
+        j=t.find("</table>",i); seg=re.sub(r"\s+"," ",re.sub(r"<[^>]+>"," ",t[i:(j if j>i else i+6000)]))
         rr=re.findall(r"\b[A-Z]?\s?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}) ([\d,.]+) ([+-][\d.]+|unch)",seg)
         if rr:
             ser=[]
@@ -80,5 +83,28 @@ for id_,slug,zh,en,u,sec in TE:
         a=re.search(r"is (up|down) ([\d.]+)% compared to the same time last year",desc); y1=((1 if a.group(1)=="up" else -1)*float(a.group(2))) if a else None
     add(id=id_,name=zh,en=en,sector=sec,value=v,unit=u,date=d,chg_pct=dd,chg_label="日變動",m1_pct=m1,y1_pct=y1,series=[],freq="日",source="Trading Economics",source_url=f"https://tradingeconomics.com/commodity/{slug}")
     time.sleep(1)
+# ---- SCFI month / year change (Trading Economics tracks the SCFI) ----
+t=html.unescape(get("https://tradingeconomics.com/commodity/containerized-freight-index"))
+md=re.search(r'name="description" content="([^"]*)"',t)
+for o in out:
+    if o["id"]=="scfi" and md:
+        desc=md.group(1)
+        a=re.search(r"past month, .*? (risen|fallen|gained|lost|declined|increased|decreased) ([\d.]+)%",desc)
+        if a: o["m1_pct"]=(1 if a.group(1) in("risen","gained","increased") else -1)*float(a.group(2))
+        a=re.search(r"is (up|down) ([\d.]+)% compared to the same time last year",desc) or re.search(r"([\d.]+)% (higher|lower) than a year ago",desc)
+        if a: o["y1_pct"]=(1 if a.group(1) in("up",) or (len(a.groups())>1 and a.group(2)=="higher") else -1)*float(a.group(2) if a.group(1) in("up","down") else a.group(1))
+        o["cmp_src"]="Trading Economics"
+# ---- 3-2-1 crack spread (NYMEX WTI / RBOB gasoline / heating oil) ----
+def ychart(sym):
+    try:
+        r=json.loads(urllib.request.urlopen(urllib.request.Request(f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range=1y&interval=1d",headers={"User-Agent":"Mozilla/5.0"}),timeout=30).read())["chart"]["result"][0]
+        return {datetime.datetime.fromtimestamp(a,datetime.timezone.utc).date().isoformat():c for a,c in zip(r.get("timestamp") or [],r["indicators"]["quote"][0]["close"]) if c is not None}
+    except Exception as e: print("yahoo fail",sym,e,file=sys.stderr); return {}
+cl,rb,ho=ychart("CL=F"),ychart("RB=F"),ychart("HO=F")
+ser=[[k,round((2*rb[k]*42+ho[k]*42-3*cl[k])/3,2)] for k in sorted(cl) if k in rb and k in ho]
+if len(ser)>2:
+    last=ser[-1]; ago=lambda n:next((v for d,v in reversed(ser) if d<=(datetime.date.fromisoformat(last[0])-datetime.timedelta(days=n)).isoformat()),None)
+    m,y=ago(30),ago(365)
+    add(id="crack",name="3-2-1 裂解價差（美國）",en="3-2-1 crack spread (US)",sector="油輪",value=last[1],unit="US$/桶",date=last[0],chg=round(last[1]-ser[-2][1],2),chg_label="較前一交易日",m1_pct=round((last[1]/m-1)*100,1) if m else None,y1_pct=round((last[1]/y-1)*100,1) if y else None,series=ser[-90:],freq="日",source="NYMEX 期貨推算（經 Yahoo Finance）",source_url="https://finance.yahoo.com/quote/RB%3DF/",note="（2×汽油＋1×熱燃油－3×WTI）÷3，換算每桶")
 json.dump({"fetched":datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),"items":out},open(sys.argv[1],"w"),ensure_ascii=False)
 for o in out: print(o["id"],o["value"],o["unit"],o["date"],file=sys.stderr)

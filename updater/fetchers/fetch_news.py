@@ -32,7 +32,7 @@ Q=[
  ("全球","航運 運價",'zh'),("全球","油輪 運價 VLCC",'zh'),("全球","LNG 船 運價",'zh'),("全球","LPG 船",'zh'),
  ("全球","Peter Sand Xeneta",'en'),("全球","Niels Rasmussen BIMCO",'en'),("全球","BIMCO chief shipping analyst",'en'),("全球","Lars Jensen Vespucci Maritime",'en'),("全球","Sea-Intelligence Alan Murphy",'en'),("全球","Drewry Simon Heaney",'en'),
  ("全球","Clarksons Research Stephen Gordon",'en'),("全球","Linerlytica Tan Hua Joo",'en'),("全球","Freightos Judah Levine",'en'),("全球","Vortexa David Wech",'en'),("全球","shipping market outlook analyst",'en'),("全球","航運 分析師 展望",'zh'),
- ("全球","VLCC rates",'en'),("全球","LNG carrier rates",'en'),("全球","VLGC LPG shipping",'en'),("全球","dry bulk market capesize",'en'),("全球","container shipping rates",'en'),("全球","Clarksons shipping",'en'),
+ ("全球","VLCC rates",'en'),("全球","LNG carrier rates",'en'),("全球","VLGC LPG shipping",'en'),("全球","dry bulk market capesize",'en'),("全球","container shipping rates",'en'),("全球","港口 擁堵 等待時間",'zh'),("全球","port congestion waiting times",'en'),("全球","Linerlytica port congestion",'en'),("全球","裂解價差 煉油",'zh'),("全球","Clarksons shipping",'en'),
 ]
 FEEDS=[("gCaptain","https://gcaptain.com/feed/"),("Splash247","https://splash247.com/feed/"),("Hellenic Shipping News","https://www.hellenicshippingnews.com/feed/"),("Seatrade Maritime","https://www.seatrade-maritime.com/rss.xml"),("FreightWaves","https://www.freightwaves.com/news/feed"),("The Loadstar","https://theloadstar.com/feed/"),("Offshore Energy","https://www.offshore-energy.biz/feed/")]
 SECT=[("貨櫃",r"貨櫃|货柜|集裝箱|集装箱|container|SCFI|CCFI|TEU|長榮|陽明|萬海|Maersk|馬士基|MSC|CMA CGM|Hapag|赫伯羅特|COSCO|中遠|ONE\b|ZIM|HMM|運價|liner"),
