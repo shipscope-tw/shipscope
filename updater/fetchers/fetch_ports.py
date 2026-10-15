@@ -23,7 +23,7 @@ def get(url,params):
 ids=[p for p,_ in PORTS]; zh=dict(PORTS)
 inlist=lambda xs:"("+",".join(f"'{x}'" for x in xs)+")"
 meta={r["portid"]:r for r in get(B+"PortWatch_ports_database/FeatureServer/0/query",{"where":f"portid IN {inlist(ids)}","outFields":"portid,portname,ISO3,country,lat,lon","resultRecordCount":200,"f":"json"})}
-F=["portcalls","portcalls_container","portcalls_tanker","portcalls_dry_bulk"]
+F=["portcalls","portcalls_container","portcalls_tanker","portcalls_dry_bulk","export_container","import_container"]
 stats=json.dumps([{"statisticType":"sum","onStatisticField":f,"outStatisticFieldName":f} for f in F]+[{"statisticType":"count","onStatisticField":"portcalls","outStatisticFieldName":"ndays"}])
 rows=[]
 for i in range(0,len(ids),8):
@@ -34,18 +34,20 @@ months=sorted({m for _,m in cell})
 # drop a trailing month with too few days of data
 while months and max((cell.get((p,months[-1]),{}).get("ndays") or 0) for p in ids)<7: months.pop()
 r1=lambda x: None if x is None else round(x,1)
-out={"source":"IMF PortWatch（AIS 到港艘次）","source_url":"https://portwatch.imf.org/","fetched":datetime.date.today().isoformat(),"months":months,"ports":[]}
+nd_last=max((cell.get((p,months[-1]),{}).get("ndays") or 0) for p in ids) if months else 0
+out={"source":"IMF PortWatch（AIS 到港艘次與貨量估算）","source_url":"https://portwatch.imf.org/","fetched":datetime.date.today().isoformat(),"months":months,"ndays_last":nd_last,"ports":[]}
 for pid in ids:
     m=meta.get(pid)
     if not m: print("missing meta",pid,file=sys.stderr); continue
     ser={f:[] for f in F}
     for mo in months:
         c=cell.get((pid,mo)); nd=(c or {}).get("ndays") or 0
-        for f in F: ser[f].append(r1(c[f]/nd) if c and nd else None)
+        for f in F: ser[f].append((r1(c[f]/nd) if not f.startswith(('export','import')) else c[f]/nd) if c and nd and c[f] is not None else None)
     base=[]
     for mm in range(1,13):
         c=cell.get((pid,f"2019-{mm:02d}")); nd=(c or {}).get("ndays") or 0
         base.append(r1(c["portcalls"]/nd) if c and nd else None)
-    out["ports"].append({"id":pid,"zh":zh[pid],"en":m["portname"],"iso":m["ISO3"],"lat":round(m["lat"],3),"lon":round(m["lon"],3),"calls":ser["portcalls"],"ctr":ser["portcalls_container"],"tnk":ser["portcalls_tanker"],"blk":ser["portcalls_dry_bulk"],"base2019":base})
+    kt=lambda xs:[None if x is None else round(x/1000,1) for x in xs]   # tonnes/day -> thousand tonnes/day
+    out["ports"].append({"id":pid,"zh":zh[pid],"en":m["portname"],"iso":m["ISO3"],"lat":round(m["lat"],3),"lon":round(m["lon"],3),"calls":ser["portcalls"],"ctr":ser["portcalls_container"],"tnk":ser["portcalls_tanker"],"blk":ser["portcalls_dry_bulk"],"exc":kt(ser["export_container"]),"imc":kt(ser["import_container"]),"base2019":base})
 print("ports",len(out["ports"]),"months",months[0],months[-1],file=sys.stderr)
 json.dump(out,open(sys.argv[1],"w",encoding="utf-8"),ensure_ascii=False,separators=(",",":"))
