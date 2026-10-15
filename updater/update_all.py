@@ -29,6 +29,7 @@ JOBS_FULL = [
     ("chokepoints", ["fetch_portwatch.py", "chokepoints.json", "500"], 900),
     ("usports", ["fetch_usports.py", "usports.json"], 900),
     ("carriers", ["fetch_carriers.py", "carriers.json"], 300),
+    ("ports", ["fetch_ports.py", "ports.json"], 900),
 ]
 JOBS_QUICK = [j for j in JOBS_FULL if j[0] in ("news", "stocks")]
 
@@ -313,7 +314,7 @@ def main():
             meta.update({"news_updated": stamp, "news_days": got["news"].get("days", 10), "news_count": len(got["news"].get("items", []))})
         if "indicators" in got:
             wj(os.path.join(DATA, "feeds", "indicators.json"), merge_indicators(got["indicators"]))
-        for k in ("stocks", "chokepoints", "usports", "carriers"):
+        for k in ("stocks", "chokepoints", "usports", "carriers", "ports"):
             if k in got:
                 wj(os.path.join(DATA, "feeds", k + ".json"), got[k])
         if "--quick" not in args:
