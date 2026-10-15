@@ -1,0 +1,28 @@
+name: Update ShipScope
+on:
+  schedule:
+    - cron: "45 23 * * *"   # 07:45 台北
+    - cron: "45 4 * * *"    # 12:45 台北
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: { group: update, cancel-in-progress: false }
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Fetch data and build page
+        env: { SHIPSCOPE_OUT: "${{ github.workspace }}/index.html" }
+        run: python updater/update_all.py
+      - name: Commit
+        run: |
+          rm -f updater/update_log.txt
+          git config user.name "shipscope-bot"
+          git config user.email "shipscope-bot@users.noreply.github.com"
+          git add -A index.html updater/data
+          git diff --cached --quiet || git commit -m "Data update $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
+          git push

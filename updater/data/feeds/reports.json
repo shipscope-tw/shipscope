@@ -1,0 +1,85 @@
+{
+  "items": [
+    {
+      "date": "2026-10-12",
+      "id": "vlcc_avg",
+      "name": "VLCC 全球平均收益",
+      "sector": "油輪",
+      "source": "Seatrade Maritime",
+      "unit": "/日",
+      "url": "https://www.seatrade-maritime.com/tankers/sky-high-tanker-rates-change-crude-trade-flows",
+      "value": "$805,000"
+    },
+    {
+      "date": "2026-10-13",
+      "id": "vlcc_wk",
+      "name": "VLCC 10 月首週平均運價",
+      "sector": "油輪",
+      "source": "Chosunbiz",
+      "unit": "/日",
+      "url": "https://biz.chosun.com/en/en-industry/2026/10/14/KIE7KL4WLRBGDFEWW7NHD3SQEM/",
+      "value": "$665,000"
+    },
+    {
+      "date": "2026-10-11",
+      "id": "vlcc_1y",
+      "name": "VLCC 一年期期租（船東報價）",
+      "sector": "油輪",
+      "source": "TradeWinds（引述 Braemar）",
+      "unit": "/日",
+      "url": "https://www.tradewindsnews.com/finance/matter-of-time-vlcc-owners-hold-out-for-300-000-per",
+      "value": "$300,000"
+    },
+    {
+      "date": "2026-10-07",
+      "id": "vlcc_usg",
+      "name": "VLCC 美灣→亞洲 單航次運費",
+      "sector": "油輪",
+      "source": "Baltic Exchange（IBT 報導）",
+      "unit": "/航次",
+      "url": "https://www.msn.com/en-us/news/other/hormuz-crisis-sends-oil-shipping-costs-soaring-supert",
+      "value": "$77m"
+    },
+    {
+      "date": "2026-10-07",
+      "id": "lng_atl",
+      "name": "LNG 船大西洋現貨",
+      "sector": "LNG",
+      "source": "PortNews",
+      "unit": "/日",
+      "url": "https://en.portnews.ru/news/397965/",
+      "value": "$25,750"
+    },
+    {
+      "date": "2026-10-01",
+      "id": "vlgc_usg",
+      "name": "VLGC 美灣→亞洲",
+      "sector": "LPG",
+      "source": "Baltic Exchange（TradeWinds 報導）",
+      "unit": "/日",
+      "url": "https://www.tradewindsnews.com/gas/vlgc-rates-hit-all-time-high-from-the-us-as-tonnage-tightens/2-1-2052884",
+      "value": "$196,400"
+    },
+    {
+      "date": "2026-10-12",
+      "id": "vlcc_dht_q4",
+      "name": "VLCC 第四季現貨已訂艙平均（DHT）",
+      "sector": "油輪",
+      "source": "Seeking Alpha（DHT 公告）",
+      "unit": "/日",
+      "url": "https://seekingalpha.com/news/4652168-dht-jumps-to-new-52-week-high-on-strong-bookings-report-amid-turbocharged-vlcc-market",
+      "value": "$509,100"
+    },
+    {
+      "date": "2026-10-13",
+      "id": "vlcc_sep_avg",
+      "name": "VLCC 9 月平均日租（新興公告）",
+      "sector": "油輪",
+      "source": "MoneyDJ（引述新興航運）",
+      "unit": "/日",
+      "url": "https://tw.stock.yahoo.com/news/%E6%96%B0%E8%88%889%E6%9C%88%E7%87%9F%E6%94%B6%E5%B9%B4%E5%A2%9E6%E6%88%90-vlcc%E9%AB%98%E9%81%8B%E5%83%B9%E6%94%AF%E6%92%90%E5%BC%B7-011400622.html",
+      "value": "約 $153,000"
+    }
+  ],
+  "updated": "2026-10-15"
+}
