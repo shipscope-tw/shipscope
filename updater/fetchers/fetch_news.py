@@ -30,6 +30,8 @@ Q=[
  ("美洲","巴拿馬運河",'zh'),("美洲","美國 港口費 中國船",'zh'),("美洲","美國 LNG 出口",'zh'),
  ("美洲","Panama Canal transits",'en'),("美洲","USTR port fees Chinese ships",'en'),("美洲","US LNG exports",'en'),("美洲","Port of Los Angeles imports",'en'),("美洲","Brazil iron ore Vale shipments",'en'),("美洲","US crude exports tankers",'en'),
  ("全球","航運 運價",'zh'),("全球","油輪 運價 VLCC",'zh'),("全球","LNG 船 運價",'zh'),("全球","LPG 船",'zh'),
+ ("全球","Peter Sand Xeneta",'en'),("全球","Niels Rasmussen BIMCO",'en'),("全球","BIMCO chief shipping analyst",'en'),("全球","Lars Jensen Vespucci Maritime",'en'),("全球","Sea-Intelligence Alan Murphy",'en'),("全球","Drewry Simon Heaney",'en'),
+ ("全球","Clarksons Research Stephen Gordon",'en'),("全球","Linerlytica Tan Hua Joo",'en'),("全球","Freightos Judah Levine",'en'),("全球","Vortexa David Wech",'en'),("全球","shipping market outlook analyst",'en'),("全球","航運 分析師 展望",'zh'),
  ("全球","VLCC rates",'en'),("全球","LNG carrier rates",'en'),("全球","VLGC LPG shipping",'en'),("全球","dry bulk market capesize",'en'),("全球","container shipping rates",'en'),("全球","Clarksons shipping",'en'),
 ]
 FEEDS=[("gCaptain","https://gcaptain.com/feed/"),("Splash247","https://splash247.com/feed/"),("Hellenic Shipping News","https://www.hellenicshippingnews.com/feed/"),("Seatrade Maritime","https://www.seatrade-maritime.com/rss.xml"),("FreightWaves","https://www.freightwaves.com/news/feed"),("The Loadstar","https://theloadstar.com/feed/"),("Offshore Energy","https://www.offshore-energy.biz/feed/")]
@@ -40,6 +42,7 @@ SECT=[("貨櫃",r"貨櫃|货柜|集裝箱|集装箱|container|SCFI|CCFI|TEU|長�
       ("造船",r"造船|shipbuild|shipyard|newbuild|訂單|orderbook|船廠"),("港口",r"港口|港務|port\b|ports\b|碼頭|terminal|運河|canal"),
       ("地緣",r"荷姆茲|霍爾木茲|霍尔木兹|Hormuz|紅海|红海|Red Sea|胡塞|Houthi|伊朗|Iran|制裁|sanction|襲擊|袭击|attack|war|戰")]
 TOPICS=[("simandou",r"Simandou|西芒杜|西芒度|幾內亞|几内亚|(?<!Papua New )(?<!Equatorial )Guinea|bauxite|鋁土|铝土|Morebaya|Kamsar"),("usgulf",r"(US|U\.S\.|美國|美灣|Gulf Coast|Texas|Louisiana|Corpus Christi|Houston).{0,60}(export|出口|crude|原油|LNG|LPG|tanker|油輪)|(export|出口).{0,40}(US|U\.S\.|美國)"),("clarksons",r"Clarksons|克拉克森")]
+EXPERT=r"Peter Sand|Emily Stausb|Niels Rasmussen|Filipe Gouveia|Lars Jensen|Alan Murphy|Simon Heaney|Philip Damas|Stephen Gordon|Tan Hua Joo|Judah Levine|David Wech|Kartsonas|Xeneta|BIMCO|Drewry|Sea-Intelligence|Linerlytica|Vespucci|Freightos|Vortexa|Kpler|Alphaliner|克拉克森|德魯里"
 SKIP=r"(?i)horoscope|lottery|celebrity|cruises?\b|樂透|星座|NBA|MLB|郵輪"
 REG=[("台灣",r"台灣|臺灣|Taiwan|高雄|Kaohsiung|長榮|陽明|萬海|Evergreen|Yang Ming|Wan Hai"),("中東",r"Hormuz|荷姆茲|霍爾木茲|Red Sea|紅海|Houthi|Iran|伊朗|Qatar|卡達|Saudi|沙烏地|UAE|Gulf|波斯灣|Fujairah"),("非洲",r"Africa|非洲|Guinea|幾內亞|Simandou|Nigeria|Durban|Transnet|Kenya|Egypt|Suez|Cape of Good Hope|好望角|Mozambique"),("美洲",r"\bUS\b|U\.S\.|America|美國|Panama|巴拿馬|Brazil|巴西|Canada|Mexico|Los Angeles|Houston|Gulf of Mexico|USTR|Venezuela|Chile|Argentina"),("歐洲",r"Europe|歐洲|EU\b|Rotterdam|Hamburg|Antwerp|Greece|Greek|希臘|Norway|UK\b|Britain|German|Maersk|Hapag|CMA CGM|MSC\b|Baltic Sea|Russia|俄羅斯"),("亞洲",r"China|中國|Chinese|Japan|日本|Korea|韓國|Singapore|新加坡|India|印度|Vietnam|Malaysia|Indonesia|Philippines|COSCO|中遠|Hong Kong|香港|Shanghai|上海")]
 items={}
@@ -60,7 +63,7 @@ def add(region,source,title,summary,url,pub,lang):
             if re.search(pat,title): region=r; break
     sec=[s for s,p in SECT if re.search(p,blob,re.I)]
     sec_t=[s for s,p in SECT if re.search(p,title,re.I)]
-    if not sec_t and (lang=="en" or len(sec)<2): return
+    if not sec_t and (lang=="en" or len(sec)<2) and not (sec and re.search(EXPERT,blob,re.I)): return
     if re.search(r"(?i)amazon s3|travel weekly|stocktwits",source or ""): return
     # relevance: must touch shipping/energy-trade vocabulary
     if not sec: return

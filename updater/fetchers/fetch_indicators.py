@@ -34,10 +34,10 @@ if ds:
         last=ser[-1]; prev=ser[-2] if len(ser)>1 else None
         add(id=k.lower(),name=zh,en=en,sector=sec,value=last[1],unit=u,date=last[0],chg=(last[1]-prev[1]) if prev else None,chg_label="較前一交易日",series=ser[-60:],freq="日",source="Baltic Exchange（經 HandyBulk 彙整）",source_url="https://www.handybulk.com/baltic-dry-index/")
 # ---- Containers: SSE SCFI / CCFI ----
-for code,zh,en in [("scfi","SCFI 上海出口集裝箱運價指數","Shanghai Containerized Freight Index"),("ccfi","CCFI 中國出口集裝箱運價指數","China Containerized Freight Index")]:
+for code,zh,en in [("scfi","SCFI 上海出口集裝箱運價指數","Shanghai Containerized Freight Index"),("ccfi","CCFI 中國出口集裝箱運價指數","China Containerized Freight Index"),("seafi","SEAFI 東南亞集裝箱運價指數","Southeast Asia Freight Index")]:
     try:
         d=json.loads(get(f"https://en.sse.net.cn/currentIndex?indexName={code}"))["data"]; l=d["lineDataList"][0]
-        add(id=code,name=zh,en=en,sector="貨櫃",value=round(l["currentContent"],2),unit="點",date=d["currentDate"],chg=round(l["absolute"],2),chg_label=f"較上期 ({d['lastDate']})",series=[[d["lastDate"],round(l["lastContent"],2)],[d["currentDate"],round(l["currentContent"],2)]],freq="週",source="上海航運交易所",source_url="https://en.sse.net.cn/indices/scfinew.jsp" if code=="scfi" else "https://en.sse.net.cn/indices/ccfinew.jsp")
+        add(id=code,name=zh,en=en,sector="貨櫃",value=round(l["currentContent"],2),unit="點",date=d["currentDate"],chg=round(l["absolute"],2),chg_label=f"較上期 ({d['lastDate']})",series=[[d["lastDate"],round(l["lastContent"],2)],[d["currentDate"],round(l["currentContent"],2)]],freq="週",source="上海航運交易所",source_url={"scfi":"https://en.sse.net.cn/indices/scfinew.jsp","ccfi":"https://en.sse.net.cn/indices/ccfinew.jsp"}.get(code,"https://www.sse.net.cn/index/singleIndex?indexType=seafi"))
     except Exception as e: print("SSE fail",code,e,file=sys.stderr)
 # ---- Drewry WCI ----
 t=get("https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry")
