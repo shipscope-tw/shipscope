@@ -4,13 +4,16 @@ on:
     - cron: "45 23 * * *"   # 07:45 台北
     - cron: "45 4 * * *"    # 12:45 台北
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["updater/fetchers/**", "updater/update_all.py"]
 permissions:
   contents: write
 concurrency: { group: update, cancel-in-progress: false }
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

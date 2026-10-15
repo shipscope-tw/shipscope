@@ -327,6 +327,19 @@ def main():
             br = build_brief(I, C)
             if br["bullets"]:
                 wj(os.path.join(DATA, "feeds", "brief.json"), br)
+        if "--quick" not in args:
+            hp = os.path.join(DATA, "feeds", "hist.json"); tmp = os.path.join(WORK, "hist_new.json")
+            os.makedirs(WORK, exist_ok=True)
+            env = dict(os.environ, PYTHONUTF8="1", PYTHONIOENCODING="utf-8")
+            log("抓取 hist（走勢圖歷史）...")
+            try:
+                r = subprocess.run([sys.executable, os.path.join(FETCH, "fetch_hist.py"), tmp, hp, os.path.join(DATA, "feeds", "indicators.json")], cwd=WORK, timeout=1800, capture_output=True, text=True, encoding="utf-8", errors="replace", env=env)
+                if r.returncode == 0 and rj(tmp):
+                    os.replace(tmp, hp); log("  hist 完成 " + (r.stderr or "").strip().splitlines()[-1][:200] if (r.stderr or "").strip() else "  hist 完成")
+                else:
+                    log("  hist 失敗，沿用上一版資料。" + (r.stderr or "")[-300:])
+            except Exception as e:
+                log("  hist 錯誤：%s，沿用上一版資料" % e)
         shutil.rmtree(WORK, ignore_errors=True)
     build_html()
 
