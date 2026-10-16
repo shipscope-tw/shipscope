@@ -756,7 +756,7 @@ details.more-card>summary .mc-t{font-size:16px;font-weight:700;color:var(--ink)}
 .k-rng{font-size:11.5px;line-height:1.5;margin-bottom:6px;min-height:17px}
 .k-rng .up{color:var(--good)} .k-rng .down{color:var(--crit)}
 .kr-seg button{padding:3px 10px;font-size:12px}
-.site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
+/* patch18 */.site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
 <style>
@@ -1160,7 +1160,7 @@ th .tip-i{vertical-align:0}
         <div class="card" id="pwCard"><div class="card-h"><h2 id="pwH">港口延誤／等待時間</h2><div class="seg" id="pwReg"></div></div>
           <p class="small muted" id="pwNote" style="margin:0 0 10px"></p>
           <div class="tbl-wrap"><table id="pwTbl"></table></div>
-          <p class="src" id="pwSrc" style="margin:10px 0 0"></p>
+          <p class="src" id="pwSrc" style="margin:10px 0 0"></p><div class="dl-btns" id="dlPw" style="margin-top:12px"></div>
           <h3 id="pwNewsH" style="font-size:14px;margin:16px 0 8px"></h3><div class="timeline" id="pwNews"></div></div>
         <div class="card"><div class="card-h"><h2 id="hzNewsH">海峽輿情與商業預警</h2><a class="btn" href="#news">更多</a></div><div class="timeline" id="hzNews"></div></div>
       </section>
@@ -1179,7 +1179,7 @@ th .tip-i{vertical-align:0}
           <div class="chart-box"><canvas id="lnTrChart"></canvas></div>
           <div class="tbl-wrap" style="margin-top:12px"><table id="lnTrTbl"></table></div>
           <div id="lnTrRead" style="margin-top:14px"></div>
-          <p class="src" id="lnTrSrc" style="margin:10px 0 0"></p></div>
+          <p class="src" id="lnTrSrc" style="margin:10px 0 0"></p><div class="dl-btns" id="dlLn" style="margin-top:12px"></div></div>
         <div class="card" id="lnHsCard"><div class="card-h"><h2 id="lnHsH">貨櫃裡裝什麼？</h2><div class="seg" id="lnHsSeg"></div></div>
           <p class="small muted" id="lnHsNote" style="margin:0 0 10px"></p>
           <div class="tbl-wrap"><table id="lnHsTbl"></table></div>
@@ -1194,7 +1194,7 @@ th .tip-i{vertical-align:0}
       </section>
       <!-- ============ INDICATORS ============ -->
       <section class="view" id="v-indicators">
-        <div class="card dl-card"><div class="card-h"><h2>下載數據 <span class="sub">CSV 檔，可直接用 Excel 開啟</span></h2></div><div class="dl-btns" id="dlInd"></div></div>
+        <div class="card dl-card"><div class="card-h"><h2>下載數據 <span class="sub">CSV 檔，可直接用 Excel 開啟</span></h2></div><div class="dl-btns" id="dlInd"></div><p class="small muted" id="dlIndNote" style="margin:10px 0 0"></p></div>
         <div class="subtabs"><div class="seg" id="secTabs"></div></div>
         <div id="secBody" style="display:flex;flex-direction:column;gap:18px"></div>
       </section>
@@ -1574,7 +1574,7 @@ function trYtd(T,id,back){const f=T.flows[id];if(!f)return null;const v=f.v,n=v.
 function trY19(T,id){const f=T.flows[id];if(!f)return null;const n=f.v.length,mo=+T.months[n-1].slice(5,7);const a=f.v.slice(0,mo);return a.length===mo&&a.every(x=>x!=null)?a.reduce((x,y)=>x+y,0):null}
 const pct=(a,b)=>a!=null&&b?(a/b-1)*100:null;
 const pfx=p=>p==null?"—":(p>0?"+":"")+p.toFixed(1)+"%";
-function renderTradeEv(){const E=LANG==="en",T=S.trade;
+function renderTradeEv(){const E=LANG==="en",T=S.trade;setTimeout(()=>renderDl("#dlLn",["trade","history"]),0);
   $("#lnTrH").textContent=LZ("貿易數據佐證：近洋線為什麼熱？","Trade evidence: why is intra-Asia so busy?");
   $("#lnHsH").textContent=LZ("貨櫃裡裝什麼？（品項結構）","What is in the boxes? (product mix)");
   if(!T||!T.flows){$("#lnTrLatest").innerHTML=`<div class="empty" style="grid-column:1/-1">${LZ("載入中…","Loading…")}</div>`;return}
@@ -1639,7 +1639,7 @@ let pwReg="";
 const PW_REGS=[["","全部","All"],["東北亞","東北亞","NE Asia"],["東南亞","東南亞","SE Asia"],["南亞・中東","南亞・中東","S. Asia & ME"],["歐洲","歐洲","Europe"],["美洲","美洲","Americas"],["非洲","非洲","Africa"]];
 const PW_RE=/等待時間|等泊|候泊|滯港|塞港|港口擁堵|港口壅塞|港口拥堵|港口擁擠|port congestion|congestion at|waiting time|wait times|berthing delay|anchorage queue/i;let pwAll=false;
 function pwBadge(d){if(d==null)return `<span class="muted">—</span>`;const c=d>=5?"hi":d>=3?"mid":"lo";return `<span class="pw-b ${c}">${fmt(d,d<10&&d%1?1:0)}</span>`}
-function renderPortWait(){const E=LANG==="en",W=S.portwait;
+function renderPortWait(){const E=LANG==="en",W=S.portwait;setTimeout(()=>renderDl("#dlPw",["cur","portwait"]),0);
   $("#pwH").textContent=LZ("港口延誤／等待時間","Port delays / waiting times");
   $("#pwReg").innerHTML=PW_REGS.map(([k,z,e])=>`<button data-r="${esc(k)}" aria-pressed="${k===pwReg}">${E?e:z}</button>`).join("");
   $$("#pwReg button").forEach(b=>b.onclick=()=>{pwReg=b.dataset.r;renderPortWait()});
@@ -1922,9 +1922,30 @@ function stamp(){const d=new Date(Date.now()+8*3600e3);return d.toISOString().sl
 async function saveFile(name,text){const blob=new Blob([text],{type:"text/csv;charset=utf-8"});
   try{if(!window.__STANDALONE&&window.claude&&window.claude.use){const d=await window.claude.use("downloads");if(d){await d.save({filename:name,data:blob});return}}}catch(e){}
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}
+/* patch18: history helpers for downloads */
+const DL_EXTRA=[["wci_losang","WCI 上海→洛杉磯","WCI Shanghai→Los Angeles","US$/40呎"],["wci_newyor","WCI 上海→紐約","WCI Shanghai→New York","US$/40呎"],["wci_rotter","WCI 上海→鹿特丹","WCI Shanghai→Rotterdam","US$/40呎"],["wci_genoa","WCI 上海→熱那亞","WCI Shanghai→Genoa","US$/40呎"]];
+function dlIds(){const a=(S.indicators?.items||[]).map(x=>x.id);DL_EXTRA.forEach(([id])=>{if((S.hist?.series?.[id]||[]).length)a.push(id)});return a.filter(id=>kData(id).d.length||kData(id).m.length||kData(id).q.length)}
+function dlName(id){const x=indById(id),e=DL_EXTRA.find(r=>r[0]===id);return x?(LANG==="en"?x.en||x.name:x.name):e?(LANG==="en"?e[2]:e[1]):id}
+function dlHead(id){const x=indById(id),e=DL_EXTRA.find(r=>r[0]===id);const u=x?x.unit:e?e[3]:"";return `${dlName(id)}${u?`（${u}）`:""}`}
 const DL={
   latest:{zh:"指數與價格（最新值）",en:"Indices & prices (latest)",ok:()=>S.indicators?.items?.length,make:()=>{const I=S.indicators.items;return ["shipscope_indicators_latest",[["類別 Sector","指標 Indicator","English","數值 Value","單位 Unit","資料日期 Date","變動 Change","變動% Change%","變動說明 Basis","頻率 Freq","來源 Source","連結 URL"]].concat(I.map(x=>[x.sector,x.name,x.en,x.value,x.unit,x.date,x.chg??"",x.chg_pct??"",x.chg_label||"",x.freq||"",x.source,x.source_url]))]}},
-  history:{zh:"指數與價格（歷史走勢）",en:"Indices & prices (history)",ok:()=>S.indicators?.items?.some(x=>(x.series||[]).length>1),make:()=>{const I=S.indicators.items.filter(x=>(x.series||[]).length);const ds=[...new Set(I.flatMap(x=>x.series.map(s=>s[0])))].sort();const M=I.map(x=>Object.fromEntries(x.series));return ["shipscope_indicators_history",[["日期 Date"].concat(I.map(x=>`${x.name}（${x.unit||""}）`))].concat(ds.map(d=>[d].concat(M.map(m=>m[d]??""))))]}},
+  history:{zh:"指數與價格：每日歷史（近 5 年）",en:"Indices & prices: daily history (last 5 years)",ok:()=>dlIds().length,make:()=>{const ids=dlIds(),M=ids.map(id=>new Map(kData(id).d));const ds=[...new Set(M.flatMap(m=>[...m.keys()]))].sort();
+    return ["shipscope_history_daily",[[LZ("日期","Date")].concat(ids.map(dlHead))].concat(ds.map(d=>[d].concat(M.map(m=>m.get(d)??""))))]}},
+  monthly:{zh:"指數與價格：月平均（2016 起，含季均回補）",en:"Indices & prices: monthly averages (since 2016, quarterly back-fill)",ok:()=>dlIds().length,make:()=>{const ids=dlIds(),cols=ids.map(id=>{const {d,m,q}=kData(id),o={},src={};const acc={};d.forEach(([dt,v])=>{(acc[dt.slice(0,7)]=acc[dt.slice(0,7)]||[]).push(v)});
+      Object.entries(acc).forEach(([k,a])=>{o[k]=+(a.reduce((x,y)=>x+y,0)/a.length).toFixed(3)});
+      m.forEach(([dt,v])=>{const k=dt.slice(0,7);if(o[k]==null&&v!=null){o[k]=v}});
+      q.forEach(([dt,v])=>{const y=+dt.slice(0,4),mo=+dt.slice(5,7);[mo-1,mo,mo+1].forEach(x=>{const k=`${y}-${String(x).padStart(2,"0")}`;if(x>=1&&x<=12&&o[k]==null){o[k]=v;src[k]=1}})});
+      return {o,src}});
+    const ms=[...new Set(cols.flatMap(c=>Object.keys(c.o)))].filter(k=>k>="2016-01").sort();
+    return ["shipscope_history_monthly",[[LZ("月份","Month")].concat(ids.map(dlHead),[LZ("說明","Note")])].concat(ms.map(k=>{const qn=ids.filter((id,i)=>cols[i].src[k]).map(id=>dlName(id));return [k].concat(cols.map(c=>c.o[k]??""),[qn.length?LZ(`${qn.join("、")} 為季平均`,`${qn.join(", ")}: quarterly average`):""])}))]}},
+  trade:{zh:"貿易流量：每月（2019 起，十億美元）",en:"Trade flows: monthly (since 2019, US$ bn)",ok:()=>S.trade?.months?.length&&S.trade.flows,make:()=>{const T=S.trade,ks=Object.keys(T.flows);
+    return ["shipscope_trade_monthly",[[LZ("月份","Month")].concat(ks.map(k=>LANG==="en"?T.flows[k].en:T.flows[k].zh))].concat(T.months.map((mo,i)=>[mo].concat(ks.map(k=>T.flows[k].v?.[i]??""))))]}},
+  portwait:{zh:"港口延誤天數（每日紀錄）",en:"Port delays in days (daily log)",ok:()=>S.portwait?.ports?.length,make:()=>{const W=S.portwait,H=W.hist||{};const rows=[[LZ("日期","Date"),LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("區域","Region"),LZ("延誤（天）","Delay (days)")]];
+    W.ports.forEach(p=>{const h=H[p.code]||[];(h.length?h:[[W.fetched,p.d]]).forEach(([d,v])=>rows.push([d,p.zh,p.en,p.code,p.reg,v??""]))});
+    rows.splice(1,rows.length,...rows.slice(1).sort((a,b)=>a[0]<b[0]?-1:a[0]>b[0]?1:(a[1]<b[1]?-1:1)));
+    return ["shipscope_port_delays",rows]}},
+  cur:{zh:"港口延誤現況（含 7／14／30 日中位數）",en:"Port delays now (with 7/14/30-day medians)",ok:()=>S.portwait?.ports?.length,make:()=>{const W=S.portwait;
+    return ["shipscope_port_delays_now",[[LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("區域","Region"),LZ("目前延誤（天）","Delay now (days)"),LZ("近 7 日中位數","7-day median"),LZ("近 7 日最長","7-day max"),LZ("近 14 日中位數","14-day median"),LZ("近 30 日中位數","30-day median"),LZ("資料日","As of")]].concat(W.ports.map(p=>[p.zh,p.en,p.code,p.reg,p.d??"",p.w??"",p.wmax??"",p.f??"",p.m??"",W.fetched]))]}},
   reports:{zh:"市場報導運價",en:"Reported market rates",ok:()=>(S.reports?.items||STATIC.market_reports||[]).length,make:()=>{const R=S.reports?.items||STATIC.market_reports;return ["shipscope_market_rates",[["類別 Sector","項目 Item","數值 Value","單位 Unit","日期 Date","來源 Source","連結 URL"]].concat(R.map(x=>[x.sector,x.name,x.value,x.unit,x.date,x.source,x.url]))]}},
   stocks:{zh:"航運股行情",en:"Shipping stocks",ok:()=>S.stocks?.items?.length,make:()=>{const T=S.stocks.items;return ["shipscope_stocks",[["代號 Symbol","名稱 Name","類別 Sector","市場 Market","價格 Price","幣別 Ccy","漲跌 Chg","漲跌% Chg%","前收 Prev","時間 Time (UTC)","連結 URL"]].concat(T.map(x=>[x.sym,x.zh||x.en||"",x.sector,x.market,x.price,x.currency,x.chg,x.chg_pct,x.prev,x.time,x.url]))]}},
   cp_daily:{zh:"海峽・運河每日通行量（近 500 天）",en:"Straits & canals, daily transits (500 days)",ok:()=>S.choke?.d?.length,make:()=>{const C=S.choke;const rows=[["日期 Date","海峽・運河 Chokepoint","English","總數 Total","油輪 Tanker","貨櫃 Container","散裝 Dry bulk","其他 Other"]];CP_ORDER.forEach(k=>{const c=C.cps[k];if(c)C.d.forEach((d,i)=>rows.push([d,c.zh,c.en,c.total[i],c.tanker[i],c.container[i],c.dry_bulk[i],c.other[i]]))});return ["shipscope_chokepoints_daily",rows]}},
@@ -1935,6 +1956,8 @@ const DL_ICON='<svg width="14" height="14" viewBox="0 0 16 16" fill="none" strok
 function renderDl(sel,keys){const el=$(sel);if(!el)return;const ks=keys.filter(k=>DL[k].ok());
   el.innerHTML=ks.length?ks.map(k=>`<button class="btn" data-dl="${k}">${DL_ICON}${esc(LANG==="en"?DL[k].en:DL[k].zh)}</button>`).join(""):`<span class="small muted">${LZ("資料載入後即可下載","Available once data has loaded")}</span>`;
   $$(sel+" [data-dl]").forEach(b=>b.onclick=()=>{const [base,rows]=DL[b.dataset.dl].make();saveFile(`${base}_${stamp()}.csv`,toCSV(rows))})}
+function dlNote(sel){const el=$(sel);if(!el)return;el.innerHTML=LZ("<b>每日歷史</b>：一欄一個指標、一列一天，用 Excel 選取日期欄和想看的欄位，插入「折線圖」即可畫出走勢；週更新的指數（SCFI、CCFI、SEAFI、WCI）只有發布日有數值。<b>月平均</b>：適合看長期走勢，SCFI、BDI、BSI 在每日資料開始前以季平均回補（說明欄會註明）。資料每天自動更新，下載的永遠是最新完整版本。",
+  "<b>Daily history</b>: one column per indicator, one row per day — select the date column and the series you want in Excel, then Insert → Line chart. Weekly indices (SCFI, CCFI, SEAFI, WCI) only have values on publication days. <b>Monthly averages</b> suit long-run trends; SCFI, BDI and BSI are back-filled with quarterly averages before daily data starts (flagged in the Note column). Data refresh daily, so each download is the latest complete set.")}
 function crList(a){return Array.isArray(a)?`<dl class="cr-list" data-notr>${a.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>`:`<br>${esc(a||"")}`}
 
 /* ---------- ticker: key prices + important headlines ---------- */
@@ -1956,7 +1979,7 @@ function renderTicker(){const box=$("#ticker"),tr=$("#tkTrack");if(!box||!tr)ret
   tr.innerHTML=html+html; tr.style.setProperty("--tk-dur",Math.max(40,it.length*6)+"s");
   $(".tk-tag",box).textContent=LZ("即時","Live")}
 function renderIndicators(){
-  renderDl("#dlInd",["latest","history","reports","stocks","cp_daily","cp_weekly","ports"]);
+  renderDl("#dlInd",["history","monthly","latest","reports","stocks","trade","portwait","cp_daily","cp_weekly","ports"]);dlNote("#dlIndNote");
   const tabs=STATIC.sectors.map(s=>[s.id,s.name]).concat([["cost","燃油與原物料"]]);
   $("#secTabs").innerHTML=tabs.map(([k,n])=>`<button data-k="${k}" aria-pressed="${k===secTab}">${n}</button>`).join("");
   $$("#secTabs button").forEach(b=>b.onclick=()=>{secTab=b.dataset.k;store.set("secTab",secTab);renderIndicators()});

@@ -65,7 +65,9 @@ for k in [x for x,_ in LAB]+[x for x,_ in TC]:
     if pts: merge("series",k,pts); H["src"][k]="Baltic Exchange（經 HandyBulk 彙整）"
 print("handybulk days",len(rows),file=sys.stderr)
 # ---------- FRED ----------
-FRED_D=[("brent","DCOILBRENTEU","FRED（美國能源資訊署 EIA）"),("wti","DCOILWTICO","FRED（EIA）"),("hh","DHHNGSP","FRED（EIA）"),("propane","DPROPANEMBTX","FRED（EIA，Mont Belvieu）")]
+# Brent/WTI/Henry Hub come from futures (Yahoo, below) so history matches the futures quotes shown as "latest";
+# EIA spot prices can sit far from futures in a supply shock and would create fake jumps when stitched together.
+FRED_D=[("propane","DPROPANEMBTX","FRED（EIA，Mont Belvieu）")]
 FRED_M=[("ironore","PIORECRUSDM","FRED（世界銀行／IMF，月均）"),("coal","PCOALAUUSDM","FRED（世界銀行／IMF，澳洲動力煤月均）")]
 cosd=(TODAY-datetime.timedelta(days=int(6*365))).isoformat()
 for kind,lst in ((() if os.environ.get("SKIP_FRED") else (("series",FRED_D),("monthly",FRED_M)))):
@@ -86,10 +88,11 @@ def yahoo(sym):
         r=json.loads(t)["chart"]["result"][0]; ts=r.get("timestamp") or []; cl=r["indicators"]["quote"][0]["close"]
         return {datetime.datetime.fromtimestamp(a,datetime.timezone.utc).date().isoformat():round(c,4) for a,c in zip(ts,cl) if c is not None}
     except Exception as e: print("yahoo miss",sym,e,file=sys.stderr); return {}
-YAHOO=[("ttf","TTF=F","ICE Endex 荷蘭 TTF 期貨（經 Yahoo Finance）"),("soy","ZS=F","CBOT 黃豆期貨（經 Yahoo Finance）"),("ironore","TIO=F","SGX 鐵礦砂 62% 期貨（經 Yahoo Finance）")]
+YAHOO=[("brent","BZ=F","ICE Brent 原油期貨近月（經 Yahoo Finance）"),("wti","CL=F","NYMEX WTI 原油期貨近月（經 Yahoo Finance）"),("hh","NG=F","NYMEX Henry Hub 天然氣期貨近月（經 Yahoo Finance）"),("ttf","TTF=F","ICE Endex 荷蘭 TTF 期貨（經 Yahoo Finance）"),("soy","ZS=F","CBOT 黃豆期貨（經 Yahoo Finance）"),("ironore","TIO=F","SGX 鐵礦砂 62% 期貨（經 Yahoo Finance）")]
 if not os.environ.get("SKIP_YAHOO"):
     for id_,sym,src in YAHOO:
         d=yahoo(sym)
+        if d and len(d)>200: H["series"][id_]=[]   # one consistent source per series
         if d: merge("series",id_,[[k,round(v,2)] for k,v in d.items()]); H["src"][id_]=src; print("yahoo",sym,len(d),file=sys.stderr)
         time.sleep(0.5)
     cl,rb,ho=yahoo("CL=F"),yahoo("RB=F"),yahoo("HO=F")
