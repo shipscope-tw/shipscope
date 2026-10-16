@@ -756,7 +756,7 @@ details.more-card>summary .mc-t{font-size:16px;font-weight:700;color:var(--ink)}
 .k-rng{font-size:11.5px;line-height:1.5;margin-bottom:6px;min-height:17px}
 .k-rng .up{color:var(--good)} .k-rng .down{color:var(--crit)}
 .kr-seg button{padding:3px 10px;font-size:12px}
-/* patch18 */.site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
+/* patch18 */ /* patch19 */.site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
 <style>
@@ -1041,7 +1041,8 @@ th .tip-i{vertical-align:0}
 #pwTbl td.n,#pwTbl th.n,#lnTrTbl td.n,#lnTrTbl th.n,#lnHsTbl td.n,#lnHsTbl th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 :is(#lnTrTbl,#lnHsTbl,#pwTbl,.tr-k,.tr-parts,#lnHsNote,#lnHsRead) :is(.up){color:var(--good)} :is(#lnTrTbl,#lnHsTbl,#pwTbl,.tr-k,.tr-parts,#lnHsNote,#lnHsRead) :is(.dn,.down){color:var(--crit)}
 .tr-k .k-val.up{color:var(--good)} .tr-k .k-val.down{color:var(--crit)}
-@media(max-width:700px){#pwTbl th:nth-child(2),#pwTbl td:nth-child(2),#lnHsTbl th:nth-child(5),#lnHsTbl td:nth-child(5){display:none}}
+.pw-filt{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:0 0 12px}.pw-filt label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink-3);min-width:0;flex:1 1 200px;max-width:320px}.pw-filt select{font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%}.pw-filt .btn{flex:none}.pw-cc{white-space:nowrap}.pw-fl{font-size:15px}
+@media(max-width:700px){#pwTbl th:nth-child(3),#pwTbl td:nth-child(3),#lnHsTbl th:nth-child(5),#lnHsTbl td:nth-child(5){display:none}}
 .hs-bar{height:6px;border-radius:3px;background:var(--brand);opacity:.55;min-width:2px}
 </style>
 
@@ -1159,6 +1160,7 @@ th .tip-i{vertical-align:0}
         </div>
         <div class="card" id="pwCard"><div class="card-h"><h2 id="pwH">港口延誤／等待時間</h2><div class="seg" id="pwReg"></div></div>
           <p class="small muted" id="pwNote" style="margin:0 0 10px"></p>
+          <div class="pw-filt" id="pwFilt"></div>
           <div class="tbl-wrap"><table id="pwTbl"></table></div>
           <p class="src" id="pwSrc" style="margin:10px 0 0"></p><div class="dl-btns" id="dlPw" style="margin-top:12px"></div>
           <h3 id="pwNewsH" style="font-size:14px;margin:16px 0 8px"></h3><div class="timeline" id="pwNews"></div></div>
@@ -1637,20 +1639,38 @@ function renderTradeEv(){const E=LANG==="en",T=S.trade;setTimeout(()=>renderDl("
 /* --- port delays --- */
 let pwReg="";
 const PW_REGS=[["","全部","All"],["東北亞","東北亞","NE Asia"],["東南亞","東南亞","SE Asia"],["南亞・中東","南亞・中東","S. Asia & ME"],["歐洲","歐洲","Europe"],["美洲","美洲","Americas"],["非洲","非洲","Africa"]];
-const PW_RE=/等待時間|等泊|候泊|滯港|塞港|港口擁堵|港口壅塞|港口拥堵|港口擁擠|port congestion|congestion at|waiting time|wait times|berthing delay|anchorage queue/i;let pwAll=false;
+const PW_RE=/等待時間|等泊|候泊|滯港|塞港|港口擁堵|港口壅塞|港口拥堵|港口擁擠|port congestion|congestion at|waiting time|wait times|berthing delay|anchorage queue/i;let pwAll=false;let pwCc="",pwPort="";
+/* patch19: country names for the port-delay table */
+const PW_CC_ZH={CN:"中國",HK:"香港",TW:"台灣",KR:"南韓",AE:"阿聯",GB:"英國",US:"美國",SA:"沙烏地阿拉伯",ZA:"南非"};
+function pwCountry(cc){if(!cc)return "";if(LANG!=="en"&&PW_CC_ZH[cc])return PW_CC_ZH[cc];try{return new Intl.DisplayNames([LANG==="en"?"en":"zh-Hant-TW"],{type:"region"}).of(cc)}catch(e){return LANG==="en"?ccName(cc):cc}}
 function pwBadge(d){if(d==null)return `<span class="muted">—</span>`;const c=d>=5?"hi":d>=3?"mid":"lo";return `<span class="pw-b ${c}">${fmt(d,d<10&&d%1?1:0)}</span>`}
 function renderPortWait(){const E=LANG==="en",W=S.portwait;setTimeout(()=>renderDl("#dlPw",["cur","portwait"]),0);
   $("#pwH").textContent=LZ("港口延誤／等待時間","Port delays / waiting times");
   $("#pwReg").innerHTML=PW_REGS.map(([k,z,e])=>`<button data-r="${esc(k)}" aria-pressed="${k===pwReg}">${E?e:z}</button>`).join("");
-  $$("#pwReg button").forEach(b=>b.onclick=()=>{pwReg=b.dataset.r;renderPortWait()});
+  $$("#pwReg button").forEach(b=>b.onclick=()=>{pwReg=b.dataset.r;pwAll=false;renderPortWait()});
   $("#pwNote").innerHTML=LZ("各大港口船舶平均延誤天數：<b>紅＝5 天以上、橘＝3–4 天、綠＝3 天以下</b>。與近一個月中位數比較，可看出塞港在惡化還是改善。媒體常引用的「平均等待時間（小時）」（如 Drewry、Linerlytica）是付費資料，口徑與此不同，相關報導列在表格下方。",
     "Average vessel delay by port, in days: <b>red ≥5, amber 3–4, green &lt;3</b>. Compare with the 30-day median to see whether congestion is worsening or easing. The “average waiting time (hours)” figures often quoted in the press (Drewry, Linerlytica) are subscription data on a different basis; related reports are listed below the table.");
   if(!W||!W.ports||!W.ports.length){$("#pwTbl").innerHTML=`<tbody><tr><td class="empty">${LZ("載入中…","Loading…")}</td></tr></tbody>`}
-  else{const all=W.ports.filter(p=>!pwReg||p.reg===pwReg).sort((a,b)=>(b.d??-1)-(a.d??-1)||(b.m??0)-(a.m??0)),rows=pwAll?all:all.slice(0,15);
+  else{const inReg=W.ports.filter(p=>!pwReg||p.reg===pwReg);
+    if(pwCc&&!inReg.some(p=>p.cc===pwCc))pwCc="";
+    if(pwPort&&!inReg.some(p=>p.code===pwPort&&(!pwCc||p.cc===pwCc)))pwPort="";
+    const RO=PW_REGS.map(r=>r[0]).filter(Boolean),CC_FIRST=["TW","CN","HK","JP","KR"];
+    const ccs=[...new Set(inReg.map(p=>p.cc))].map(cc=>{const ps=inReg.filter(p=>p.cc===cc);return [cc,pwCountry(cc),ps.length,ps[0].reg]}).sort((a,b)=>RO.indexOf(a[3])-RO.indexOf(b[3])||((CC_FIRST.indexOf(a[0])+1||99)-(CC_FIRST.indexOf(b[0])+1||99))||b[2]-a[2]||a[1].localeCompare(b[1],E?"en":"zh-Hant"));
+    const RGN=Object.fromEntries(PW_REGS.map(r=>[r[0],E?r[2]:r[1]]));
+    const pName=p=>E?p.en:p.zh;
+    const portOpts=ccs.filter(([cc])=>!pwCc||cc===pwCc).map(([cc,nm])=>`<optgroup label="${esc(flag(cc)+" "+nm)}">${inReg.filter(p=>p.cc===cc).sort((a,b)=>pName(a).localeCompare(pName(b),E?"en":"zh-Hant")).map(p=>`<option value="${esc(p.code)}"${p.code===pwPort?" selected":""}>${esc(pName(p))}（${esc(p.code)}）</option>`).join("")}</optgroup>`).join("");
+    $("#pwFilt").innerHTML=`<label><span>${LZ("國家","Country")}</span><select id="pwCcSel"><option value="">${LZ(`全部國家（${ccs.length}）`,`All countries (${ccs.length})`)}</option>${RO.filter(r=>ccs.some(c=>c[3]===r)).map(r=>`<optgroup label="${esc(RGN[r])}">${ccs.filter(c=>c[3]===r).map(([cc,nm,n])=>`<option value="${esc(cc)}"${cc===pwCc?" selected":""}>${esc(flag(cc)+" "+nm)}${E?` (${n})`:`（${n}）`}</option>`).join("")}</optgroup>`).join("")}</select></label>`+
+      `<label><span>${LZ("港口","Port")}</span><select id="pwPortSel"><option value="">${LZ("全部港口","All ports")}</option>${portOpts}</select></label>`+
+      ((pwCc||pwPort)?`<button type="button" class="btn" id="pwClr">${LZ("清除篩選","Clear")}</button>`:"");
+    $("#pwCcSel").onchange=e=>{pwCc=e.target.value;pwPort="";renderPortWait()};
+    $("#pwPortSel").onchange=e=>{pwPort=e.target.value;if(pwPort){const p=W.ports.find(x=>x.code===pwPort);if(p)pwCc=p.cc}renderPortWait()};
+    const cb=$("#pwClr");if(cb)cb.onclick=()=>{pwCc="";pwPort="";renderPortWait()};
+    const filtered=pwCc||pwPort;
+    const all=inReg.filter(p=>(!pwCc||p.cc===pwCc)&&(!pwPort||p.code===pwPort)).sort((a,b)=>(b.d??-1)-(a.d??-1)||(b.m??0)-(a.m??0)),rows=(pwAll||filtered)?all:all.slice(0,15);
     const RG=Object.fromEntries(PW_REGS.map(r=>[r[0],r[2]]));
-    $("#pwTbl").innerHTML=`<thead><tr><th>${LZ("港口","Port")}</th><th>${LZ("區域","Region")}</th><th class="n">${LZ("目前延誤（天）","Delay now (days)")}${tipI(TIPS.pw_d)}</th><th class="n">${LZ("近 7 日中位數","7-day median")}${tipI(TIPS.pw_w)}</th><th class="n">${LZ("近 30 日中位數","30-day median")}${tipI(TIPS.pw_m)}</th><th>${LZ("趨勢","Trend")}</th></tr></thead><tbody>${rows.map(p=>{
+    $("#pwTbl").innerHTML=`<thead><tr><th>${LZ("港口","Port")}</th><th>${LZ("國家","Country")}</th><th>${LZ("區域","Region")}</th><th class="n">${LZ("目前延誤（天）","Delay now (days)")}${tipI(TIPS.pw_d)}</th><th class="n">${LZ("近 7 日中位數","7-day median")}${tipI(TIPS.pw_w)}</th><th class="n">${LZ("近 30 日中位數","30-day median")}${tipI(TIPS.pw_m)}</th><th>${LZ("趨勢","Trend")}</th></tr></thead><tbody>${rows.map(p=>{
       let tr=`<span class="muted">${LZ("持平","Stable")}</span>`;if(p.d!=null&&p.m!=null){if(p.d-p.m>=1&&p.d>p.m*1.3)tr=`<span class="dn">▲ ${LZ("惡化","Worse")}</span>`;else if(p.m-p.d>=1&&p.d<p.m*0.7)tr=`<span class="up">▼ ${LZ("改善","Better")}</span>`}
-      return `<tr><td><b>${esc(E?p.en:p.zh)}</b> <span class="small muted" data-notr>${esc(p.code)}</span></td><td class="small">${esc(E?RG[p.reg]||p.reg:p.reg)}</td><td class="n">${pwBadge(p.d)}</td><td class="n">${p.w==null?"—":fmt(p.w,1)}</td><td class="n">${p.m==null?"—":fmt(p.m,1)}</td><td>${tr}</td></tr>`}).join("")}</tbody>`+(all.length>15?`<tfoot><tr><td colspan="6" style="text-align:center"><button type="button" class="btn" id="pwMore">${pwAll?LZ("收合","Show fewer"):LZ(`顯示全部 ${all.length} 個港口`,`Show all ${all.length} ports`)}</button></td></tr></tfoot>`:"");
+      return `<tr><td><b>${esc(E?p.en:p.zh)}</b> <span class="small muted" data-notr>${esc(p.code)}</span></td><td class="small pw-cc" data-notr><span class="pw-fl">${flag(p.cc)}</span> ${esc(pwCountry(p.cc))}</td><td class="small">${esc(E?RG[p.reg]||p.reg:p.reg)}</td><td class="n">${pwBadge(p.d)}</td><td class="n">${p.w==null?"—":fmt(p.w,1)}</td><td class="n">${p.m==null?"—":fmt(p.m,1)}</td><td>${tr}</td></tr>`}).join("")}</tbody>`+(all.length>15&&!filtered?`<tfoot><tr><td colspan="7" style="text-align:center"><button type="button" class="btn" id="pwMore">${pwAll?LZ("收合","Show fewer"):LZ(`顯示全部 ${all.length} 個港口`,`Show all ${all.length} ports`)}</button></td></tr></tfoot>`:"");
     const mb=$("#pwMore");if(mb)mb.onclick=()=>{pwAll=!pwAll;renderPortWait()};
     $("#pwSrc").innerHTML=LZ(`資料：<a href="${safeUrl(W.source_url)}" target="_blank" rel="noopener">GoComet Port Congestion</a>（依其平台追蹤的貨櫃、船期與 AIS 推估），資料日 ${esc(W.fetched)}。本站每天記錄一次，之後可看各港延誤的歷史走勢。`,
       `Data: <a href="${safeUrl(W.source_url)}" target="_blank" rel="noopener">GoComet Port Congestion</a> (estimated from shipments, schedules and AIS it tracks), as of ${esc(W.fetched)}. The site records it daily so delay history builds up over time.`)}
@@ -1940,12 +1960,12 @@ const DL={
     return ["shipscope_history_monthly",[[LZ("月份","Month")].concat(ids.map(dlHead),[LZ("說明","Note")])].concat(ms.map(k=>{const qn=ids.filter((id,i)=>cols[i].src[k]).map(id=>dlName(id));return [k].concat(cols.map(c=>c.o[k]??""),[qn.length?LZ(`${qn.join("、")} 為季平均`,`${qn.join(", ")}: quarterly average`):""])}))]}},
   trade:{zh:"貿易流量：每月（2019 起，十億美元）",en:"Trade flows: monthly (since 2019, US$ bn)",ok:()=>S.trade?.months?.length&&S.trade.flows,make:()=>{const T=S.trade,ks=Object.keys(T.flows);
     return ["shipscope_trade_monthly",[[LZ("月份","Month")].concat(ks.map(k=>LANG==="en"?T.flows[k].en:T.flows[k].zh))].concat(T.months.map((mo,i)=>[mo].concat(ks.map(k=>T.flows[k].v?.[i]??""))))]}},
-  portwait:{zh:"港口延誤天數（每日紀錄）",en:"Port delays in days (daily log)",ok:()=>S.portwait?.ports?.length,make:()=>{const W=S.portwait,H=W.hist||{};const rows=[[LZ("日期","Date"),LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("區域","Region"),LZ("延誤（天）","Delay (days)")]];
-    W.ports.forEach(p=>{const h=H[p.code]||[];(h.length?h:[[W.fetched,p.d]]).forEach(([d,v])=>rows.push([d,p.zh,p.en,p.code,p.reg,v??""]))});
+  portwait:{zh:"港口延誤天數（每日紀錄）",en:"Port delays in days (daily log)",ok:()=>S.portwait?.ports?.length,make:()=>{const W=S.portwait,H=W.hist||{};const rows=[[LZ("日期","Date"),LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("國家","Country"),LZ("區域","Region"),LZ("延誤（天）","Delay (days)")]];
+    W.ports.forEach(p=>{const h=H[p.code]||[];(h.length?h:[[W.fetched,p.d]]).forEach(([d,v])=>rows.push([d,p.zh,p.en,p.code,pwCountry(p.cc),p.reg,v??""]))});
     rows.splice(1,rows.length,...rows.slice(1).sort((a,b)=>a[0]<b[0]?-1:a[0]>b[0]?1:(a[1]<b[1]?-1:1)));
     return ["shipscope_port_delays",rows]}},
   cur:{zh:"港口延誤現況（含 7／14／30 日中位數）",en:"Port delays now (with 7/14/30-day medians)",ok:()=>S.portwait?.ports?.length,make:()=>{const W=S.portwait;
-    return ["shipscope_port_delays_now",[[LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("區域","Region"),LZ("目前延誤（天）","Delay now (days)"),LZ("近 7 日中位數","7-day median"),LZ("近 7 日最長","7-day max"),LZ("近 14 日中位數","14-day median"),LZ("近 30 日中位數","30-day median"),LZ("資料日","As of")]].concat(W.ports.map(p=>[p.zh,p.en,p.code,p.reg,p.d??"",p.w??"",p.wmax??"",p.f??"",p.m??"",W.fetched]))]}},
+    return ["shipscope_port_delays_now",[[LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("國家","Country"),LZ("區域","Region"),LZ("目前延誤（天）","Delay now (days)"),LZ("近 7 日中位數","7-day median"),LZ("近 7 日最長","7-day max"),LZ("近 14 日中位數","14-day median"),LZ("近 30 日中位數","30-day median"),LZ("資料日","As of")]].concat(W.ports.map(p=>[p.zh,p.en,p.code,pwCountry(p.cc),p.reg,p.d??"",p.w??"",p.wmax??"",p.f??"",p.m??"",W.fetched]))]}},
   reports:{zh:"市場報導運價",en:"Reported market rates",ok:()=>(S.reports?.items||STATIC.market_reports||[]).length,make:()=>{const R=S.reports?.items||STATIC.market_reports;return ["shipscope_market_rates",[["類別 Sector","項目 Item","數值 Value","單位 Unit","日期 Date","來源 Source","連結 URL"]].concat(R.map(x=>[x.sector,x.name,x.value,x.unit,x.date,x.source,x.url]))]}},
   stocks:{zh:"航運股行情",en:"Shipping stocks",ok:()=>S.stocks?.items?.length,make:()=>{const T=S.stocks.items;return ["shipscope_stocks",[["代號 Symbol","名稱 Name","類別 Sector","市場 Market","價格 Price","幣別 Ccy","漲跌 Chg","漲跌% Chg%","前收 Prev","時間 Time (UTC)","連結 URL"]].concat(T.map(x=>[x.sym,x.zh||x.en||"",x.sector,x.market,x.price,x.currency,x.chg,x.chg_pct,x.prev,x.time,x.url]))]}},
   cp_daily:{zh:"海峽・運河每日通行量（近 500 天）",en:"Straits & canals, daily transits (500 days)",ok:()=>S.choke?.d?.length,make:()=>{const C=S.choke;const rows=[["日期 Date","海峽・運河 Chokepoint","English","總數 Total","油輪 Tanker","貨櫃 Container","散裝 Dry bulk","其他 Other"]];CP_ORDER.forEach(k=>{const c=C.cps[k];if(c)C.d.forEach((d,i)=>rows.push([d,c.zh,c.en,c.total[i],c.tanker[i],c.container[i],c.dry_bulk[i],c.other[i]]))});return ["shipscope_chokepoints_daily",rows]}},
