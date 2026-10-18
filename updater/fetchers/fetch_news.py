@@ -47,7 +47,22 @@ SKIP=r"(?i)horoscope|lottery|celebrity|cruises?\b|樂透|星座|NBA|MLB|郵輪"
 REG=[("台灣",r"台灣|臺灣|Taiwan|高雄|Kaohsiung|長榮|陽明|萬海|Evergreen|Yang Ming|Wan Hai"),("中東",r"Hormuz|荷姆茲|霍爾木茲|Red Sea|紅海|Houthi|Iran|伊朗|Qatar|卡達|Saudi|沙烏地|UAE|Gulf|波斯灣|Fujairah"),("非洲",r"Africa|非洲|Guinea|幾內亞|Simandou|Nigeria|Durban|Transnet|Kenya|Egypt|Suez|Cape of Good Hope|好望角|Mozambique"),("美洲",r"\bUS\b|U\.S\.|America|美國|Panama|巴拿馬|Brazil|巴西|Canada|Mexico|Los Angeles|Houston|Gulf of Mexico|USTR|Venezuela|Chile|Argentina"),("歐洲",r"Europe|歐洲|EU\b|Rotterdam|Hamburg|Antwerp|Greece|Greek|希臘|Norway|UK\b|Britain|German|Maersk|Hapag|CMA CGM|MSC\b|Baltic Sea|Russia|俄羅斯"),("亞洲",r"China|中國|Chinese|Japan|日本|Korea|韓國|Singapore|新加坡|India|印度|Vietnam|Malaysia|Indonesia|Philippines|COSCO|中遠|Hong Kong|香港|Shanghai|上海")]
 items={}
 def norm(t): return re.sub(r"[\W_]+","",t.lower())[:40]
-def add(region,source,title,summary,url,pub,lang):
+def imgurl(u):
+    u=html.unescape((u or "").strip())
+    if not u or not re.match(r"https?://",u) or re.search(r"(?i)\.(gif|svg)(\?|$)|pixel|spacer|logo|avatar|feedburner|googleusercontent",u): return None
+    return "https://"+u.split("://",1)[1]
+def feed_img(it):
+    for ch in it:
+        t=ch.tag.split("}")[-1].lower()
+        if t in("content","thumbnail") and ch.get("url") and (ch.get("medium","image")=="image" or re.search(r"(?i)\.(jpe?g|png|webp)",ch.get("url"))): return imgurl(ch.get("url"))
+        if t=="enclosure" and (ch.get("type") or "").startswith("image"): return imgurl(ch.get("url"))
+    for ch in it:
+        t=ch.tag.split("}")[-1].lower()
+        if t in("encoded","description") and ch.text:
+            m=re.search(r'<img[^>]+src=["\']([^"\']+)',ch.text)
+            if m: return imgurl(m.group(1))
+    return None
+def add(region,source,title,summary,url,pub,lang,img=None):
     cut=CUT-datetime.timedelta(days=11) if region in("非洲",) else CUT-datetime.timedelta(days=4) if region=="亞洲" else CUT
     if not url or not title or pub<cut or re.search(SKIP,title): return
     title=html.unescape(title).strip(); summary=html.unescape(re.sub(r"<[^>]+>"," ",summary or "")).strip()
@@ -56,6 +71,7 @@ def add(region,source,title,summary,url,pub,lang):
     key=norm(title)
     if key in items: 
         if region!="全球" and items[key]["region"]=="全球": items[key]["region"]=region
+        if img and not items[key].get("img"): items[key]["img"]=img
         return
     blob=title+" "+summary
     if region=="全球":
@@ -69,6 +85,7 @@ def add(region,source,title,summary,url,pub,lang):
     if not sec: return
     tp=[k for k,pat in TOPICS if re.search(pat,blob,re.I)]
     items[key]=dict(topics=tp,id=hashlib.md5(url.encode()).hexdigest()[:12],region=region,sectors=sec,source=source.strip(),title=title,summary=summary,url=url,published=pub.strftime("%Y-%m-%dT%H:%M:%SZ"),lang=lang)
+    if img: items[key]["img"]=img
 for region,q,lang in Q:
     p={"q":q,"format":"rss"}; p.update({"zh":{"setlang":"zh-hant","cc":"TW"},"zhcn":{"setlang":"zh-hans","cc":"CN"},"en":{"setlang":"en-us","cc":"US"}}[lang]); lang="zh" if lang.startswith("zh") else lang
     p["qft"]='sortbydate="1"'
@@ -80,12 +97,13 @@ for region,q,lang in Q:
     if root is None: print("bing fail",q,file=sys.stderr); continue
     for it in root.iter("item"):
         link=it.findtext("link") or ""; u=urllib.parse.parse_qs(urllib.parse.urlparse(link).query).get("url",[link])[0]
-        src=""
+        src="";bim=None
         for ch in it:
             if ch.tag.endswith("Source"): src=ch.text or ""
+            if ch.tag.endswith("Image") and ch.text: bim=imgurl(ch.text)
         try: pub=email.utils.parsedate_to_datetime(it.findtext("pubDate"))
         except Exception: continue
-        add(region,src or urllib.parse.urlparse(u).netloc,it.findtext("title"),it.findtext("description"),u,pub,lang)
+        add(region,src or urllib.parse.urlparse(u).netloc,it.findtext("title"),it.findtext("description"),u,pub,lang,bim)
     time.sleep(0.6)
 for name,url in FEEDS:
     raw=get(url)
@@ -99,7 +117,7 @@ for name,url in FEEDS:
         reg="全球"
         for r,pat in REG:
             if re.search(pat,t+" "+d): reg=r; break
-        add(reg,name,t,d,it.findtext("link"),pub,"en")
+        add(reg,name,t,d,it.findtext("link"),pub,"en",feed_img(it))
 out=sorted(items.values(),key=lambda x:x["published"],reverse=True)
 json.dump({"fetched":NOW.strftime("%Y-%m-%dT%H:%MZ"),"days":DAYS,"items":out},open(sys.argv[1],"w"),ensure_ascii=False)
 from collections import Counter

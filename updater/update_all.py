@@ -99,7 +99,7 @@ def save_news(news):
     by = {k: [] for k in REGIONS.values()}
     for it in news.get("items", []):
         rk = REGIONS.get(it.get("region"), "global")
-        x = {k: it.get(k) for k in ("id", "source", "title", "summary", "url", "published", "lang", "sectors", "topics")}
+        x = {k: it.get(k) for k in ("id", "source", "title", "summary", "url", "published", "lang", "sectors", "topics", "img")}
         x["summary"] = (x.get("summary") or "")[:240]
         by[rk].append(x)
     for rk, items in by.items():

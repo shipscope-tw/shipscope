@@ -852,7 +852,53 @@ details[open]>.dl-sum::before{transform:rotate(90deg)}
 .dl-item{display:flex;align-items:center;gap:8px;text-align:left;font:inherit;font-size:13px;padding:8px 10px;border-radius:9px;border:1px solid var(--line-2);background:var(--surface);color:var(--ink);cursor:pointer}
 .dl-item:hover{border-color:var(--brand);color:var(--brand-ink)}
 .dl-item svg{flex:none;color:var(--ink-3)}
-/* patch18 */ /* patch19 */ /* patch20 */ /* patch21 */.site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
+
+/* patch22 */
+.ov-hero{position:relative;border-radius:var(--r-lg,18px);overflow:hidden;min-height:340px;background:linear-gradient(120deg,#0b2a3a,#114e5f 55%,#1d6f6a);color:#fff;display:flex;align-items:stretch;isolation:isolate}
+.ov-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:30% 60%;z-index:-2}
+.ov-hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,20,28,.72) 0%,rgba(4,20,28,.35) 45%,rgba(4,20,28,.05) 70%),linear-gradient(0deg,rgba(4,20,28,.55),rgba(4,20,28,0) 40%)}
+.ov-hero-in{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,400px);gap:24px;align-items:center;padding:34px 34px 44px;width:100%}
+.ov-hero-txt .eyebrow{font-size:11.5px;letter-spacing:.18em;font-weight:700;opacity:.85;margin-bottom:10px}
+.ov-hero-txt h2{font-size:clamp(30px,4.2vw,50px);line-height:1.05;margin:0 0 12px;color:#fff;font-weight:900;letter-spacing:.01em;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.ov-hero-txt h2 span{display:block;font-size:.42em;font-weight:700;letter-spacing:.08em;opacity:.9;margin-top:6px}
+.ov-hero-txt p{margin:0;max-width:520px;font-size:15px;line-height:1.7;color:rgba(255,255,255,.92);text-shadow:0 1px 8px rgba(0,0,0,.4)}
+.ov-hero-card{background:var(--surface);color:var(--ink);border-radius:18px;padding:16px 18px 14px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.hc-t{font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--brand-ink);border-bottom:3px solid var(--brand);display:inline-block;padding-bottom:4px;margin-bottom:10px}
+.hq-g{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.hq{display:flex;flex-direction:column;gap:1px;padding:8px 10px;border-radius:10px;background:var(--surface-3);border:1px solid var(--line-2);color:inherit;text-decoration:none}
+.hq:hover{border-color:var(--brand)}
+.hq .l{font-size:11.5px;color:var(--ink-3);font-weight:600}.hq .v{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}.hq .v small{font-size:11px;font-weight:600;color:var(--ink-3);margin-left:3px}
+.hq .c{font-size:11.5px;font-variant-numeric:tabular-nums;color:var(--ink-3)}.hq .c.up{color:var(--good)}.hq .c.dn{color:var(--crit)}
+.hl-g{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.hl-g a{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;font-size:13px;font-weight:700;color:var(--brand-ink);text-decoration:none;background:color-mix(in srgb,var(--brand-soft) 60%,var(--surface))}
+.hl-g a:hover{background:var(--brand-soft)}
+.hl-g svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ov-hero-cr{position:absolute;right:12px;bottom:8px;font-size:10.5px;color:rgba(255,255,255,.75);text-decoration:none}
+@media(max-width:860px){.ov-hero-in{grid-template-columns:1fr;padding:26px 18px 34px}.ov-hero{min-height:0}.ov-hero-shade{background:linear-gradient(180deg,rgba(4,20,28,.6),rgba(4,20,28,.25) 45%,rgba(4,20,28,.7))}}
+.news-front{padding:20px 22px}
+.nf-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr) minmax(0,1fr);gap:22px;align-items:start}
+.nf-meta{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:var(--ink-3);margin-bottom:6px}
+.nf-meta span:first-child{color:var(--brand-ink);font-weight:700}
+.nf-hot{color:#fff!important;background:var(--crit);border-radius:4px;padding:0 6px;font-weight:700}
+.nf-lead-t h2{font-size:clamp(22px,2.3vw,30px);line-height:1.28;margin:0 0 12px;font-weight:900}
+.nf-lead-t h2 a,.nf-side h3 a,.nf-cards h3 a{color:var(--ink);text-decoration:none}
+.nf-lead-t h2 a:hover,.nf-side h3 a:hover,.nf-cards h3 a:hover{text-decoration:underline;text-decoration-thickness:2px}
+.nf-lead-t p{font-size:14.5px;line-height:1.75;color:var(--ink-2);margin:0 0 10px}
+.np{display:block;position:relative;overflow:hidden;border-radius:10px;background:var(--surface-3)}
+.np img{display:block;width:100%;height:100%;object-fit:cover}
+.np.big{aspect-ratio:16/9}.np.md{aspect-ratio:16/9;margin-bottom:8px}.np.sm{width:96px;height:64px;flex:none;border-radius:8px}
+.np.fb::after{content:"示意";position:absolute;left:6px;top:6px;font-size:10.5px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);padding:1px 6px;border-radius:4px}
+html[lang="en"] .np.fb::after{content:"Illustrative"}
+.nf-side{display:flex;flex-direction:column}
+.nf-side article{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.nf-side article:first-child{padding-top:0}.nf-side article:last-child{border-bottom:0}
+.nf-side h3{font-size:15px;line-height:1.45;margin:0;font-weight:800}
+.nf-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.nf-cards h3{font-size:14.5px;line-height:1.45;margin:0;font-weight:800}
+.nf-note{margin:14px 0 0;font-size:11.5px;color:var(--ink-3)}
+@media(max-width:1100px){.nf-top{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}.nf-side{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.nf-side article{padding:0;border:0}.nf-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.news-front{padding:16px}.nf-top{grid-template-columns:1fr}.nf-lead-p{order:-1}.nf-side{grid-template-columns:1fr}.nf-side article{padding:10px 0;border-bottom:1px solid var(--line-2)}.nf-cards{grid-template-columns:1fr 1fr;gap:12px}}
+/* patch18 */ /* patch19 */ /* patch20 */ /* patch21 */ /* patch22 */.site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
 <style>
@@ -1177,6 +1223,7 @@ th .tip-i{vertical-align:0}
 
       <!-- ============ OVERVIEW ============ -->
       <section class="view" id="v-overview">
+        <div class="ov-hero" id="ovHero"></div>
         <div class="hz">
           <div class="card" style="display:flex;flex-direction:column;gap:12px">
             <div class="card-h" style="margin:0"><h2>荷姆茲海峽通行量 <span class="sub">IMF PortWatch・AIS</span></h2><a class="btn" href="#hormuz">詳細</a></div>
@@ -1301,6 +1348,7 @@ th .tip-i{vertical-align:0}
 
       <!-- ============ NEWS ============ -->
       <section class="view" id="v-news">
+        <div class="card news-front" id="nFront" hidden></div>
         <div class="card">
           <div class="news-tools">
             <div class="seg" id="nRegion"></div>
@@ -1918,6 +1966,54 @@ function dlIndicator(id){const it=indById(id),{d,m,q}=kData(id),E=LANG==="en";co
   d.forEach(([dt,v])=>rows.push([dt,v,LZ("每日／每週","Daily/weekly"),unit,src]));
   saveFile(`shipscope_${id}_${stamp()}.csv`,toCSV(rows))}
 document.addEventListener("click",e=>{const b=e.target.closest&&e.target.closest("[data-kdl]");if(!b)return;e.preventDefault();e.stopPropagation();dlIndicator(b.dataset.kdl)},true);
+
+
+/* ---------- patch22: hero + news front page ---------- */
+const HERO={f:"CMA CGM Seine au port du Havre.jpg",by:"Arizonaman1",lic:"CC0",page:"https://commons.wikimedia.org/wiki/File:CMA_CGM_Seine_au_port_du_Havre.jpg"};
+function renderHero(){const el=$("#ovHero");if(!el)return;const E=LANG==="en";
+  const q=[["scfi","SCFI"],["bdi","BDI"],["wci","WCI"],["brent","Brent"]].map(([id,lab])=>{const it=indById(id);if(!it)return "";const c=it.chg!=null?it.chg:it.chg_pct;const cls=c>0?"up":c<0?"dn":"";
+    const pc=it.chg_pct!=null?`${c>0?"▲":c<0?"▼":""}${Math.abs(it.chg_pct).toFixed(2)}%`:it.chg!=null&&it.value?`${c>0?"▲":c<0?"▼":""}${Math.abs(it.chg/(it.value-it.chg)*100).toFixed(2)}%`:"";
+    return `<a class="hq" href="#indicators"><span class="l">${lab}</span><span class="v">${fmt(it.value)}</span><span class="c ${cls}">${pc}</span></a>`}).join("");
+  let hz="";try{const C=S.choke;if(C&&C.cps.hormuz){const st=hzStats(C.cps.hormuz,C);if(st&&st.avg7!=null)hz=`<a class="hq" href="#hormuz"><span class="l">${LZ("荷姆茲 7 日均","Hormuz 7-day")}</span><span class="v">${fmt(st.avg7,1)}<small>${LZ("艘/日","/day")}</small></span><span class="c ${st.pct<0?"dn":"up"}">${LZ("較戰前","vs pre-war")} ${st.pct>0?"+":""}${fmt(st.pct,0)}%</span></a>`}}catch(e){}
+  const links=[["#earnings","i-earn",LZ("法說・財報","Earnings")],["#hormuz","i-strait",LZ("海峽・運河","Straits")],["#lanes","i-lanes",LZ("航線熱度","Trade lanes")],["#news","i-news",LZ("國際新聞","News")]];
+  el.innerHTML=`<img class="ov-hero-img" src="${commonsImg(HERO.f,1920)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()"><div class="ov-hero-shade"></div>
+   <div class="ov-hero-in"><div class="ov-hero-txt"><div class="eyebrow">SHIPPING MARKET INTELLIGENCE</div><h2 data-notr>${LZ("樹說航情","ShipScope")}<span>${LZ("ShipScope","樹說航情")}</span></h2><p data-notr>${LZ("貨櫃・散裝・油輪・LNG／LPG：運價、海峽通行、港口與航商財報，一頁掌握全球航運景氣。","Containers, dry bulk, tankers and gas carriers: freight rates, chokepoints, ports and carrier results in one place.")}</p></div>
+   <div class="ov-hero-card"><div class="hc-t">${LZ("即時市場","Live market")}</div><div class="hq-g">${q}${hz}</div><div class="hl-g">${links.map(([h,ic,t])=>`<a href="${h}"><svg width="18" height="18" aria-hidden="true"><use href="#${ic}"/></svg><span>${t}</span></a>`).join("")}</div></div></div>
+   <a class="ov-hero-cr" href="${HERO.page}" target="_blank" rel="noopener">${LZ("照片","Photo")}：${HERO.by}・${HERO.lic}・Wikimedia Commons</a>`;
+}
+{const _ro=renderOverview;renderOverview=function(){_ro.apply(this,arguments);try{renderHero()}catch(e){console.warn("hero",e)}}}
+
+const NEWS_FB={"貨櫃":"CMA CGM Seine au port du Havre.jpg","散裝":"Capesize bulk carrier at Suez Canal Bridge.JPG","油輪":"Tanker unloading crude oil.jpg","LNG":"Liquified Natural Gas carrier.jpg","LPG":"Mooring of the LPG Tanker BW Cedar at the Kwinana Bulk Terminal, September 2020 08.jpg","造船":"Aerial View of Daewoo Shipbuilding & Marine Engineering.jpg","港口":"Aerial photograph of the Port of Miami Container Port.jpg","地緣":"The Strait of Hormuz connects the Gulf of Oman with the Persian Gulf.jpg"};
+function newsFb(n){const s=(n.sectors||[]);const k=(s.includes("地緣")&&HOT.test(n.title))?"地緣":s.find(x=>NEWS_FB[x]&&x!=="地緣")||"貨櫃";return NEWS_FB[k]}
+function nImg(n,w,h){const u=n.img;if(!u)return null;if(/bing\.com\/th\?/.test(u))return u+`&w=${w}&h=${h}&c=14&rs=1&qlt=85&p=0`;return u}
+function newsPic(n,w,h,cls){const u=nImg(n,w,h),fb=commonsImg(newsFb(n),Math.min(1200,w*1.5|0));
+  return `<a class="np ${cls||""}${u?"":" fb"}" href="${safeUrl(n.url)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="${u||fb}" alt="" loading="lazy" referrerpolicy="no-referrer" data-fb="${esc(fb)}" onerror="if(this.dataset.fb&&this.src!==this.dataset.fb){this.src=this.dataset.fb;this.parentNode.classList.add('fb')}else{this.remove()}"></a>`}
+const NEWS_SRC_W=/Reuters|Bloomberg|Lloyd|TradeWinds|gCaptain|Splash|Seatrade|Loadstar|FreightWaves|Hellenic|中央社|經濟日報|工商時報|聯合報|自由時報|鉅亨|CNA|BBC|CNN|Financial Times|WSJ|Nikkei/i;
+function newsScore(n,now){const h=(now-new Date(n.published))/36e5;let s=-h/10;if(n.img)s+=2.5;if(HOT.test(n.title))s+=3;if(NEWS_SRC_W.test(n.source||""))s+=1.5;if((n.sectors||[]).some(x=>["貨櫃","散裝","油輪","LNG","LPG"].includes(x)))s+=1;if(expertOf(n))s+=1;if(/營收|法說|財報|獲利|earnings|results|profit|guidance|record/i.test(n.title))s+=1.2;return s}
+function pickFront(list){const now=Date.now(),newest=list.length?new Date(list[0].published).getTime():now;
+  const pool=list.filter(n=>newest-new Date(n.published)<48*36e5);if(pool.length<6)return null;
+  const sc=pool.map(n=>[newsScore(n,now),n]).sort((a,b)=>b[0]-a[0]).map(x=>x[1]);
+  const lead=sc.find(n=>n.img)||sc[0];const rest=sc.filter(n=>n!==lead);
+  const seen=new Set([lead.id,(lead.title||"").slice(0,18)]);const take=(a,m)=>{const o=[];for(const n of a){if(o.length>=m)break;const k=(n.title||"").slice(0,18);if(seen.has(n.id)||seen.has(k))continue;seen.add(n.id);seen.add(k);o.push(n)}return o};
+  const side=take(rest,3);const cards=take(rest.filter(n=>n.img),4);
+  return {lead,side,cards}}
+function renderNewsFront(list){const el=$("#nFront");if(!el)return new Set();const E=LANG==="en";
+  const F=(NF.q||"").trim()?null:pickFront(list);if(!F){el.hidden=true;el.innerHTML="";return new Set()}
+  const t=n=>{const x=twTime(n.published);return `${x.md} ${x.hm}`};
+  const meta=n=>`<div class="nf-meta"><span data-notr>${esc(n.source)}</span><span>${esc(t(n))}</span>${HOT.test(n.title)?`<span class="nf-hot">${LZ("重大","Breaking")}</span>`:""}</div>`;
+  el.hidden=false;
+  el.innerHTML=`<div class="nf-top"><div class="nf-lead-t">${meta(F.lead)}<h2 data-notr><a href="${safeUrl(F.lead.url)}" target="_blank" rel="noopener">${esc(F.lead.title)}</a></h2><p data-notr>${esc(F.lead.summary||"")}</p><div class="tags"><span class="tag r">${esc(REG_ZH[F.lead.rk]||F.lead.region||"")}</span>${(F.lead.sectors||[]).slice(0,3).map(x=>`<span class="tag">${esc(x)}</span>`).join("")}</div></div>
+    <div class="nf-lead-p">${newsPic(F.lead,960,540,"big")}</div>
+    <div class="nf-side">${F.side.map(n=>`<article>${n.img?newsPic(n,320,180,"sm"):""}<div>${meta(n)}<h3 data-notr><a href="${safeUrl(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a></h3></div></article>`).join("")}</div></div>
+    ${F.cards.length?`<div class="nf-cards">${F.cards.map(n=>`<article>${newsPic(n,480,270,"md")}${meta(n)}<h3 data-notr><a href="${safeUrl(n.url)}" target="_blank" rel="noopener">${esc(n.title)}</a></h3></article>`).join("")}</div>`:""}
+    <p class="nf-note">${LZ("圖片由各新聞來源提供，點標題閱讀原文；標「示意」者為 Wikimedia Commons 的示意照片。","Images come from each publisher; tap a headline to read the original. 'Illustrative' marks a Wikimedia Commons stock photo.")}</p>`;
+  return new Set([F.lead,...F.side,...F.cards].map(n=>n.id))}
+{const _rn=renderNews;renderNews=function(){_rn.apply(this,arguments);try{
+  const ns=allNews(),q=NF.q.trim().toLowerCase();
+  const list=ns.filter(n=>(NF.region==="all"||n.rk===NF.region)&&(!NF.sector||(NF.sector==="expert"?!!expertOf(n):NF.sector.startsWith("topic:")?(n.topics||[]).includes(NF.sector.slice(6)):(n.sectors||[]).includes(NF.sector)))&&(NF.lang==="all"||n.lang===NF.lang)&&(!q||(n.title+" "+n.source+" "+n.summary).toLowerCase().includes(q)));
+  const ids=renderNewsFront(list);
+  if(ids.size){const rest=list.filter(n=>!ids.has(n.id));let h="",lastDay="";rest.slice(0,NF.limit).forEach(n=>{const t=twTime(n.published);if(t.day!==lastDay){h+=`<div class="daysep">${t.day}</div>`;lastDay=t.day}h+=newsItem(n)});if(h)$("#nList").innerHTML=h;$("#nMore").hidden=rest.length<=NF.limit}
+ }catch(e){console.warn("newsfront",e)}}}
 
 /* patch17: how to read shipping data */
 const HOWTO=[
