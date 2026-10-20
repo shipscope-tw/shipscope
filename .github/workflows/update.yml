@@ -9,6 +9,7 @@ on:
     paths: ["updater/fetchers/**", "updater/update_all.py"]
 permissions:
   contents: write
+  actions: write
 concurrency: { group: update, cancel-in-progress: false }
 jobs:
   update:
@@ -29,3 +30,8 @@ jobs:
           git add -A index.html updater/data
           git diff --cached --quiet || git commit -m "Data update $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
           git push
+      - name: Keep schedule alive
+        # GitHub 會停用 60 天無活動的公開 repo 排程；每次排程執行時重新啟用自己以重設計時
+        if: github.event_name == 'schedule'
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/update.yml/enable" || true
