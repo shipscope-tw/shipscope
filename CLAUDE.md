@@ -40,6 +40,7 @@
 | `fetch_carriers.py` | Alphaliner Top 100 公開版 | `carriers.json` |
 | `fetch_stocks.py` | Yahoo 股市 | `stocks.json` |
 | `fetch_news.py` | 航運媒體 RSS、Bing 新聞 | `data/news/*.json` |
+| `fetch_unctad.py` | UNCTADstat 船隊（載重噸、艘數、船齡）、海運貿易量、港口貨櫃吞吐量、造船與拆船；LNG 數字取自 IGU World LNG Report（程式內手動維護，每年 IGU 發布新年報後更新） | `supply.json` |
 
 「今日重點」（`brief.json`）由 `update_all.py` 的 `build_brief()` 依當天數字套模板產生，不是 AI 生成。
 
@@ -88,6 +89,10 @@ SHIPSCOPE_OUT=index.html python updater/update_all.py --offline
    SHIPSCOPE_OUT=index.html python updater/update_all.py --offline
    ```
 3. 開啟 `index.html` 確認「法說・財報」頁顯示正常後 commit、push。
+
+### 每年更新 LNG 船隊與貿易數字
+
+UNCTAD 不單獨統計 LNG 船，`fetch_unctad.py` 開頭的 `LNG` 常數取自 IGU（國際天然氣聯盟）World LNG Report，每年約 5–6 月出新年報後手動補上一年的貿易量、年底船隊艘數與交船數，並更新 `src` 連結。UNCTAD 的資料由程式自動抓取（需要 `7z` 指令，GitHub 的 Ubuntu 主機已內建；本機可改裝 `py7zr`）。
 
 ### 修改版面
 

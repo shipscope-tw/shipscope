@@ -921,6 +921,9 @@ html[lang="en"] .np.fb::after{content:"Illustrative"}
 .si-facts{margin:0;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:13.5px;line-height:1.65}
 .si-facts dt{font-weight:700;color:var(--ink-3);white-space:nowrap}.si-facts dd{margin:0}
 /* patch23 */.map-home a{display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.sd-card .k-val small{font-size:12px;font-weight:600;color:var(--ink-3);margin-left:2px}
+#secSD:empty{display:none}
+#secSD{margin-top:18px}
 .site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
@@ -1369,6 +1372,7 @@ th .tip-i{vertical-align:0}
       <section class="view" id="v-indicators">
         <details class="card dl-card" id="dlIndCard"><summary class="dl-sum"><span class="dl-sum-t">下載數據</span><span class="sub" id="dlSumSub">完整歷史 CSV，可用 Excel 畫折線圖・也可以直接按每個指標方塊右上角的 ⤓</span></summary><div id="dlInd"></div><p class="small muted" id="dlIndNote" style="margin:10px 0 0"></p></details>
         <div id="secIntro"></div>
+        <div id="secSD"></div>
         <div class="subtabs"><div class="seg" id="secTabs"></div></div>
         <div id="secBody" style="display:flex;flex-direction:column;gap:18px"></div>
         <div id="secGas" style="display:flex;flex-direction:column;gap:18px"></div>
@@ -2075,12 +2079,64 @@ const SEC_INTRO={
   uses:{t:["LPG 用途（全球，2022 年）","Uses of LPG (world, 2022)"],rows:[["民生（炊煮、熱水、暖氣）","Residential & commercial (cooking, hot water, heating)",45.1],["石化原料","Petrochemical feedstock",27.0],["煉油廠","Refinery",12.6],["車用（Autogas）","Autogas",7.4],["工業","Industry",6.9],["農業","Agriculture",1.0]],src:["WLPGA Statistical Review 2023（2022 年全球消費 3.42 億噸）","WLPGA Statistical Review 2023 (342m tonnes consumed in 2022)"]},
   facts:[["貿易流向","美國是最大出口國，主要運往中國、日本、韓國、印度","The US is the top exporter, mainly to China, Japan, Korea and India"],["運價","看 VLGC 美灣—遠東運費；繞好望角或巴拿馬運河受限時運費上漲","Watch VLGC US Gulf–Far East freight; Cape routing or Panama limits push it up"],["中東因素","荷姆茲受阻時中東 LPG 出口減少，美國貨源需求上升","When Hormuz is disrupted, Middle East exports fall and demand shifts to US cargoes"]]}};
 function renderSecIntro(pg){const el=$("#secIntro");if(!el)return;const k=secTab==="cost"?pg.secs[0]:secTab,I=SEC_INTRO[k],P=SEC_IMG[k],E=LANG==="en";
-  if(!I){el.innerHTML="";return}
+  if(!I){el.innerHTML="";const sd=$("#secSD");if(sd)sd.innerHTML="";return}
   const uses=I.uses?`<div class="si-uses"><h3>${esc(erT(I.uses.t))}</h3>${I.uses.rows.map(([z,e,v])=>`<div class="si-row"><div class="si-l"><span>${esc(E?e:z)}</span><b>${v===60&&k==="lng"?LZ("約 60%","~60%"):(k==="lng"?LZ("約 ","~")+v+"%":v.toFixed(1)+"%")}</b></div><div class="si-bar"><i style="width:${v}%"></i></div></div>`).join("")}<p class="src">${esc(erT(I.uses.src))}</p></div>`:"";
   el.innerHTML=`<div class="card sec-intro"><figure class="si-ph"><img src="${commonsImg(P.f,1000)}" alt="${esc(erT(I.cap))}" loading="lazy" referrerpolicy="no-referrer" onerror="this.closest('figure').classList.add('noimg')"><figcaption>${esc(erT(I.cap))}<span>${esc(P.by)}・${esc(P.lic)}</span></figcaption></figure>
    <div class="si-body"><h2>${esc(erT(I.t))}</h2><p class="si-lead">${esc(erT(I.lead))}</p>${uses}<dl class="si-facts">${I.facts.map(([a,z,e])=>`<dt>${esc(E?({"市場結構":"Market structure","收入來源":"Revenue","台灣":"Taiwan","船型":"Ship sizes","需求驅動":"Demand drivers","關鍵航道":"Key chokepoint","船隊與運價":"Fleet & rates","主要出口國":"Top exporters","貿易流向":"Trade flows","運價":"Freight","中東因素":"Middle East"}[a]||a):a)}</dt><dd>${esc(E?e:z)}</dd>`).join("")}</dl></div></div>`;
+  try{renderSupply(secTab==="cost"?"":k)}catch(e){console.warn("supply",e)}
   const g=$("#secGas");
   if(g){if(k==="lng"||k==="lpg"){if(!g.dataset.moved){const src=$("#v-energy");if(src){[...src.children].forEach(c=>g.appendChild(c));g.dataset.moved="1"}}g.style.display="";const t=$("#enTabs");if(t)t.closest(".subtabs").style.display="none";if(secTab!=="cost"){enTab=secTab;try{renderEnergy()}catch(e){console.warn("energy",e)}}else g.style.display="none"}else g.style.display="none"}
+}
+
+/* patch25: fleet supply vs seaborne demand (UNCTAD, IGU) */
+let sdMode=store.get("sdMode")||"g";
+const SD_CFG={
+ container:{ft:"container",sz:"貨櫃",se:"container",dz:"全球港口貨櫃吞吐量",de:"world container port throughput",uz:"百萬 TEU",ue:"m TEU",dem:D=>({y:D.teu.years,v:D.teu.v})},
+ bulk:{ft:"bulk",sz:"散裝",se:"dry bulk",dz:"海運乾貨裝貨量（含貨櫃等雜貨）",de:"seaborne dry cargo loaded (incl. containerised)",uz:"百萬噸",ue:"m t",dem:D=>({y:D.trade.years,v:D.trade.dry})},
+ tanker:{ft:"tanker",sz:"油輪",se:"oil tanker",dz:"原油與其他液體貨海運量",de:"seaborne crude and other tanker trade",uz:"百萬噸",ue:"m t",dem:D=>({y:D.trade.years,v:D.trade.years.map((_,i)=>D.trade.crude[i]!=null&&D.trade.other_tanker[i]!=null?D.trade.crude[i]+D.trade.other_tanker[i]:null)})}
+};
+function sdKpi(nz,ne,val,sub){return `<div class="kpi"><div class="k-name"><span>${LZ(nz,ne)}</span></div><div class="k-val">${val}</div><div class="small muted">${sub}</div></div>`}
+function renderSupply(k){const el=$("#secSD");if(!el)return;const D=S.supply,E=LANG==="en";
+  if(!D||!D.fleet||!(SD_CFG[k]||k==="lng")){el.innerHTML="";return}
+  const src=(t,u)=>`<a href="${u}" target="_blank" rel="noopener">${esc(t)}</a>`;
+  if(k==="lng"){const L=D.lng,tr=L.trade,fl=L.fleet,dv=L.deliveries,t1=tr.at(-1),t0=tr.at(-2),f1=fl.at(-1),f0=fl.at(-2),d1=dv.at(-1),d0=dv.at(-2);
+    const tg=(t1[1]/t0[1]-1)*100,fg=(f1[1]/f0[1]-1)*100;
+    el.innerHTML=`<div class="card sd-card"><div class="card-h"><h2>${LZ(`${f1[0]} 年 LNG 船隊成長 ${pfx(fg)}，貿易量成長 ${pfx(tg)}`,`In ${f1[0]} the LNG fleet grew ${pfx(fg)} and trade ${pfx(tg)}`)}</h2></div>
+     <p class="small muted" style="margin:-4px 0 12px">${fg>tg+1?LZ("運力增速快於需求，新船持續大量交付。","Capacity is growing faster than demand as newbuilds keep delivering."):tg>fg+1?LZ("需求增速快於運力，船舶供給偏緊。","Demand is growing faster than capacity, so ship supply is tight."):LZ("運力與需求大致同步成長。","Capacity and demand are growing at a similar pace.")}</p>
+     <div class="grid g4">${sdKpi("全球 LNG 貿易量","Global LNG trade",`${fmt(t1[1],1)} <small>${LZ("百萬噸","Mt")}</small>`,LZ(`${t1[0]} 年，${t0[0]} 年 ${fmt(t0[1],1)}`,`${t1[0]}; ${t0[0]}: ${fmt(t0[1],1)}`))}
+     ${sdKpi("LNG 船隊（年底）","LNG fleet (year end)",`${f1[1]} <small>${LZ("艘","ships")}</small>`,LZ(`${f0[0]} 年底 ${f0[1]} 艘・含 FSRU／FSU`,`${f0[0]}: ${f0[1]} · incl. FSRUs/FSUs`))}
+     ${sdKpi("新船交付","Newbuild deliveries",`${d1[1]} <small>${LZ("艘","ships")}</small>`,LZ(`${d1[0]} 年，${d0[0]} 年 ${d0[1]} 艘`,`${d1[0]}; ${d0[0]}: ${d0[1]}`))}
+     ${sdKpi("運力 vs 需求","Capacity vs demand",`${pfx(fg)} <small>/</small> ${pfx(tg)}`,LZ(`船隊 vs 貿易量，${f1[0]} 年`,`fleet vs trade, ${f1[0]}`))}</div>
+     <p class="src">${LZ("資料：","Source: ")}${L.src.map(s=>src(s.t,s.u)).join("、")}。${esc(E?L.note[1]:L.note[0])}${LZ("LPG 目前沒有免費公開的年度船隊與貿易序列，暫不列出。"," No free annual LPG fleet or trade series is available, so LPG is not shown.")}</p><div id="sdDl" style="margin-top:8px"></div></div>`;setTimeout(()=>renderDl("#sdDl",["supply"]),0);return}
+  const c=SD_CFG[k],F=D.fleet,fy=F.years,fd=F[c.ft].dwt,dm=c.dem(D),name=LZ(c.sz,c.se);
+  const sg={},dg={};for(let i=1;i<fy.length;i++)if(fd[i]&&fd[i-1])sg[fy[i-1]]=(fd[i]/fd[i-1]-1)*100;
+  for(let i=1;i<dm.y.length;i++)if(dm.v[i]&&dm.v[i-1])dg[dm.y[i]]=(dm.v[i]/dm.v[i-1]-1)*100;
+  const yMax=Math.max(...Object.keys(sg).map(Number)),lastD=Math.max(...Object.keys(dg).map(Number)),yrs=[];for(let y=2011;y<=yMax;y++)yrs.push(y);
+  const avg=(o,a,b)=>{const v=[];for(let y=a;y<=b;y++)if(o[y]!=null)v.push(o[y]);return v.length?v.reduce((s,x)=>s+x,0)/v.length:null};
+  const s5=avg(sg,lastD-4,lastD),d5=avg(dg,lastD-4,lastD),ix=fy.length-1,ag=F[c.ft].age,i10=fy.indexOf(fy[ix]-10);
+  const B=D.build,Sc=D.scrap,by=B.years.at(-1),si=Sc.years.indexOf(by);
+  const verdict=s5>d5+1?LZ(`近 5 年運力年均成長 ${pfx(s5)}，快於需求的 ${pfx(d5)}，供給偏寬鬆。`,`Over the last five years capacity grew ${pfx(s5)} a year, faster than demand at ${pfx(d5)}: supply is loose.`):d5>s5+1?LZ(`近 5 年需求年均成長 ${pfx(d5)}，快於運力的 ${pfx(s5)}，供給偏緊。`,`Over the last five years demand grew ${pfx(d5)} a year, faster than capacity at ${pfx(s5)}: supply is tight.`):LZ(`近 5 年運力（${pfx(s5)}）與需求（${pfx(d5)}）年均成長大致同步。`,`Over the last five years capacity (${pfx(s5)}) and demand (${pfx(d5)}) grew at a similar pace.`);
+  const ahead=yMax>lastD?LZ(` ${yMax} 年船隊再成長 ${pfx(sg[yMax])}，同年需求數據尚未公布。`,` The fleet grew another ${pfx(sg[yMax])} in ${yMax}; demand data for that year are not out yet.`):"";
+  el.innerHTML=`<div class="card sd-card"><div class="card-h"><h2>${LZ(`${lastD} 年${name}船隊成長 ${pfx(sg[lastD])}，需求成長 ${pfx(dg[lastD])}`,`In ${lastD} the ${c.se} fleet grew ${pfx(sg[lastD])} and demand ${pfx(dg[lastD])}`)}</h2>
+    <div class="seg" id="sdMode"><button data-m="g" aria-pressed="${sdMode==="g"}">${LZ("年增率比較","Annual growth")}</button><button data-m="i" aria-pressed="${sdMode==="i"}">${LZ("累計成長（2010＝100）","Cumulative (2010 = 100)")}</button></div></div>
+    <p class="small muted" style="margin:-4px 0 12px">${verdict}${ahead}</p>
+    <div class="grid g4">${sdKpi("船隊規模","Fleet size",`${fmt(fd[ix],0)} <small>${LZ("百萬載重噸","m dwt")}</small>`,LZ(`${fy[ix]} 年 1 月 1 日・${fmt(F[c.ft].n[ix],0)} 艘`,`1 Jan ${fy[ix]} · ${fmt(F[c.ft].n[ix],0)} ships`))}
+     ${sdKpi("平均船齡","Average age",`${fmt(ag[ix],1)} <small>${LZ("年","yrs")}</small>`,i10>=0&&ag[i10]!=null?LZ(`${fy[i10]} 年為 ${fmt(ag[i10],1)} 年`,`${fmt(ag[i10],1)} in ${fy[i10]}`):"")}
+     ${sdKpi("近 5 年年均成長","5-year average growth",`${pfx(s5)} <small>/</small> ${pfx(d5)}`,LZ(`運力 vs 需求，${lastD-4}–${lastD} 年`,`capacity vs demand, ${lastD-4}–${lastD}`))}
+     ${sdKpi("全球新船交付／拆解","World deliveries / demolition",`${fmt(B.v.at(-1),1)} <small>/</small> ${si>=0?fmt(Sc.v[si],1):"—"}`,LZ(`百萬總噸，${by} 年，全部船型`,`m GT, ${by}, all ship types`))}</div>
+    <div class="chart-box" style="margin-top:14px"><canvas id="sdChart"></canvas></div>
+    <p class="src">${LZ(`資料：${src("UNCTADstat","https://unctadstat.unctad.org/datacentre/")}（聯合國貿易和發展會議）。運力＝${name}船隊載重噸（每年 1 月 1 日），當年成長以次年 1 月 1 日對當年 1 月 1 日計；需求＝${c.dz}。需求以噸或 TEU 計、未計入航程距離，紅海繞航等使航程變長時，實際用船需求（噸海浬）成長會更快。`,`Source: ${src("UNCTADstat","https://unctadstat.unctad.org/datacentre/")}. Capacity = ${c.se} fleet deadweight on 1 January; growth in a year compares 1 January of the next year with 1 January of that year. Demand = ${c.de}. Demand is counted in tonnes or TEU without distance; when voyages lengthen (e.g. Red Sea diversions) real ship demand in tonne-miles grows faster.`)}${k==="bulk"?esc(E?" "+D.notes.trade[1]:D.notes.trade[0]):""}</p><div id="sdDl" style="margin-top:8px"></div></div>`;setTimeout(()=>renderDl("#sdDl",["supply"]),0);
+  $$("#sdMode button").forEach(b=>b.onclick=()=>{sdMode=b.dataset.m;store.set("sdMode",sdMode);renderSupply(k)});
+  const supL=LZ("運力（船隊載重噸）","Capacity (fleet dwt)"),demL=LZ(`需求（${c.dz}）`,`Demand (${c.de})`);
+  const cs=css("--s1"),cd=css("--s4");
+  if(sdMode==="g"){
+    mkChart("sdChart",{type:"bar",data:{labels:yrs.map(String),datasets:[{label:supL,data:yrs.map(y=>sg[y]!=null?+sg[y].toFixed(1):null),backgroundColor:cs,borderRadius:3,maxBarThickness:16},{label:demL,data:yrs.map(y=>dg[y]!=null?+dg[y].toFixed(1):null),backgroundColor:cd,borderRadius:3,maxBarThickness:16}]},
+      options:baseOpts({plugins:{...baseOpts().plugins,legend:{display:true,position:"bottom",labels:{boxWidth:12,color:css("--ink-2"),font:{family:"Noto Sans TC",size:12}}},tooltip:{...baseOpts().plugins.tooltip,callbacks:{label:x=>`${x.dataset.label}: ${x.raw==null?"—":pfx(x.raw)}`}}},scales:{x:baseOpts().scales.x,y:{...baseOpts().scales.y,title:{display:true,text:LZ("年增率（%）","YoY (%)"),color:css("--ink-3")}}}})});
+  }else{
+    const fAt=y=>{const i=fy.indexOf(y+1);return i>=0?fd[i]:null},dAt=y=>{const i=dm.y.indexOf(y);return i>=0?dm.v[i]:null};const ys=[2010,...yrs],f0=fAt(2010),d0=dAt(2010);
+    mkChart("sdChart",{type:"line",data:{labels:ys.map(String),datasets:[{label:supL,data:ys.map(y=>fAt(y)!=null?+(fAt(y)/f0*100).toFixed(1):null),borderColor:cs,backgroundColor:cs,borderWidth:2.2,pointRadius:2},{label:demL,data:ys.map(y=>dAt(y)!=null?+(dAt(y)/d0*100).toFixed(1):null),borderColor:cd,backgroundColor:cd,borderWidth:2.2,pointRadius:2}]},
+      options:baseOpts({plugins:{...baseOpts().plugins,legend:{display:true,position:"bottom",labels:{boxWidth:12,color:css("--ink-2"),font:{family:"Noto Sans TC",size:12}}},tooltip:{...baseOpts().plugins.tooltip,callbacks:{label:x=>`${x.dataset.label}: ${x.raw==null?"—":fmt(x.raw,1)}`}}},scales:{x:baseOpts().scales.x,y:{...baseOpts().scales.y,title:{display:true,text:"2010 = 100",color:css("--ink-3")}}}})});
+  }
 }
 
 /* patch17: how to read shipping data */
@@ -2367,6 +2423,16 @@ const DL={
     return ["shipscope_port_delays",rows]}},
   cur:{zh:"港口延誤現況（含 7／14／30 日中位數）",en:"Port delays now (with 7/14/30-day medians)",ok:()=>S.portwait?.ports?.length,make:()=>{const W=S.portwait;
     return ["shipscope_port_delays_now",[[LZ("港口","Port"),"English",LZ("代碼","Code"),LZ("國家","Country"),LZ("區域","Region"),LZ("目前延誤（天）","Delay now (days)"),LZ("近 7 日中位數","7-day median"),LZ("近 7 日最長","7-day max"),LZ("近 14 日中位數","14-day median"),LZ("近 30 日中位數","30-day median"),LZ("資料日","As of")]].concat(W.ports.map(p=>[p.zh,p.en,p.code,pwCountry(p.cc),p.reg,p.d??"",p.w??"",p.wmax??"",p.f??"",p.m??"",W.fetched]))]}},
+  supply:{zh:"船隊與海運需求（年資料）",en:"Fleet and seaborne demand (annual)",ok:()=>S.supply?.fleet?.years?.length,make:()=>{const D=S.supply,F=D.fleet,rows=[[LZ("年份","Year"),LZ("類別","Category"),LZ("項目","Item"),LZ("數值","Value"),LZ("單位","Unit"),LZ("來源","Source")]];
+    const TN={total:["全部商船","All merchant ships"],tanker:["油輪","Oil tankers"],bulk:["散裝船","Bulk carriers"],general:["雜貨船","General cargo"],container:["貨櫃船","Container ships"],other:["其他船型（含 LNG／LPG、化學品船等）","Other types (incl. LNG/LPG, chemical)"]};
+    Object.entries(TN).forEach(([k,[z,e]])=>F.years.forEach((y,i)=>{const f=F[k];if(f.dwt[i]!=null)rows.push([y+"-01-01",LZ("船隊","Fleet"),LZ(z,e),f.dwt[i],LZ("百萬載重噸","m dwt"),"UNCTADstat"]);if(f.n[i]!=null)rows.push([y+"-01-01",LZ("船隊","Fleet"),LZ(z,e),f.n[i],LZ("艘","ships"),"UNCTADstat"]);if(f.age[i]!=null)rows.push([y+"-01-01",LZ("船隊","Fleet"),LZ(z,e),f.age[i],LZ("平均船齡（年）","avg age (yrs)"),"UNCTADstat"])}));
+    const TR={total:["海運裝貨量合計","Total goods loaded"],crude:["原油","Crude oil"],other_tanker:["其他液體貨（成品油、氣體、化學品）","Other tanker trade"],dry:["乾貨（含貨櫃等雜貨）","Dry cargo (incl. containerised)"]};
+    Object.entries(TR).forEach(([k,[z,e]])=>D.trade.years.forEach((y,i)=>{if(D.trade[k][i]!=null)rows.push([y,LZ("海運需求","Seaborne demand"),LZ(z,e),D.trade[k][i],LZ("百萬噸","m t"),"UNCTADstat"])}));
+    D.teu.years.forEach((y,i)=>rows.push([y,LZ("海運需求","Seaborne demand"),LZ("全球港口貨櫃吞吐量","World container port throughput"),D.teu.v[i],LZ("百萬 TEU","m TEU"),"UNCTADstat"]));
+    D.build.years.forEach((y,i)=>rows.push([y,LZ("造船","Shipbuilding"),LZ("全球新船交付","World deliveries"),D.build.v[i],LZ("百萬總噸","m GT"),"UNCTADstat"]));
+    D.scrap.years.forEach((y,i)=>rows.push([y,LZ("拆船","Demolition"),LZ("全球拆解量","World demolition"),D.scrap.v[i],LZ("百萬總噸","m GT"),"UNCTADstat"]));
+    const L=D.lng;L.trade.forEach(([y,v])=>rows.push([y,"LNG",LZ("全球 LNG 貿易量","Global LNG trade"),v,LZ("百萬噸","Mt"),"IGU"]));L.fleet.forEach(([y,v])=>rows.push([y+"-12-31","LNG",LZ("LNG 船隊（含 FSRU／FSU）","LNG fleet (incl. FSRU/FSU)"),v,LZ("艘","ships"),"IGU"]));L.deliveries.forEach(([y,v])=>rows.push([y,"LNG",LZ("LNG 新船交付","LNG deliveries"),v,LZ("艘","ships"),"IGU"]));
+    return ["shipscope_fleet_demand",rows]}},
   reports:{zh:"市場報導運價",en:"Reported market rates",ok:()=>(S.reports?.items||STATIC.market_reports||[]).length,make:()=>{const R=S.reports?.items||STATIC.market_reports;return ["shipscope_market_rates",[["類別 Sector","項目 Item","數值 Value","單位 Unit","日期 Date","來源 Source","連結 URL"]].concat(R.map(x=>[x.sector,x.name,x.value,x.unit,x.date,x.source,x.url]))]}},
   stocks:{zh:"航運股行情",en:"Shipping stocks",ok:()=>S.stocks?.items?.length,make:()=>{const T=S.stocks.items;return ["shipscope_stocks",[["代號 Symbol","名稱 Name","類別 Sector","市場 Market","價格 Price","幣別 Ccy","漲跌 Chg","漲跌% Chg%","前收 Prev","時間 Time (UTC)","連結 URL"]].concat(T.map(x=>[x.sym,x.zh||x.en||"",x.sector,x.market,x.price,x.currency,x.chg,x.chg_pct,x.prev,x.time,x.url]))]}},
   cp_daily:{zh:"海峽・運河每日通行量（近 500 天）",en:"Straits & canals, daily transits (500 days)",ok:()=>S.choke?.d?.length,make:()=>{const C=S.choke;const rows=[["日期 Date","海峽・運河 Chokepoint","English","總數 Total","油輪 Tanker","貨櫃 Container","散裝 Dry bulk","其他 Other"]];CP_ORDER.forEach(k=>{const c=C.cps[k];if(c)C.d.forEach((d,i)=>rows.push([d,c.zh,c.en,c.total[i],c.tanker[i],c.container[i],c.dry_bulk[i],c.other[i]]))});return ["shipscope_chokepoints_daily",rows]}},
@@ -2403,7 +2469,7 @@ function renderTicker(){const box=$("#ticker"),tr=$("#tkTrack");if(!box||!tr)ret
   tr.innerHTML=html+html; tr.style.setProperty("--tk-dur",Math.max(40,it.length*6)+"s");
   $(".tk-tag",box).textContent=LZ("即時","Live")}
 function renderIndicators(){
-  renderDlGroups("#dlInd",[["指數與價格","Indices & prices",["history","monthly","latest"]],["海峽・港口","Straits & ports",["cp_daily","cp_weekly","ports","portwait"]],["貿易與其他","Trade & other",["trade","reports","stocks"]]]);dlNote("#dlIndNote");
+  renderDlGroups("#dlInd",[["指數與價格","Indices & prices",["history","monthly","latest"]],["海峽・港口","Straits & ports",["cp_daily","cp_weekly","ports","portwait"]],["貿易與其他","Trade & other",["trade","supply","reports","stocks"]]]);dlNote("#dlIndNote");
   const pg=VIEWS.find(x=>x.id===current&&x.alias)||VIEWS.find(x=>x.id==="container");if(!pg.secs.includes(secTab))secTab=pg.secs[0];
   const tabs=STATIC.sectors.map(s=>[s.id,s.name]).concat([["cost","燃油與原物料"]]).filter(([k])=>pg.secs.includes(k));
   try{renderSecIntro(pg)}catch(e){console.warn("secintro",e)}
@@ -3061,7 +3127,7 @@ async function boot(){
   try{ const CL=window.__SNAPDB||window.claude; db=CL&&CL.use?await CL.use("db"):null }catch(e){db=null}
   if(!db){S.db=false;rerender();return}
   S.db=db; setStatus();
-  db.collection("feeds").onSnapshot(snap=>{snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="indicators")S.indicators=v;if(d.id==="chokepoints")S.choke=v;if(d.id==="carriers")S.carriers=v;if(d.id==="reports")S.reports=v;if(d.id==="meta")S.meta=v;if(d.id==="usports")S.usports=v;if(d.id==="clarksons")S.clarksons=v;if(d.id==="brief")S.brief=v;if(d.id==="stocks")S.stocks=v;if(d.id==="ports")S.ports=v;if(d.id==="hist")S.hist=v;if(d.id==="trade")S.trade=v;if(d.id==="earnings")S.earnings=v;if(d.id==="portwait")S.portwait=v});rerender();if(MAP.map){updateChoke();drawUsPorts();MAP.portIdx=null;drawPorts()}},e=>console.warn("feeds",e));
+  db.collection("feeds").onSnapshot(snap=>{snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="indicators")S.indicators=v;if(d.id==="chokepoints")S.choke=v;if(d.id==="carriers")S.carriers=v;if(d.id==="reports")S.reports=v;if(d.id==="meta")S.meta=v;if(d.id==="usports")S.usports=v;if(d.id==="clarksons")S.clarksons=v;if(d.id==="brief")S.brief=v;if(d.id==="stocks")S.stocks=v;if(d.id==="ports")S.ports=v;if(d.id==="hist")S.hist=v;if(d.id==="trade")S.trade=v;if(d.id==="earnings")S.earnings=v;if(d.id==="portwait")S.portwait=v;if(d.id==="supply")S.supply=v});rerender();if(MAP.map){updateChoke();drawUsPorts();MAP.portIdx=null;drawPorts()}},e=>console.warn("feeds",e));
   db.collection("settings").onSnapshot(snap=>{snap.docs.forEach(d=>{if(d.id==="brand")S.brand=d.data()});renderLogo()},e=>console.warn("settings",e));
   db.collection("news").onSnapshot(snap=>{S.news={};snap.docs.forEach(d=>{const v=d.data();if(v)S.news[d.id]=v});rerender()},e=>console.warn("news",e));
   db.collection("research").onSnapshot(snap=>{S.research=snap.docs.map(d=>{const v=d.data();return v?Object.assign({_id:d.id},v):null}).filter(Boolean);rerender()},e=>console.warn("research",e));
