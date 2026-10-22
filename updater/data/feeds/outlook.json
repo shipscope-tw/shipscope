@@ -1,0 +1,354 @@
+{
+ "updated": "2026-10-22",
+ "note": "人工整理：各研究機構公開發布的 2027 年預估。訊號依各機構預估的運力成長與需求成長差距判讀，並非本網站自行預測。每季（或機構發布新展望後）更新。",
+ "title": [
+  "2027 年多數船型運力成長快於需求，市場普遍預期轉弱；原油輪走向取決於荷姆茲",
+  "In 2027 capacity outgrows demand in most segments and markets are expected to soften; crude tankers hinge on Hormuz"
+ ],
+ "macro": [
+  {
+   "k": [
+    "2027 全球商品貿易量",
+    "World merchandise trade, 2027"
+   ],
+   "v": "+4.1%",
+   "sub": [
+    "WTO 預估；2026 年 +3.9%，AI 相關商品帶動",
+    "WTO forecast; 2026: +3.9%, driven by AI-related goods"
+   ],
+   "src": {
+    "t": [
+     "WTO（Reuters／Kitco，2026-10-08）",
+     "WTO (Reuters/Kitco, 8 Oct 2026)"
+    ],
+    "u": "https://www.kitco.com/news/off-the-wire/2026-10-08/wto-upgrades-goods-trade-forecast-ai-boom-offsets-middle-east"
+   }
+  },
+  {
+   "k": [
+    "新船訂單占現有船隊",
+    "Orderbook as share of fleet"
+   ],
+   "v": "21%",
+   "sub": [
+    "2020 年僅 10%；Clarksons 預期 2027 年船隊成長再加速",
+    "Only 10% in 2020; Clarksons expects fleet growth to accelerate further in 2027"
+   ],
+   "src": {
+    "t": [
+     "Clarksons 2026 年中期業績簡報",
+     "Clarksons 2026 interim results presentation"
+    ],
+    "u": "https://www.clarksons.com/media/e3les54a/interim-results-presentation-2026.pdf"
+   }
+  },
+  {
+   "k": [
+    "ClarkSea 綜合收益指數",
+    "ClarkSea Index"
+   ],
+   "v": "$38,717/日",
+   "sub": [
+    "2026 上半年均值，年增 61%；10 年均值 $20,366",
+    "1H 2026 average, +61% YoY; 10-year average $20,366"
+   ],
+   "src": {
+    "t": [
+     "Clarksons 2026 年中期業績簡報",
+     "Clarksons 2026 interim results presentation"
+    ],
+    "u": "https://www.clarksons.com/media/e3les54a/interim-results-presentation-2026.pdf"
+   }
+  }
+ ],
+ "sectors": [
+  {
+   "id": "container",
+   "page": "container",
+   "stage": "container",
+   "name": [
+    "貨櫃",
+    "Containers"
+   ],
+   "signal": "weak",
+   "rows": [
+    [
+     [
+      "2027 運力",
+      "Capacity 2027"
+     ],
+     [
+      "+9%（2026 年 +4.6%）",
+      "+9% (2026: +4.6%)"
+     ]
+    ],
+    [
+     [
+      "2027 需求",
+      "Demand 2027"
+     ],
+     [
+      "低於運力成長",
+      "Below capacity growth"
+     ]
+    ],
+    [
+     [
+      "新船訂單",
+      "Orderbook"
+     ],
+     [
+      "現有船隊的 42%",
+      "42% of fleet"
+     ]
+    ]
+   ],
+   "why": [
+    "兩種荷姆茲情境下，2027 年供給成長都快於需求；若蘇伊士運河逐步恢復通航，船舶需求成長可能再少約 5 個百分點。",
+    "Under both Hormuz scenarios supply outgrows demand in 2027; a gradual Suez return could cut ship-demand growth by about 5 more percentage points."
+   ],
+   "src": {
+    "t": [
+     "BIMCO 貨櫃市場展望（2026-09-23）",
+     "BIMCO container outlook (23 Sep 2026)"
+    ],
+    "u": "https://safety4sea.com/bimco-container-shipping-market-faces-mounting-supply-pressure-in-2027/"
+   }
+  },
+  {
+   "id": "bulk",
+   "page": "bulk",
+   "stage": "bulk",
+   "name": [
+    "散裝",
+    "Dry bulk"
+   ],
+   "signal": "weak",
+   "rows": [
+    [
+     [
+      "2027 運力",
+      "Capacity 2027"
+     ],
+     [
+      "+3.5% 至 +4.5%",
+      "+3.5% to +4.5%"
+     ]
+    ],
+    [
+     [
+      "2027 需求",
+      "Demand 2027"
+     ],
+     [
+      "+0.5% 至 +1.5%（荷姆茲封閉）；+2% 至 +3%（重新開放）",
+      "+0.5% to +1.5% (Hormuz closed); +2% to +3% (reopened)"
+     ]
+    ]
+   ],
+   "why": [
+    "2026 年繞道拉長航程撐住需求，2027 年這個效果消退；若荷姆茲重新開放，被困波斯灣的船也會回到市場。兩種情境下供給都快於需求。",
+    "Longer rerouted voyages prop up 2026 demand; in 2027 that fades, and if Hormuz reopens ships trapped in the Gulf return. Supply outgrows demand in both scenarios."
+   ],
+   "src": {
+    "t": [
+     "BIMCO 散裝市場展望（2026 年 7 月，Tech Times 報導）",
+     "BIMCO dry bulk outlook (Jul 2026, via Tech Times)"
+    ],
+    "u": "https://www.techtimes.com/articles/322617/20260801/dry-bulk-shipping-faces-2027-supply-glut-bimco-warns-hormuz-rerouting-boost-will-reverse.htm"
+   }
+  },
+  {
+   "id": "crude",
+   "page": "tanker",
+   "stage": "tanker",
+   "name": [
+    "原油輪",
+    "Crude tankers"
+   ],
+   "signal": "mixed",
+   "rows": [
+    [
+     [
+      "2027 運力",
+      "Capacity 2027"
+     ],
+     [
+      "+7% 至 +8%（荷姆茲開放）；+4.5% 至 +5.5%（封閉）",
+      "+7% to +8% (Hormuz open); +4.5% to +5.5% (closed)"
+     ]
+    ],
+    [
+     [
+      "2027 需求",
+      "Demand 2027"
+     ],
+     [
+      "+17% 至 +19.5%（2026 年第四季恢復通航）；封閉則更弱",
+      "+17% to +19.5% (if Hormuz reopens in Q4 2026); weaker if closed"
+     ]
+    ]
+   ],
+   "why": [
+    "若荷姆茲恢復通航，2027 年中東出口回升、需求大幅反彈；若持續封閉，庫存耗盡後需求可能再走弱。",
+    "If Hormuz reopens, Middle East exports and demand rebound sharply in 2027; if it stays closed, demand could weaken further as stocks run down."
+   ],
+   "src": {
+    "t": [
+     "BIMCO 油輪市場展望（2026 年 8 月）",
+     "BIMCO tanker outlook (Aug 2026)"
+    ],
+    "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
+   }
+  },
+  {
+   "id": "product",
+   "page": "tanker",
+   "stage": "tanker",
+   "name": [
+    "成品油輪",
+    "Product tankers"
+   ],
+   "signal": "weak",
+   "rows": [
+    [
+     [
+      "2027 運力",
+      "Capacity 2027"
+     ],
+     [
+      "+7.5% 至 +8.5%",
+      "+7.5% to +8.5%"
+     ]
+    ],
+    [
+     [
+      "2027 需求",
+      "Demand 2027"
+     ],
+     [
+      "+2.5% 至 +4.5%（荷姆茲開放情境）",
+      "+2.5% to +4.5% (Hormuz-open scenario)"
+     ]
+    ]
+   ],
+   "why": [
+    "新船持續交付，2025 年底到 2027 年底船隊約成長 13%，明顯快於需求。",
+    "Newbuilds keep arriving: the fleet grows about 13% from end-2025 to end-2027, well ahead of demand."
+   ],
+   "src": {
+    "t": [
+     "BIMCO 油輪市場展望（2026 年 8 月）",
+     "BIMCO tanker outlook (Aug 2026)"
+    ],
+    "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
+   }
+  },
+  {
+   "id": "lng",
+   "page": "gas",
+   "stage": "lng",
+   "name": [
+    "LNG",
+    "LNG"
+   ],
+   "signal": "neutral",
+   "rows": [
+    [
+     [
+      "2027 交船",
+      "Deliveries 2027"
+     ],
+     [
+      "92 艘（2026 年 94 艘）",
+      "92 ships (2026: 94)"
+     ]
+    ],
+    [
+     [
+      "新船訂單",
+      "Orderbook"
+     ],
+     [
+      "現有船隊的 42%",
+      "42% of fleet"
+     ]
+    ],
+    [
+     [
+      "需求面",
+      "Demand side"
+     ],
+     [
+      "卡達 North Field South 等新液化產能 2027 年起投產",
+      "New liquefaction such as Qatar's North Field South starts from 2027"
+     ]
+    ]
+   ],
+   "why": [
+    "船隊仍在大量交船、短期運力偏多；2027–2030 年新液化產能陸續投產，逐步吸收新船。",
+    "Heavy deliveries keep capacity ample near term; new liquefaction from 2027–30 gradually absorbs the new ships."
+   ],
+   "src": {
+    "t": [
+     "Riviera 引述 Drewry、IGU（2026-01-02）",
+     "Riviera citing Drewry and IGU (2 Jan 2026)"
+    ],
+    "u": "https://www.rivieramm.com/news-content-hub/news-content-hub/fleet-surplus-colours-lng-shipping-outlook-for-2026-87001"
+   }
+  },
+  {
+   "id": "lpg",
+   "page": "gas",
+   "stage": null,
+   "name": [
+    "LPG",
+    "LPG"
+   ],
+   "signal": "weak",
+   "rows": [
+    [
+     [
+      "運力",
+      "Capacity"
+     ],
+     [
+      "2026–2029 年均約 +8.9%",
+      "~+8.9% a year, 2026–2029"
+     ]
+    ],
+    [
+     [
+      "新船訂單",
+      "Orderbook"
+     ],
+     [
+      "超大型 LPG 船（VLGC）船隊的約 28%",
+      "~28% of the VLGC fleet"
+     ]
+    ],
+    [
+     [
+      "需求面",
+      "Demand side"
+     ],
+     [
+      "2026 年中東 LPG 出口預估 −48%，美國 +9.3%",
+      "2026 Middle East LPG exports seen −48%, US +9.3%"
+     ]
+    ]
+   ],
+   "why": [
+    "船隊高速成長，中東出口受荷姆茲影響大減，主要靠美國出口支撐。",
+    "The fleet grows fast while Middle East exports collapse with Hormuz; US exports carry the trade."
+   ],
+   "src": {
+    "t": [
+     "Veson Nautical 2026 年第三季市場展望",
+     "Veson Nautical Q3 2026 market outlook"
+    ],
+    "u": "https://www.hellenicshippingnews.com/?p=1140233"
+   }
+  }
+ ]
+}

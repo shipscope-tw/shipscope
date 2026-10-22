@@ -924,6 +924,20 @@ html[lang="en"] .np.fb::after{content:"Illustrative"}
 .sd-card .k-val small{font-size:12px;font-weight:600;color:var(--ink-3);margin-left:2px}
 #secSD:empty{display:none}
 #secSD{margin-top:18px}
+.ol-card{margin-top:18px}
+.ol-card .card-h h2{display:block}
+.ol-lead{font-size:17px;font-weight:700;line-height:1.5;margin:0 0 14px;color:var(--ink)}
+.ol-macro .k-val{font-size:22px}
+.ol-src{font-size:11.5px;color:var(--ink-3)}.ol-src a{color:var(--ink-3)}
+.ol-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.ol-sec{border:1px solid var(--line-2);border-radius:var(--r-md);padding:14px 16px;display:flex;flex-direction:column;gap:8px;background:var(--surface)}
+.ol-h{display:flex;justify-content:space-between;align-items:center;gap:8px}.ol-h b{font-size:16px}
+.ol-now{font-size:12px;color:var(--ink-3)}
+.ol-sec dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:13px}.ol-sec dt{color:var(--ink-3);white-space:nowrap}.ol-sec dd{margin:0;font-weight:600}
+.ol-sec p{margin:0;font-size:13px;line-height:1.55;color:var(--ink-2)}
+.ol-f{margin-top:auto;display:flex;justify-content:space-between;gap:10px;align-items:flex-end;padding-top:4px}.ol-go{font-size:12.5px;font-weight:700;white-space:nowrap;color:var(--brand)}
+@media (max-width:1100px){.ol-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ol-grid{grid-template-columns:1fr}.ol-lead{font-size:15.5px}}
 .site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
@@ -1253,6 +1267,7 @@ th .tip-i{vertical-align:0}
       <!-- ============ OVERVIEW ============ -->
       <section class="view" id="v-overview">
         <div class="ov-hero" id="ovHero"></div>
+        <div id="ovOutlook"></div>
         <div class="hz">
           <div class="card" style="display:flex;flex-direction:column;gap:12px">
             <div class="card-h" style="margin:0"><h2>荷姆茲海峽通行量 <span class="sub">IMF PortWatch・AIS</span></h2><a class="btn" href="#hormuz">詳細</a></div>
@@ -2024,6 +2039,23 @@ function renderHero(){const el=$("#ovHero");if(!el)return;const E=LANG==="en";
    <div class="ov-hero-card"><div class="hc-t">${LZ("即時市場","Live market")}</div><div class="hq-g">${q}${hz}</div><div class="hl-g">${links.map(([h,ic,t])=>`<a href="${h}"><svg width="18" height="18" aria-hidden="true"><use href="#${ic}"/></svg><span>${t}</span></a>`).join("")}</div></div></div>`;
 }
 {const _ro=renderOverview;renderOverview=function(){_ro.apply(this,arguments);try{renderHero()}catch(e){console.warn("hero",e)}}}
+/* patch26: 2027 outlook and sector signals on the overview */
+const OL_SIG={weak:["crit","偏弱","Softening"],neutral:["warn","中性","Neutral"],strong:["good","偏強","Firm"],mixed:["neutral","視荷姆茲而定","Depends on Hormuz"]};
+function renderOutlook(){const el=$("#ovOutlook");if(!el)return;const O=S.outlook,E=LANG==="en";if(!O||!O.sectors){el.innerHTML="";return}
+  const t=a=>esc(Array.isArray(a)?(E?a[1]:a[0]):a||""),lk=s=>s?`<a href="${s.u}" target="_blank" rel="noopener">${t(s.t)}</a>`:"";
+  const stage=id=>{const x=(STATIC.sectors||[]).find(s=>s.id===id);return x?T(x.stage).replace(/\s*[・·，,]\s*[^・·，,（）()]*2027[^）)]*/,""):null};
+  el.innerHTML=`<div class="card ol-card"><div class="card-h"><h2>${LZ("2027 航運展望","2027 shipping outlook")} <span class="sub">${LZ("研究機構公開預估・整理日 ","Published forecasts · compiled ")}${esc(O.updated)}</span></h2></div>
+   <p class="ol-lead">${t(O.title)}</p>
+   <div class="grid g3 ol-macro">${O.macro.map(m=>`<div class="kpi"><div class="k-name"><span>${t(m.k)}</span></div><div class="k-val">${esc(m.v)}</div><div class="small muted">${t(m.sub)}</div><div class="ol-src">${lk(m.src)}</div></div>`).join("")}</div>
+   <div class="ol-grid">${O.sectors.map(s=>{const g=OL_SIG[s.signal]||OL_SIG.neutral,st=s.stage&&stage(s.stage);return `<div class="ol-sec">
+     <div class="ol-h"><b>${t(s.name)}</b><span class="chip ${g[0]}">2027・${E?g[2]:g[1]}</span></div>
+     ${st?`<div class="ol-now">${LZ("目前景氣位置：","Cycle now: ")}${esc(st)}</div>`:""}
+     <dl>${s.rows.map(([k,v])=>`<dt>${t(k)}</dt><dd>${t(v)}</dd>`).join("")}</dl>
+     <p>${t(s.why)}</p>
+     <div class="ol-f"><span class="ol-src">${lk(s.src)}</span><a class="ol-go" href="#${s.page}">${LZ("看產業頁 →","Sector page →")}</a></div></div>`}).join("")}</div>
+   <p class="src">${LZ("訊號依各機構公開預估的 2027 年運力成長與需求成長差距判讀：運力快於需求為「偏弱」，需求快於運力為「偏強」。整理自公開報導與機構發布，非本網站預測，亦不構成投資或授信建議。","Signals compare each source's 2027 capacity and demand growth forecasts: capacity ahead of demand reads “softening”, demand ahead reads “firm”. Compiled from published forecasts; not this site's forecast and not investment or credit advice.")}</p></div>`}
+{const _ro=renderOverview;renderOverview=function(){_ro.apply(this,arguments);try{renderOutlook()}catch(e){console.warn("outlook",e)}}}
+
 
 const NEWS_FB={"貨櫃":"CMA CGM Seine au port du Havre.jpg","散裝":"Capesize bulk carrier at Suez Canal Bridge.JPG","油輪":"Tanker unloading crude oil.jpg","LNG":"Liquified Natural Gas carrier.jpg","LPG":"Mooring of the LPG Tanker BW Cedar at the Kwinana Bulk Terminal, September 2020 08.jpg","造船":"Aerial View of Daewoo Shipbuilding & Marine Engineering.jpg","港口":"Aerial photograph of the Port of Miami Container Port.jpg","地緣":"The Strait of Hormuz connects the Gulf of Oman with the Persian Gulf.jpg"};
 function newsFb(n){const s=(n.sectors||[]);const k=(s.includes("地緣")&&HOT.test(n.title))?"地緣":s.find(x=>NEWS_FB[x]&&x!=="地緣")||"貨櫃";return NEWS_FB[k]}
@@ -3127,7 +3159,7 @@ async function boot(){
   try{ const CL=window.__SNAPDB||window.claude; db=CL&&CL.use?await CL.use("db"):null }catch(e){db=null}
   if(!db){S.db=false;rerender();return}
   S.db=db; setStatus();
-  db.collection("feeds").onSnapshot(snap=>{snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="indicators")S.indicators=v;if(d.id==="chokepoints")S.choke=v;if(d.id==="carriers")S.carriers=v;if(d.id==="reports")S.reports=v;if(d.id==="meta")S.meta=v;if(d.id==="usports")S.usports=v;if(d.id==="clarksons")S.clarksons=v;if(d.id==="brief")S.brief=v;if(d.id==="stocks")S.stocks=v;if(d.id==="ports")S.ports=v;if(d.id==="hist")S.hist=v;if(d.id==="trade")S.trade=v;if(d.id==="earnings")S.earnings=v;if(d.id==="portwait")S.portwait=v;if(d.id==="supply")S.supply=v});rerender();if(MAP.map){updateChoke();drawUsPorts();MAP.portIdx=null;drawPorts()}},e=>console.warn("feeds",e));
+  db.collection("feeds").onSnapshot(snap=>{snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="indicators")S.indicators=v;if(d.id==="chokepoints")S.choke=v;if(d.id==="carriers")S.carriers=v;if(d.id==="reports")S.reports=v;if(d.id==="meta")S.meta=v;if(d.id==="usports")S.usports=v;if(d.id==="clarksons")S.clarksons=v;if(d.id==="brief")S.brief=v;if(d.id==="stocks")S.stocks=v;if(d.id==="ports")S.ports=v;if(d.id==="hist")S.hist=v;if(d.id==="trade")S.trade=v;if(d.id==="earnings")S.earnings=v;if(d.id==="portwait")S.portwait=v;if(d.id==="supply")S.supply=v;if(d.id==="outlook")S.outlook=v});rerender();if(MAP.map){updateChoke();drawUsPorts();MAP.portIdx=null;drawPorts()}},e=>console.warn("feeds",e));
   db.collection("settings").onSnapshot(snap=>{snap.docs.forEach(d=>{if(d.id==="brand")S.brand=d.data()});renderLogo()},e=>console.warn("settings",e));
   db.collection("news").onSnapshot(snap=>{S.news={};snap.docs.forEach(d=>{const v=d.data();if(v)S.news[d.id]=v});rerender()},e=>console.warn("news",e));
   db.collection("research").onSnapshot(snap=>{S.research=snap.docs.map(d=>{const v=d.data();return v?Object.assign({_id:d.id},v):null}).filter(Boolean);rerender()},e=>console.warn("research",e));

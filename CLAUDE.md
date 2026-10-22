@@ -94,6 +94,15 @@ SHIPSCOPE_OUT=index.html python updater/update_all.py --offline
 
 UNCTAD 不單獨統計 LNG 船，`fetch_unctad.py` 開頭的 `LNG` 常數取自 IGU（國際天然氣聯盟）World LNG Report，每年約 5–6 月出新年報後手動補上一年的貿易量、年底船隊艘數與交船數，並更新 `src` 連結。UNCTAD 的資料由程式自動抓取（需要 `7z` 指令，GitHub 的 Ubuntu 主機已內建；本機可改裝 `py7zr`）。
 
+### 每季更新首頁「2027 航運展望」
+
+首頁的展望卡片讀 `updater/data/feeds/outlook.json`（人工整理，不會自動更新）。BIMCO 約每季發布貨櫃、散裝、油輪展望，Clarksons 半年發布業績簡報，WTO 每年 4 月、10 月發布貿易預測；有新版時更新對應的數字、`why` 說明、`src` 連結與 `updated` 日期。
+
+- 只引用機構**公開發布**的內容（新聞稿、公開簡報、媒體報導），不放付費報告的數字。
+- `signal` 依來源預估的運力與需求成長差距判讀：運力快於需求填 `weak`，需求快於運力填 `strong`，接近填 `neutral`，取決於情境（如荷姆茲）填 `mixed`。
+- 「目前景氣位置」取自 `template.html` 內 `STATIC.sectors` 的 `stage`。
+- 進入 2027 年後，把展望年份改成 2028（標題、`rows` 文字與頁面上的「2027」字樣）。
+
 ### 修改版面
 
 - 直接編輯 `updater/template.html`，改完跑 `--offline` 產生 `index.html` 並在瀏覽器檢查。
