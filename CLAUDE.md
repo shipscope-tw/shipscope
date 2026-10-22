@@ -94,9 +94,13 @@ SHIPSCOPE_OUT=index.html python updater/update_all.py --offline
 
 UNCTAD 不單獨統計 LNG 船，`fetch_unctad.py` 開頭的 `LNG` 常數取自 IGU（國際天然氣聯盟）World LNG Report，每年約 5–6 月出新年報後手動補上一年的貿易量、年底船隊艘數與交船數，並更新 `src` 連結。UNCTAD 的資料由程式自動抓取（需要 `7z` 指令，GitHub 的 Ubuntu 主機已內建；本機可改裝 `py7zr`）。
 
-### 每季更新首頁「2027 航運展望」
+### 每季更新「產業展望」（2026 現況 × 2027 展望）
 
-首頁的展望卡片讀 `updater/data/feeds/outlook.json`（人工整理，不會自動更新）。BIMCO 約每季發布貨櫃、散裝、油輪展望，Clarksons 半年發布業績簡報，WTO 每年 4 月、10 月發布貿易預測；有新版時更新對應的數字、`why` 說明、`src` 連結與 `updated` 日期。
+首頁的「產業訊號」四象限圖、左側「產業展望」頁、各產業頁上方的展望卡片，全部讀 `updater/data/feeds/outlook.json`（人工整理，不會自動更新）。每個產業有兩組訊號：
+- `now`：2026 現況（`signal` 為 strong／firm／neutral／soft／weak，`metric` 為依據文字，`live` 或 `report` 指向網站上的即時指標或市場報導，`src` 為來源）。
+- `signal`：2027 展望（strong／neutral／mixed／weak）。
+四象限位置由這兩組訊號自動決定：橫軸現況（firm 以上算強），縱軸展望（strong 算偏強）。
+BIMCO 約每季發布貨櫃、散裝、油輪展望，Clarksons 半年發布業績簡報，WTO 每年 4 月、10 月發布貿易預測；有新版時更新對應的數字、`why` 說明、`src` 連結與 `updated` 日期。
 
 - 只引用機構**公開發布**的內容（新聞稿、公開簡報、媒體報導），不放付費報告的數字。
 - `signal` 是本站觀點（由維護者判斷），綜合各機構公開預估：預期運力快於用船需求填 `weak`，需求快於運力填 `strong`，接近填 `neutral`，取決於情境（如荷姆茲）填 `mixed`。卡片上的數字一律引用公開來源並附連結；付費報告只能作為維護者自己判斷的參考，不可把其中的數字或圖表放上網站。
@@ -108,6 +112,10 @@ UNCTAD 不單獨統計 LNG 船，`fetch_unctad.py` 開頭的 `LNG` 常數取自 
 ### 專題「烏俄戰爭與歐洲柴油」
 
 內容寫在 `template.html` 的 `RUWAR`（數字、說明）與 `RUWAR_SRC`（來源連結）常數，油輪頁的「柴油」卡片也用同一份資料。柴油裂解價差、各國進口占比等都是整理日當時的公開報導數字，不會自動更新；有重大變化（例如荷姆茲恢復、歐盟新禁令）時更新數字、來源與 `asof` 日期。
+
+### 拖曳排序與釘選
+
+專題、產業頁、新聞地區的分頁列，以及左側選單，都可以按「⇅」進入排序模式：拖曳調整順序、按 📌 釘選到最前面（左側選單釘選的項目會出現在最上方的「釘選」區）。設定只存在使用者自己的瀏覽器（localStorage，鍵名以 `so:` 開頭），不會影響其他人。程式在 `template.html` 的 `soSetup`、`soApply` 與 `buildNav`。
 
 ### 修改版面
 

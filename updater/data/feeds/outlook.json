@@ -175,7 +175,26 @@
       "u": "#lanes"
      }
     }
-   ]
+   ],
+   "now": {
+    "signal": "firm",
+    "live": "scfi",
+    "metric": [
+     "SCFI 約 3,680 點（10/16），遠高於損益兩平區 1,000–1,500 點",
+     "SCFI ~3,680 (16 Oct), far above the 1,000–1,500 break-even zone"
+    ],
+    "why": [
+     "紅海繞航與中東衝突吸收運力，運價維持高檔",
+     "Red Sea diversions and the Middle East conflict absorb capacity and keep rates high"
+    ],
+    "src": {
+     "t": [
+      "上海航運交易所",
+      "Shanghai Shipping Exchange"
+     ],
+     "u": "https://en.sse.net.cn/indices/scfinew.jsp"
+    }
+   }
   },
   {
    "id": "bulk",
@@ -218,6 +237,25 @@
      "BIMCO dry bulk outlook (Jul 2026, via Tech Times)"
     ],
     "u": "https://www.techtimes.com/articles/322617/20260801/dry-bulk-shipping-faces-2027-supply-glut-bimco-warns-hormuz-rerouting-boost-will-reverse.htm"
+   },
+   "now": {
+    "signal": "firm",
+    "live": "bdi",
+    "metric": [
+     "BDI 2026 年平均約 2,760 點，比 2025 年平均約 1,940 點高四成",
+     "BDI has averaged ~2,760 in 2026, about 40% above 2025's ~1,940"
+    ],
+    "why": [
+     "西芒杜鐵礦放量、荷姆茲繞道拉長航程",
+     "Simandou ramp-up and Hormuz rerouting lengthen voyages"
+    ],
+    "src": {
+     "t": [
+      "Baltic Exchange（經 HandyBulk）",
+      "Baltic Exchange (via HandyBulk)"
+     ],
+     "u": "https://www.handybulk.com/baltic-dry-index/"
+    }
    }
   },
   {
@@ -280,7 +318,26 @@
      ],
      "u": "https://www.seatrade-maritime.com/containers/full-suez-return-for-container-carriers-expected-by-q1-2027"
     }
-   ]
+   ],
+   "now": {
+    "signal": "strong",
+    "report": "vlcc_avg",
+    "metric": [
+     "VLCC 全球平均收益約 $805,000／日（10/12），歷史新高",
+     "VLCC average earnings ~$805,000/day (12 Oct), a record"
+    ],
+    "why": [
+     "荷姆茲封鎖讓船隻受困、買家改向遠程貨源",
+     "The Hormuz blockade traps ships and pushes buyers to distant supply"
+    ],
+    "src": {
+     "t": [
+      "Seatrade Maritime",
+      "Seatrade Maritime"
+     ],
+     "u": "https://www.seatrade-maritime.com/tankers"
+    }
+   }
   },
   {
    "id": "product",
@@ -374,7 +431,26 @@
      "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
     }
    ],
-   "topic": "ruwar"
+   "topic": "ruwar",
+   "now": {
+    "signal": "strong",
+    "live": "crack",
+    "metric": [
+     "美國 3-2-1 裂解價差 2026 年平均約 $51，2025 年約 $24；歐洲柴油裂解價差約 $98",
+     "US 3-2-1 crack ~$51 average in 2026 vs ~$24 in 2025; European diesel crack ~$98"
+    ],
+    "why": [
+     "歐洲柴油短缺、各地裂解價差創高",
+     "European diesel shortage and record cracks everywhere"
+    ],
+    "src": {
+     "t": [
+      "NYMEX 期貨（經 Yahoo Finance）、Admiral Markets",
+      "NYMEX futures (via Yahoo Finance), Admiral Markets"
+     ],
+     "u": "https://admiralmarkets.com/analytics/traders-blog/diesel-shortage-october-2026"
+    }
+   }
   },
   {
    "id": "lng",
@@ -451,7 +527,26 @@
      "u": "https://www.euronews.com/2026/10/09/eu-paid-79bn-for-russian-arctic-lng-amid-record-imports"
     }
    ],
-   "topic": "ruwar"
+   "topic": "ruwar",
+   "now": {
+    "signal": "soft",
+    "report": "lng_atl",
+    "metric": [
+     "大西洋現貨約 $25,750／日（10/7），較 3 月高點跌約九成",
+     "Atlantic spot ~$25,750/day (7 Oct), about 90% below the March peak"
+    ],
+    "why": [
+     "新船大量交付，戰爭初期的運價飆漲已回吐",
+     "Heavy deliveries have erased the early-war rate spike"
+    ],
+    "src": {
+     "t": [
+      "Ship Universe（2026-10-07）",
+      "Ship Universe (7 Oct 2026)"
+     ],
+     "u": "https://www.shipuniverse.com/news/lng-carrier-freight-rates-collapse-83-91-from-wartime-peaks-as-vessel-supply-surges/"
+    }
+   }
   },
   {
    "id": "lpg",
@@ -504,7 +599,30 @@
      "Veson Nautical Q3 2026 market outlook"
     ],
     "u": "https://www.hellenicshippingnews.com/?p=1140233"
+   },
+   "now": {
+    "signal": "strong",
+    "report": "vlgc_usg",
+    "metric": [
+     "VLGC 美灣→亞洲約 $196,400／日（10/1），歷史新高",
+     "VLGC US Gulf–Asia ~$196,400/day (1 Oct), a record"
+    ],
+    "why": [
+     "中東出口受阻，亞洲買家轉向美國長程貨源",
+     "Middle East exports are blocked, so Asian buyers source long-haul from the US"
+    ],
+    "src": {
+     "t": [
+      "Baltic Exchange（TradeWinds 報導）",
+      "Baltic Exchange (via TradeWinds)"
+     ],
+     "u": "https://www.tradewindsnews.com/gas"
+    }
    }
   }
+ ],
+ "map_note": [
+  "橫軸：2026 年現況（運價與收益相對過去幾年的水準）；縱軸：2027 年展望（本站綜合各機構公開預估）。",
+  "Across: 2026 conditions (rates and earnings versus recent years). Up: 2027 outlook (our view based on published forecasts)."
  ]
 }
