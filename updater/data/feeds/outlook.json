@@ -1,9 +1,9 @@
 {
  "updated": "2026-10-22",
- "note": "人工整理：各研究機構公開發布的 2027 年預估。訊號依各機構預估的運力成長與需求成長差距判讀，並非本網站自行預測。每季（或機構發布新展望後）更新。",
+ "note": "人工整理：本站綜合各研究機構公開預估後的觀點（signal），附各機構公開數字。每季（或機構發布新展望後）更新。",
  "title": [
-  "2027 年多數船型運力成長快於需求，市場普遍預期轉弱；原油輪走向取決於荷姆茲",
-  "In 2027 capacity outgrows demand in most segments and markets are expected to soften; crude tankers hinge on Hormuz"
+  "2027 年多數船型運力成長快於需求；貨櫃轉弱、亞歐線壓力最大，LNG 有望受新產能與長程貿易帶動走強",
+  "In 2027 capacity outgrows demand in most segments; containers soften with Asia–Europe hit hardest, while LNG should strengthen on new supply and longer-haul trade"
  ],
  "macro": [
   {
@@ -104,8 +104,8 @@
     ]
    ],
    "why": [
-    "兩種荷姆茲情境下，2027 年供給成長都快於需求；若蘇伊士運河逐步恢復通航，船舶需求成長可能再少約 5 個百分點。",
-    "Under both Hormuz scenarios supply outgrows demand in 2027; a gradual Suez return could cut ship-demand growth by about 5 more percentage points."
+    "本站觀點：2027 年貨櫃整體偏弱。BIMCO 預估兩種荷姆茲情境下供給成長都快於需求；蘇伊士運河逐步恢復通航後，船舶需求成長可能再少約 5 個百分點。",
+    "Our view: containers soften overall in 2027. BIMCO sees supply outgrowing demand under both Hormuz scenarios, and a gradual Suez return could cut ship-demand growth by about 5 more percentage points."
    ],
    "src": {
     "t": [
@@ -113,7 +113,53 @@
      "BIMCO container outlook (23 Sep 2026)"
     ],
     "u": "https://safety4sea.com/bimco-container-shipping-market-faces-mounting-supply-pressure-in-2027/"
-   }
+   },
+   "lanes": [
+    {
+     "n": [
+      "亞歐線",
+      "Asia–Europe"
+     ],
+     "s": "weak",
+     "l": [
+      "最弱",
+      "Weakest"
+     ],
+     "why": [
+      "約 35% 航次已回到蘇伊士運河，每趟往返可省 1–2 週、所需船數減少；新增的超大型貨櫃船也主要投入這條線。",
+      "About 35% of sailings are back through Suez, saving 1–2 weeks per round trip and cutting the ships needed; most new ultra-large ships also go to this trade."
+     ],
+     "src": {
+      "t": [
+       "SAFETY4SEA 引述 MSI、Linerlytica（2026-10-01）",
+       "SAFETY4SEA citing MSI, Linerlytica (1 Oct 2026)"
+      ],
+      "u": "https://safety4sea.com/suez-return-gains-momentum-as-asia-europe-capacity-pressures-mount/"
+     }
+    },
+    {
+     "n": [
+      "亞洲區間（近洋）",
+      "Intra-Asia"
+     ],
+     "s": "neutral",
+     "l": [
+      "相對穩",
+      "Steadier"
+     ],
+     "why": [
+      "不經蘇伊士運河、不受恢復通航影響；中國對東南亞出口持續成長，船型以中小型為主，受超大型新船衝擊較小。",
+      "Does not use Suez, so unaffected by the return; China's exports to Southeast Asia keep growing, and the trade uses mainly small and mid-size ships, less exposed to the ultra-large newbuild wave."
+     ],
+     "src": {
+      "t": [
+       "本站「航線熱度」頁（IMF 貿易數據）",
+       "This site's Trade Lanes page (IMF trade data)"
+      ],
+      "u": "#lanes"
+     }
+    }
+   ]
   },
   {
    "id": "bulk",
@@ -252,50 +298,73 @@
     "LNG",
     "LNG"
    ],
-   "signal": "neutral",
+   "signal": "strong",
    "rows": [
     [
      [
-      "2027 交船",
-      "Deliveries 2027"
+      "供給面",
+      "Supply side"
      ],
      [
-      "92 艘（2026 年 94 艘）",
-      "92 ships (2026: 94)"
+      "卡達 North Field South 等新液化產能 2027 年起投產；美國 LNG 出口 2027 年再增 9%",
+      "New liquefaction such as Qatar's North Field South from 2027; US LNG exports up another 9% in 2027"
      ]
     ],
     [
      [
-      "新船訂單",
-      "Orderbook"
+      "航程",
+      "Haul"
      ],
      [
-      "現有船隊的 42%",
-      "42% of fleet"
+      "歐盟 2027 年秋季全面禁止俄國 LNG，歐洲改由美國等較遠貨源補足",
+      "EU fully bans Russian LNG from autumn 2027; Europe replaces it from farther sources such as the US"
      ]
     ],
     [
      [
-      "需求面",
-      "Demand side"
+      "風險",
+      "Risk"
      ],
      [
-      "卡達 North Field South 等新液化產能 2027 年起投產",
-      "New liquefaction such as Qatar's North Field South starts from 2027"
+      "2027 年仍約 95 艘新船交付；2026 年 10 月現貨運價已較 3 月高點回落八至九成",
+      "About 95 newbuilds still deliver in 2027; spot rates in Oct 2026 were 80–90% below the March peak"
      ]
     ]
    ],
    "why": [
-    "船隊仍在大量交船、短期運力偏多；2027–2030 年新液化產能陸續投產，逐步吸收新船。",
-    "Heavy deliveries keep capacity ample near term; new liquefaction from 2027–30 gradually absorbs the new ships."
+    "本站觀點：2027 年 LNG 偏強。出口量隨新產能與荷姆茲恢復而增加，加上貨源轉向美國、航程拉長，用船需求成長有機會快於船隊；主要風險是新船交付仍多。",
+    "Our view: LNG firms in 2027. Exports rise with new capacity and a Hormuz reopening, and the shift to US supply lengthens voyages, so ship demand can outgrow the fleet; the main risk is the heavy delivery schedule."
    ],
-   "src": {
-    "t": [
-     "Riviera 引述 Drewry、IGU（2026-01-02）",
-     "Riviera citing Drewry and IGU (2 Jan 2026)"
-    ],
-    "u": "https://www.rivieramm.com/news-content-hub/news-content-hub/fleet-surplus-colours-lng-shipping-outlook-for-2026-87001"
-   }
+   "src": [
+    {
+     "t": [
+      "EIA（2026-04-16）",
+      "EIA (16 Apr 2026)"
+     ],
+     "u": "https://www.eia.gov/todayinenergy/detail.php?id=67484"
+    },
+    {
+     "t": [
+      "歐盟理事會通過俄氣禁令（2026-01-26）",
+      "EU Council adopts Russian gas ban (26 Jan 2026)"
+     ],
+     "u": "https://ukranews.com/en/news/1130785-eu-council-adopts-law-on-gradual-abandonment-of-russian-gas-by-end-of-2027"
+    },
+    {
+     "t": [
+      "Riviera 引述 Drewry、IGU",
+      "Riviera citing Drewry, IGU"
+     ],
+     "u": "https://www.rivieramm.com/news-content-hub/news-content-hub/fleet-surplus-colours-lng-shipping-outlook-for-2026-87001"
+    },
+    {
+     "t": [
+      "Ship Universe 運價與交船（2026-10-07）",
+      "Ship Universe on rates and deliveries (7 Oct 2026)"
+     ],
+     "u": "https://www.shipuniverse.com/news/lng-carrier-freight-rates-collapse-83-91-from-wartime-peaks-as-vessel-supply-surges/"
+    }
+   ]
   },
   {
    "id": "lpg",

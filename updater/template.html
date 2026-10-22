@@ -938,6 +938,7 @@ html[lang="en"] .np.fb::after{content:"Illustrative"}
 .ol-f{margin-top:auto;display:flex;justify-content:space-between;gap:10px;align-items:flex-end;padding-top:4px}.ol-go{font-size:12.5px;font-weight:700;white-space:nowrap;color:var(--brand)}
 @media (max-width:1100px){.ol-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.ol-grid{grid-template-columns:1fr}.ol-lead{font-size:15.5px}}
+.ol-lanes{display:flex;flex-direction:column;gap:8px;border-top:1px dashed var(--line-2);padding-top:8px}.ol-lane .ol-h span:first-child{font-weight:700;font-size:13.5px}.ol-lane p{font-size:12.5px;margin:4px 0 2px}
 .site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
@@ -2042,9 +2043,9 @@ function renderHero(){const el=$("#ovHero");if(!el)return;const E=LANG==="en";
 /* patch26: 2027 outlook and sector signals on the overview */
 const OL_SIG={weak:["crit","偏弱","Softening"],neutral:["warn","中性","Neutral"],strong:["good","偏強","Firm"],mixed:["neutral","視荷姆茲而定","Depends on Hormuz"]};
 function renderOutlook(){const el=$("#ovOutlook");if(!el)return;const O=S.outlook,E=LANG==="en";if(!O||!O.sectors){el.innerHTML="";return}
-  const t=a=>esc(Array.isArray(a)?(E?a[1]:a[0]):a||""),lk=s=>s?`<a href="${s.u}" target="_blank" rel="noopener">${t(s.t)}</a>`:"";
+  const t=a=>esc(Array.isArray(a)?(E?a[1]:a[0]):a||""),lk=s=>!s?"":Array.isArray(s)?s.map(x=>lk(x)).join("、"):`<a href="${s.u}"${s.u.startsWith("#")?"":` target="_blank" rel="noopener"`}>${t(s.t)}</a>`;
   const stage=id=>{const x=(STATIC.sectors||[]).find(s=>s.id===id);return x?T(x.stage).replace(/\s*[・·，,]\s*[^・·，,（）()]*2027[^）)]*/,""):null};
-  el.innerHTML=`<div class="card ol-card"><div class="card-h"><h2>${LZ("2027 航運展望","2027 shipping outlook")} <span class="sub">${LZ("研究機構公開預估・整理日 ","Published forecasts · compiled ")}${esc(O.updated)}</span></h2></div>
+  el.innerHTML=`<div class="card ol-card"><div class="card-h"><h2>${LZ("2027 航運展望","2027 shipping outlook")} <span class="sub">${LZ("本站觀點・依研究機構公開預估・整理日 ","Our view · based on published forecasts · compiled ")}${esc(O.updated)}</span></h2></div>
    <p class="ol-lead">${t(O.title)}</p>
    <div class="grid g3 ol-macro">${O.macro.map(m=>`<div class="kpi"><div class="k-name"><span>${t(m.k)}</span></div><div class="k-val">${esc(m.v)}</div><div class="small muted">${t(m.sub)}</div><div class="ol-src">${lk(m.src)}</div></div>`).join("")}</div>
    <div class="ol-grid">${O.sectors.map(s=>{const g=OL_SIG[s.signal]||OL_SIG.neutral,st=s.stage&&stage(s.stage);return `<div class="ol-sec">
@@ -2052,8 +2053,9 @@ function renderOutlook(){const el=$("#ovOutlook");if(!el)return;const O=S.outloo
      ${st?`<div class="ol-now">${LZ("目前景氣位置：","Cycle now: ")}${esc(st)}</div>`:""}
      <dl>${s.rows.map(([k,v])=>`<dt>${t(k)}</dt><dd>${t(v)}</dd>`).join("")}</dl>
      <p>${t(s.why)}</p>
+     ${s.lanes?`<div class="ol-lanes">${s.lanes.map(x=>`<div class="ol-lane"><div class="ol-h"><span>${t(x.n)}</span><span class="chip ${(OL_SIG[x.s]||OL_SIG.neutral)[0]}">${t(x.l)}</span></div><p>${t(x.why)}</p><div class="ol-src">${lk(x.src)}</div></div>`).join("")}</div>`:""}
      <div class="ol-f"><span class="ol-src">${lk(s.src)}</span><a class="ol-go" href="#${s.page}">${LZ("看產業頁 →","Sector page →")}</a></div></div>`}).join("")}</div>
-   <p class="src">${LZ("訊號依各機構公開預估的 2027 年運力成長與需求成長差距判讀：運力快於需求為「偏弱」，需求快於運力為「偏強」。整理自公開報導與機構發布，非本網站預測，亦不構成投資或授信建議。","Signals compare each source's 2027 capacity and demand growth forecasts: capacity ahead of demand reads “softening”, demand ahead reads “firm”. Compiled from published forecasts; not this site's forecast and not investment or credit advice.")}</p></div>`}
+   <p class="src">${LZ("訊號為本站綜合各機構公開預估後的觀點：預期運力成長快於用船需求為「偏弱」，需求快於運力為「偏強」。所列數字皆來自公開報導與機構發布；本站觀點僅供研究參考，不代表本行立場，亦不構成投資或授信建議。","Signals are this site's view after weighing published forecasts: capacity expected to outgrow ship demand reads “softening”, demand ahead of capacity reads “firm”. All figures come from public reports; the view is for research reference only, does not represent the bank and is not investment or credit advice.")}</p></div>`}
 {const _ro=renderOverview;renderOverview=function(){_ro.apply(this,arguments);try{renderOutlook()}catch(e){console.warn("outlook",e)}}}
 
 
