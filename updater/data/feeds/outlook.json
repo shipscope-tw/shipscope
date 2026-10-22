@@ -2,8 +2,8 @@
  "updated": "2026-10-22",
  "note": "人工整理：本站綜合各研究機構公開預估後的觀點（signal），附各機構公開數字。每季（或機構發布新展望後）更新。",
  "title": [
-  "2027 年多數船型運力成長快於需求；貨櫃轉弱、亞歐線壓力最大，LNG 有望受新產能與長程貿易帶動走強",
-  "In 2027 capacity outgrows demand in most segments; containers soften with Asia–Europe hit hardest, while LNG should strengthen on new supply and longer-haul trade"
+  "2027 年多數船型運力成長快於需求；貨櫃轉弱、亞歐線壓力最大；油輪中成品油輪優於原油輪；LNG 有望受新產能與長程貿易帶動走強",
+  "In 2027 capacity outgrows demand in most segments: containers soften with Asia–Europe hit hardest, product tankers beat crude, and LNG should strengthen on new supply and longer hauls"
  ],
  "macro": [
   {
@@ -126,16 +126,32 @@
       "Weakest"
      ],
      "why": [
-      "約 35% 航次已回到蘇伊士運河，每趟往返可省 1–2 週、所需船數減少；新增的超大型貨櫃船也主要投入這條線。",
-      "About 35% of sailings are back through Suez, saving 1–2 weeks per round trip and cutting the ships needed; most new ultra-large ships also go to this trade."
+      "約 35% 航次已回到蘇伊士運河，分析機構與 Maersk 預期 2027 年第一季全面恢復；每趟往返可省 1–2 週、所需船數減少，新增的超大型貨櫃船也主要投入這條線。",
+      "About 35% of sailings are back through Suez, and analysts and Maersk expect a full return by Q1 2027; each round trip saves 1–2 weeks and needs fewer ships, and most new ultra-large ships also go to this trade."
      ],
-     "src": {
-      "t": [
-       "SAFETY4SEA 引述 MSI、Linerlytica（2026-10-01）",
-       "SAFETY4SEA citing MSI, Linerlytica (1 Oct 2026)"
-      ],
-      "u": "https://safety4sea.com/suez-return-gains-momentum-as-asia-europe-capacity-pressures-mount/"
-     }
+     "src": [
+      {
+       "t": [
+        "SAFETY4SEA 引述 MSI、Linerlytica（2026-10-01）",
+        "SAFETY4SEA citing MSI, Linerlytica (1 Oct 2026)"
+       ],
+       "u": "https://safety4sea.com/suez-return-gains-momentum-as-asia-europe-capacity-pressures-mount/"
+      },
+      {
+       "t": [
+        "Seatrade 引述 Linerlytica、BIMCO（2026-10-14）",
+        "Seatrade citing Linerlytica, BIMCO (14 Oct 2026)"
+       ],
+       "u": "https://www.seatrade-maritime.com/containers/full-suez-return-for-container-carriers-expected-by-q1-2027"
+      },
+      {
+       "t": [
+        "Container News：Maersk 預計 2027 年 3 月前全面復航",
+        "Container News: Maersk eyes full Suez return by March 2027"
+       ],
+       "u": "https://container-news.com/maersk-eyes-full-return-to-suez-canal-by-march-2027/"
+      }
+     ]
     },
     {
      "n": [
@@ -212,7 +228,7 @@
     "原油輪",
     "Crude tankers"
    ],
-   "signal": "mixed",
+   "signal": "weak",
    "rows": [
     [
      [
@@ -220,32 +236,51 @@
       "Capacity 2027"
      ],
      [
-      "+7% 至 +8%（荷姆茲開放）；+4.5% 至 +5.5%（封閉）",
-      "+7% to +8% (Hormuz open); +4.5% to +5.5% (closed)"
+      "+7% 至 +8%（荷姆茲開放情境）",
+      "+7% to +8% (Hormuz-open scenario)"
      ]
     ],
     [
      [
-      "2027 需求",
-      "Demand 2027"
+      "航程",
+      "Haul"
      ],
      [
-      "+17% 至 +19.5%（2026 年第四季恢復通航）；封閉則更弱",
-      "+17% to +19.5% (if Hormuz reopens in Q4 2026); weaker if closed"
+      "紅海／蘇伊士航線預期 2027 年第一季全面恢復，中東經蘇伊士往歐洲的航程縮短",
+      "Red Sea/Suez routing is expected to fully return by Q1 2027, shortening Middle East–Europe voyages via Suez"
+     ]
+    ],
+    [
+     [
+      "風險",
+      "Risk"
+     ],
+     [
+      "若荷姆茲恢復通航，中東出口反彈，BIMCO 預估 2027 年需求 +17% 至 +19.5%，短期可能強於預期",
+      "If Hormuz reopens, Middle East exports rebound; BIMCO sees 2027 demand +17% to +19.5%, so the near term could beat expectations"
      ]
     ]
    ],
    "why": [
-    "若荷姆茲恢復通航，2027 年中東出口回升、需求大幅反彈；若持續封閉，庫存耗盡後需求可能再走弱。",
-    "If Hormuz reopens, Middle East exports and demand rebound sharply in 2027; if it stays closed, demand could weaken further as stocks run down."
+    "本站觀點：原油輪 2027 年偏弱。荷姆茲恢復帶來的反彈屬一次性；紅海復航縮短航程、新船交付增加後，運價難以維持目前高檔，遠期運價也已反映回落。",
+    "Our view: crude tankers soften in 2027. A Hormuz rebound is one-off; with shorter Suez routings and more deliveries, rates are unlikely to hold today's highs, and forward rates already price a decline."
    ],
-   "src": {
-    "t": [
-     "BIMCO 油輪市場展望（2026 年 8 月）",
-     "BIMCO tanker outlook (Aug 2026)"
-    ],
-    "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
-   }
+   "src": [
+    {
+     "t": [
+      "BIMCO 油輪市場展望（2026 年 8 月）",
+      "BIMCO tanker outlook (Aug 2026)"
+     ],
+     "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
+    },
+    {
+     "t": [
+      "Seatrade 引述 Linerlytica、BIMCO（2026-10-14）",
+      "Seatrade citing Linerlytica, BIMCO (14 Oct 2026)"
+     ],
+     "u": "https://www.seatrade-maritime.com/containers/full-suez-return-for-container-carriers-expected-by-q1-2027"
+    }
+   ]
   },
   {
    "id": "product",
@@ -255,40 +290,91 @@
     "成品油輪",
     "Product tankers"
    ],
-   "signal": "weak",
+   "signal": "strong",
    "rows": [
     [
      [
-      "2027 運力",
-      "Capacity 2027"
+      "需求面",
+      "Demand side"
      ],
      [
-      "+7.5% 至 +8.5%",
-      "+7.5% to +8.5%"
+      "歐洲結構性缺柴油：2025 年進口逾半來自中東；荷姆茲受阻後，9 月中東對歐出口降至每日 11 萬桶（六年低）",
+      "Europe is structurally short of diesel: over half of 2025 imports came from the Middle East; after Hormuz, September Middle East exports to Europe fell to 110 kb/d (a six-year low)"
      ]
     ],
     [
      [
-      "2027 需求",
-      "Demand 2027"
+      "航程",
+      "Haul"
      ],
      [
-      "+2.5% 至 +4.5%（荷姆茲開放情境）",
-      "+2.5% to +4.5% (Hormuz-open scenario)"
+      "替代貨源轉向美國：美國占歐盟柴油進口約 32%（2025 年 17%），橫越大西洋的長程貿易增加",
+      "Replacement comes from the US: about 32% of EU diesel imports (17% in 2025), adding long-haul Atlantic trade"
+     ]
+    ],
+    [
+     [
+      "價差",
+      "Cracks"
+     ],
+     [
+      "歐洲柴油裂解價差 10 月約 $98／桶、亞洲柴油利潤 9 月創 $87 新高，正常約 $20–40",
+      "European diesel cracks near $98/bbl in October and Asian diesel margins a record $87 in September, vs a normal $20–40"
+     ]
+    ],
+    [
+     [
+      "風險",
+      "Risk"
+     ],
+     [
+      "2027 年運力 +7.5% 至 +8.5%（BIMCO）；紅海復航會縮短中東、印度往歐洲的航程",
+      "2027 capacity +7.5% to +8.5% (BIMCO); a Red Sea return shortens Middle East and India–Europe voyages"
      ]
     ]
    ],
    "why": [
-    "新船持續交付，2025 年底到 2027 年底船隊約成長 13%，明顯快於需求。",
-    "Newbuilds keep arriving: the fleet grows about 13% from end-2025 to end-2027, well ahead of demand."
+    "本站觀點：成品油輪 2027 年相對原油輪看好。歐洲失去俄國柴油後高度依賴進口，俄國煉油廠持續遭攻擊、出口禁令延續，替代貨源來自美國等更遠的地方，長程貿易支撐用船需求。",
+    "Our view: product tankers beat crude in 2027. Having lost Russian diesel, Europe depends on imports; Russian refineries keep being hit and export bans continue, so replacement barrels come from farther away, such as the US, supporting ship demand."
    ],
-   "src": {
-    "t": [
-     "BIMCO 油輪市場展望（2026 年 8 月）",
-     "BIMCO tanker outlook (Aug 2026)"
-    ],
-    "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
-   }
+   "src": [
+    {
+     "t": [
+      "Euronews（2026-09-25）",
+      "Euronews (25 Sep 2026)"
+     ],
+     "u": "https://www.euronews.com/2026/09/25/euronews-explains-what-would-a-us-diesel-export-ban-mean-to-european-countries"
+    },
+    {
+     "t": [
+      "Admiral Markets（2026 年 10 月）",
+      "Admiral Markets (Oct 2026)"
+     ],
+     "u": "https://admiralmarkets.com/analytics/traders-blog/diesel-shortage-october-2026"
+    },
+    {
+     "t": [
+      "Hydrocarbon Processing（2026-09-16）",
+      "Hydrocarbon Processing (16 Sep 2026)"
+     ],
+     "u": "https://www.hydrocarbonprocessing.com/news/2026/09/asia-diesel-refining-margins-at-record-high-of-more-than-87-a-barrel/"
+    },
+    {
+     "t": [
+      "Al-Monitor 引述 Rystad（2026-04-03）",
+      "Al-Monitor citing Rystad (3 Apr 2026)"
+     ],
+     "u": "https://www.al-monitor.com/index%2Ephp/originals/2026/04/european-drivers-choke-rising-diesel-prices"
+    },
+    {
+     "t": [
+      "BIMCO 油輪市場展望（2026 年 8 月）",
+      "BIMCO tanker outlook (Aug 2026)"
+     ],
+     "u": "https://cyprusshippingnews.com/wp-content/uploads/2026/08/Tanker-Shipping-Overview-and-Outlook-August-2026.pdf"
+    }
+   ],
+   "topic": "ruwar"
   },
   {
    "id": "lng",
@@ -316,8 +402,8 @@
       "Haul"
      ],
      [
-      "歐盟 2027 年秋季全面禁止俄國 LNG，歐洲改由美國等較遠貨源補足",
-      "EU fully bans Russian LNG from autumn 2027; Europe replaces it from farther sources such as the US"
+      "歐盟 2027 年 1 月 1 日起全面禁止俄國 LNG（短約已於 2026 年 4 月禁止），歐洲改由美國等較遠貨源補足",
+      "The EU fully bans Russian LNG from 1 Jan 2027 (short-term contracts since Apr 2026); Europe replaces it from farther sources such as the US"
      ]
     ],
     [
@@ -345,13 +431,6 @@
     },
     {
      "t": [
-      "歐盟理事會通過俄氣禁令（2026-01-26）",
-      "EU Council adopts Russian gas ban (26 Jan 2026)"
-     ],
-     "u": "https://ukranews.com/en/news/1130785-eu-council-adopts-law-on-gradual-abandonment-of-russian-gas-by-end-of-2027"
-    },
-    {
-     "t": [
       "Riviera 引述 Drewry、IGU",
       "Riviera citing Drewry, IGU"
      ],
@@ -363,8 +442,16 @@
       "Ship Universe on rates and deliveries (7 Oct 2026)"
      ],
      "u": "https://www.shipuniverse.com/news/lng-carrier-freight-rates-collapse-83-91-from-wartime-peaks-as-vessel-supply-surges/"
+    },
+    {
+     "t": [
+      "Euronews（2026-10-09）",
+      "Euronews (9 Oct 2026)"
+     ],
+     "u": "https://www.euronews.com/2026/10/09/eu-paid-79bn-for-russian-arctic-lng-amid-record-imports"
     }
-   ]
+   ],
+   "topic": "ruwar"
   },
   {
    "id": "lpg",
