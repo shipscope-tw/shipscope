@@ -1009,6 +1009,7 @@ html[lang="en"] .np.fb::after{content:"Illustrative"}
 .nav.so-on .nav-edit{background:var(--brand);color:#fff;border-style:solid}
 .nav.so-on a .so-pin{margin-left:auto}.nav-pin{display:flex;flex-direction:column}
 .nav.so-on .nav-pin{outline:2px dashed color-mix(in srgb,var(--brand) 55%,transparent);outline-offset:2px;border-radius:12px}
+.rf-card .k-val small{font-size:13px;font-weight:600;color:var(--ink-3);margin-left:2px}.rf-crit{color:var(--crit)!important;font-weight:600}.rf-good{color:var(--good)!important;font-weight:600}
 .site-disc{max-width:1200px;margin:28px auto 8px;padding:14px 16px 0;border-top:1px solid var(--line-2);font-size:12px;line-height:1.6;color:var(--ink-3);text-align:center}
 @media (max-width:900px){.site-disc{margin-bottom:80px}}
 </style>
@@ -2151,7 +2152,25 @@ const RUWAR={"asof": "2026-10-22", "kpis": [{"k": ["歐洲柴油裂解價差", "
 function rwSrc(keys){return (keys||[]).map(k=>{const s=RUWAR_SRC[k];return s?`<a href="${safeUrl(s[2])}" target="_blank" rel="noopener">${esc(LANG==="en"?s[1]:s[0])}</a>`:""}).filter(Boolean).join("、")}
 function rwKpis(){const t=olT;return `<div class="grid g4">${RUWAR.kpis.map(f=>`<div class="kpi"><div class="k-name"><span>${t(f.k)}</span></div><div class="k-val">${esc(f.v)}<small>${t(f.u)}</small></div><div class="small" style="color:var(--ink-2)">${t(f.d)}</div><div class="k-foot"><span class="asof">${LZ("整理日 ","As of ")}${RUWAR.asof}</span><span class="src">${rwSrc(f.s)}</span></div></div>`).join("")}</div>`}
 function rwShift(){const t=olT;return `<div class="card"><div class="card-h"><h2>${LZ("歐洲柴油從哪裡來：俄國 → 中東 → 美國","Where Europe's diesel comes from: Russia → Middle East → US")}</h2></div><div class="rw-steps">${RUWAR.shift.map((x,i)=>`<div class="rw-step"><div class="rw-p">${t(x.p)}</div><div><b>${t(x.m)}</b><p>${t(x.d)}</p><div class="src">${rwSrc(x.s)}</div></div></div>`).join("")}</div></div>`}
-function dieselCard(){return `<div class="card rw-card"><div class="card-h"><h2>${LZ("柴油：歐洲缺口撐起成品油輪","Diesel: Europe's shortfall supports product tankers")}</h2><a class="btn" href="#topics" data-tp="ruwar">${LZ("看專題：烏俄戰爭與歐洲柴油","Topic: Russia–Ukraine war and Europe's diesel")}</a></div>${rwKpis()}${rwShift()}</div>`}
+
+/* patch31: US refinery utilisation and distillate balance (EIA weekly) */
+function rfCard(px){const R=S.refinery;if(!R||!R.latest)return "";const L=R.latest,E=LANG==="en";
+  const pc=(a,b)=>a!=null&&b?(a/b-1)*100:null,u=L.util,st=L.dist_stock,ex=L.dist_exp;
+  const k=(nz,ne,v,sub,cls)=>`<div class="kpi"><div class="k-name"><span>${LZ(nz,ne)}</span></div><div class="k-val">${v}</div><div class="small ${cls||"muted"}">${sub}</div></div>`;
+  setTimeout(()=>drawRf(px),0);
+  return `<div class="card rf-card"><div class="card-h"><h2>${LZ("煉油廠開工率與柴油庫存（美國・每週）","Refinery runs and diesel stocks (US, weekly)")}</h2><span class="src">${LZ("資料至 ","Week to ")}${esc(u.date)}・EIA</span></div>
+   <div class="grid g3">${k("煉油廠開工率","Refinery utilisation",`${fmt(u.value,1)}<small>%</small>`,LZ(`五年同期平均 ${fmt(u.avg5,1)}%；去年同期 ${fmt(u.year_ago,1)}%`,`5-yr average ${fmt(u.avg5,1)}%; a year ago ${fmt(u.year_ago,1)}%`))}
+    ${k("餾分油（柴油）庫存","Distillate (diesel) stocks",`${fmt(st.value/1000,1)}<small>${LZ(" 百萬桶"," m bbl")}</small>`,LZ(`比五年同期平均${pc(st.value,st.avg5)<0?"低":"高"} ${fmt(Math.abs(pc(st.value,st.avg5)),1)}%`,`${fmt(Math.abs(pc(st.value,st.avg5)),1)}% ${pc(st.value,st.avg5)<0?"below":"above"} the 5-yr average`),pc(st.value,st.avg5)<0?"rf-crit":"")}
+    ${k("餾分油（柴油）出口","Distillate exports",`${fmt(ex.value,0)}<small>${LZ(" 千桶／日"," kb/d")}</small>`,LZ(`較去年同期 ${pfx(pc(ex.value,ex.year_ago))}；五年同期平均 ${fmt(ex.avg5,0)}`,`${pfx(pc(ex.value,ex.year_ago))} YoY; 5-yr average ${fmt(ex.avg5,0)}`),pc(ex.value,ex.year_ago)>0?"rf-good":"")}</div>
+   <div class="grid g2" style="margin-top:12px"><div><div class="chart-box"><canvas id="rfU_${px}"></canvas></div></div><div><div class="chart-box"><canvas id="rfX_${px}"></canvas></div></div></div>
+   <p class="src">${LZ("美國煉油廠開得滿、庫存偏低但出口仍創高，代表多出來的柴油被送往歐洲等缺口地區，是成品油輪長程貨源。資料：","US refineries are running hard and exporting record diesel despite low stocks — the surplus heads to short markets such as Europe, a long-haul cargo source for product tankers. Source: ")}<a href="${safeUrl(R.source_url)}" target="_blank" rel="noopener">EIA Weekly Petroleum Status Report</a>${LZ("（每週三公布）","(published Wednesdays)")}</p></div>`}
+function drawRf(px){const R=S.refinery;if(!R)return;const cut=new Date(Date.now()-3*365*864e5).toISOString().slice(0,10);
+  const U=R.series.util.filter(r=>r[0]>=cut),X=R.series.dist_exp.filter(r=>r[0]>=cut),acc=css("--s2"),blue=css("--s1"),grey=css("--ink-3");
+  const leg={display:true,position:"bottom",labels:{boxWidth:12,color:css("--ink-2"),font:{family:"Noto Sans TC",size:12}}};
+  const xs={...baseOpts().scales.x,ticks:{...baseOpts().scales.x.ticks,maxTicksLimit:6,callback:function(v){return this.getLabelForValue(v).slice(0,7)}}};
+  mkChart("rfU_"+px,{type:"line",data:{labels:U.map(r=>r[0]),datasets:[{label:LZ("煉油廠開工率（%）","Refinery utilisation (%)"),data:U.map(r=>r[1]),borderColor:blue,backgroundColor:blue+"1f",fill:true,borderWidth:1.8,pointRadius:0}]},options:baseOpts({plugins:{...baseOpts().plugins,legend:leg},scales:{x:xs,y:{...baseOpts().scales.y,min:75,max:100}}})});
+  mkChart("rfX_"+px,{type:"bar",data:{labels:X.map(r=>r[0]),datasets:[{label:LZ("餾分油出口（千桶／日）","Distillate exports (kb/d)"),data:X.map(r=>r[1]),backgroundColor:X.map(r=>r[0]>="2026-01-01"?acc:grey),borderRadius:1,barPercentage:1,categoryPercentage:.9}]},options:baseOpts({plugins:{...baseOpts().plugins,legend:leg},scales:{x:xs,y:{...baseOpts().scales.y,beginAtZero:true}}})})}
+function dieselCard(){return `<div class="card rw-card"><div class="card-h"><h2>${LZ("柴油：歐洲缺口撐起成品油輪","Diesel: Europe's shortfall supports product tankers")}</h2><a class="btn" href="#topics" data-tp="ruwar">${LZ("看專題：烏俄戰爭與歐洲柴油","Topic: Russia–Ukraine war and Europe's diesel")}</a></div>${rwKpis()}${rfCard("t")}${rwShift()}</div>`}
 function renderRuwar(body){const t=olT,E=LANG==="en";
   const ns=allNews().filter(n=>/diesel|gasoil|Russia|Russian|Ukrain|柴油|俄羅斯|俄國|烏克蘭|烏俄/i.test(n.title)).slice(0,12);
   const two=(arr)=>arr.map(([a,b])=>`<li>${esc(E?b:a)}</li>`).join("");
@@ -2170,6 +2189,7 @@ function renderRuwar(body){const t=olT,E=LANG==="en";
    ${sec("rw-s1","01","柴油缺口有多嚴重？","How big is the diesel squeeze?",LZ("柴油裂解價差（柴油價格減原油價格）是煉油廠每桶的毛利，也是柴油供需鬆緊最直接的指標。正常約每桶 $20–40。","The diesel crack (diesel price minus crude) is the refiner's gross margin per barrel and the most direct gauge of diesel tightness; normally $20–40/bbl."))}
    <div class="grid g2"><div class="card"><div class="card-h"><h2>${LZ("各地柴油裂解價差（美元／桶）","Diesel cracks by region ($/bbl)")}</h2></div><div class="chart-box"><canvas id="rwC1"></canvas></div><p class="src">${rwSrc(["admiral","enb","hp"])}・${LZ("歐洲 10/9 為以期貨價推算","Europe 9 Oct is estimated from futures")}</p></div>
     <div class="card"><div class="card-h"><h2>${LZ("美國 3-2-1 裂解價差走勢（每日）","US 3-2-1 crack spread (daily)")}</h2><span class="src">${LZ("每日自動更新","Updates daily")}</span></div><div class="chart-box"><canvas id="rwC2"></canvas></div><p class="src">${LZ("（2×汽油＋1×熱燃油−3×WTI）÷3，NYMEX 近月期貨（經 Yahoo Finance）；虛線為 2025 年平均","(2×gasoline + 1×heating oil − 3×WTI) ÷ 3, NYMEX front-month futures (via Yahoo Finance); dashed line = 2025 average")}</p></div></div>
+   ${rfCard("p")}
    ${sec("rw-s2","02","歐洲柴油從哪裡來：俄國 → 中東 → 美國","Where Europe's diesel comes from: Russia → Middle East → US",LZ("歐盟禁止俄國油品後先轉向中東，2026 年荷姆茲受阻後再轉向美國，貨源一次比一次遠。","After banning Russian products the EU turned to the Middle East, then to the US once Hormuz was blocked in 2026 — each time from farther away."))}
    <div class="grid g2"><div class="card"><div class="card-h"><h2>${LZ("歐洲柴油主要來源（百萬噸）","Europe's main diesel suppliers (Mt)")}</h2></div><div class="chart-box"><canvas id="rwC3"></canvas></div><p class="src">${rwSrc(["spg"])}・${LZ("2022 年美國、印度數字來源未列出","2022 figures for the US and India not given by the source")}</p></div>
     <div class="card"><div class="card-h"><h2>${LZ("美國占歐洲柴油進口比例","US share of Europe's diesel imports")}</h2></div><div class="chart-box"><canvas id="rwC4"></canvas></div><p class="src">${rwSrc(["euronews_us"])}</p></div></div>
@@ -2669,6 +2689,8 @@ const DL={
     D.scrap.years.forEach((y,i)=>rows.push([y,LZ("拆船","Demolition"),LZ("全球拆解量","World demolition"),D.scrap.v[i],LZ("百萬總噸","m GT"),"UNCTADstat"]));
     const L=D.lng;L.trade.forEach(([y,v])=>rows.push([y,"LNG",LZ("全球 LNG 貿易量","Global LNG trade"),v,LZ("百萬噸","Mt"),"IGU"]));L.fleet.forEach(([y,v])=>rows.push([y+"-12-31","LNG",LZ("LNG 船隊（含 FSRU／FSU）","LNG fleet (incl. FSRU/FSU)"),v,LZ("艘","ships"),"IGU"]));L.deliveries.forEach(([y,v])=>rows.push([y,"LNG",LZ("LNG 新船交付","LNG deliveries"),v,LZ("艘","ships"),"IGU"]));
     return ["shipscope_fleet_demand",rows]}},
+  refinery:{zh:"美國煉油廠開工率與柴油（週資料）",en:"US refinery runs and distillate (weekly)",ok:()=>S.refinery?.series?.util?.length,make:()=>{const R=S.refinery.series,ds=[...new Set(Object.values(R).flatMap(s=>s.map(r=>r[0])))].sort(),m=k=>new Map(R[k].map(r=>[r[0],r[1]]));const U=m("util"),I=m("inputs"),St=m("dist_stock"),X=m("dist_exp");
+    return ["shipscope_us_refinery",[[LZ("週末日","Week ending"),LZ("煉油廠開工率（%）","Refinery utilisation (%)"),LZ("煉油投入量（千桶／日）","Gross input (kb/d)"),LZ("餾分油庫存（千桶）","Distillate stocks (k bbl)"),LZ("餾分油出口（千桶／日）","Distillate exports (kb/d)"),LZ("來源","Source")]].concat(ds.map(d=>[d,U.get(d)??"",I.get(d)??"",St.get(d)??"",X.get(d)??"","EIA"]))]}},
   reports:{zh:"市場報導運價",en:"Reported market rates",ok:()=>(S.reports?.items||STATIC.market_reports||[]).length,make:()=>{const R=S.reports?.items||STATIC.market_reports;return ["shipscope_market_rates",[["類別 Sector","項目 Item","數值 Value","單位 Unit","日期 Date","來源 Source","連結 URL"]].concat(R.map(x=>[x.sector,x.name,x.value,x.unit,x.date,x.source,x.url]))]}},
   stocks:{zh:"航運股行情",en:"Shipping stocks",ok:()=>S.stocks?.items?.length,make:()=>{const T=S.stocks.items;return ["shipscope_stocks",[["代號 Symbol","名稱 Name","類別 Sector","市場 Market","價格 Price","幣別 Ccy","漲跌 Chg","漲跌% Chg%","前收 Prev","時間 Time (UTC)","連結 URL"]].concat(T.map(x=>[x.sym,x.zh||x.en||"",x.sector,x.market,x.price,x.currency,x.chg,x.chg_pct,x.prev,x.time,x.url]))]}},
   cp_daily:{zh:"海峽・運河每日通行量（近 500 天）",en:"Straits & canals, daily transits (500 days)",ok:()=>S.choke?.d?.length,make:()=>{const C=S.choke;const rows=[["日期 Date","海峽・運河 Chokepoint","English","總數 Total","油輪 Tanker","貨櫃 Container","散裝 Dry bulk","其他 Other"]];CP_ORDER.forEach(k=>{const c=C.cps[k];if(c)C.d.forEach((d,i)=>rows.push([d,c.zh,c.en,c.total[i],c.tanker[i],c.container[i],c.dry_bulk[i],c.other[i]]))});return ["shipscope_chokepoints_daily",rows]}},
@@ -2705,7 +2727,7 @@ function renderTicker(){const box=$("#ticker"),tr=$("#tkTrack");if(!box||!tr)ret
   tr.innerHTML=html+html; tr.style.setProperty("--tk-dur",Math.max(40,it.length*6)+"s");
   $(".tk-tag",box).textContent=LZ("即時","Live")}
 function renderIndicators(){
-  renderDlGroups("#dlInd",[["指數與價格","Indices & prices",["history","monthly","latest"]],["海峽・港口","Straits & ports",["cp_daily","cp_weekly","ports","portwait"]],["貿易與其他","Trade & other",["trade","supply","reports","stocks"]]]);dlNote("#dlIndNote");
+  renderDlGroups("#dlInd",[["指數與價格","Indices & prices",["history","monthly","latest"]],["海峽・港口","Straits & ports",["cp_daily","cp_weekly","ports","portwait"]],["貿易與其他","Trade & other",["trade","supply","refinery","reports","stocks"]]]);dlNote("#dlIndNote");
   const pg=VIEWS.find(x=>x.id===current&&x.alias)||VIEWS.find(x=>x.id==="container");if(!pg.secs.includes(secTab))secTab=pg.secs[0];
   const tabs=STATIC.sectors.map(s=>[s.id,s.name]).concat([["cost","燃油與原物料"]]).filter(([k])=>pg.secs.includes(k));
   try{renderSecIntro(pg)}catch(e){console.warn("secintro",e)}
@@ -3368,7 +3390,7 @@ async function boot(){
   try{ const CL=window.__SNAPDB||window.claude; db=CL&&CL.use?await CL.use("db"):null }catch(e){db=null}
   if(!db){S.db=false;rerender();return}
   S.db=db; setStatus();
-  db.collection("feeds").onSnapshot(snap=>{snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="indicators")S.indicators=v;if(d.id==="chokepoints")S.choke=v;if(d.id==="carriers")S.carriers=v;if(d.id==="reports")S.reports=v;if(d.id==="meta")S.meta=v;if(d.id==="usports")S.usports=v;if(d.id==="clarksons")S.clarksons=v;if(d.id==="brief")S.brief=v;if(d.id==="stocks")S.stocks=v;if(d.id==="ports")S.ports=v;if(d.id==="hist")S.hist=v;if(d.id==="trade")S.trade=v;if(d.id==="earnings")S.earnings=v;if(d.id==="portwait")S.portwait=v;if(d.id==="supply")S.supply=v;if(d.id==="outlook")S.outlook=v});rerender();if(MAP.map){updateChoke();drawUsPorts();MAP.portIdx=null;drawPorts()}},e=>console.warn("feeds",e));
+  db.collection("feeds").onSnapshot(snap=>{snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="indicators")S.indicators=v;if(d.id==="chokepoints")S.choke=v;if(d.id==="carriers")S.carriers=v;if(d.id==="reports")S.reports=v;if(d.id==="meta")S.meta=v;if(d.id==="usports")S.usports=v;if(d.id==="clarksons")S.clarksons=v;if(d.id==="brief")S.brief=v;if(d.id==="stocks")S.stocks=v;if(d.id==="ports")S.ports=v;if(d.id==="hist")S.hist=v;if(d.id==="trade")S.trade=v;if(d.id==="earnings")S.earnings=v;if(d.id==="portwait")S.portwait=v;if(d.id==="supply")S.supply=v;if(d.id==="outlook")S.outlook=v;if(d.id==="refinery")S.refinery=v});rerender();if(MAP.map){updateChoke();drawUsPorts();MAP.portIdx=null;drawPorts()}},e=>console.warn("feeds",e));
   db.collection("settings").onSnapshot(snap=>{snap.docs.forEach(d=>{if(d.id==="brand")S.brand=d.data()});renderLogo()},e=>console.warn("settings",e));
   db.collection("news").onSnapshot(snap=>{S.news={};snap.docs.forEach(d=>{const v=d.data();if(v)S.news[d.id]=v});rerender()},e=>console.warn("news",e));
   db.collection("research").onSnapshot(snap=>{S.research=snap.docs.map(d=>{const v=d.data();return v?Object.assign({_id:d.id},v):null}).filter(Boolean);rerender()},e=>console.warn("research",e));

@@ -33,6 +33,7 @@ JOBS_FULL = [
     ("trade", ["fetch_trade.py", "trade.json", os.path.join(DATA, "feeds", "trade.json")], 900),
     ("portwait", ["fetch_portwait.py", "portwait.json", os.path.join(DATA, "feeds", "portwait.json")], 300),
     ("supply", ["fetch_unctad.py", "supply.json"], 600),
+    ("refinery", ["fetch_refinery.py", "refinery.json"], 300),
 ]
 JOBS_QUICK = [j for j in JOBS_FULL if j[0] in ("news", "stocks")]
 
@@ -317,7 +318,7 @@ def main():
             meta.update({"news_updated": stamp, "news_days": got["news"].get("days", 10), "news_count": len(got["news"].get("items", []))})
         if "indicators" in got:
             wj(os.path.join(DATA, "feeds", "indicators.json"), merge_indicators(got["indicators"]))
-        for k in ("stocks", "chokepoints", "usports", "carriers", "ports", "trade", "portwait", "supply"):
+        for k in ("stocks", "chokepoints", "usports", "carriers", "ports", "trade", "portwait", "supply", "refinery"):
             if k in got:
                 wj(os.path.join(DATA, "feeds", k + ".json"), got[k])
         if "--quick" not in args:

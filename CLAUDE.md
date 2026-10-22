@@ -40,6 +40,7 @@
 | `fetch_carriers.py` | Alphaliner Top 100 公開版 | `carriers.json` |
 | `fetch_stocks.py` | Yahoo 股市 | `stocks.json` |
 | `fetch_news.py` | 航運媒體 RSS、Bing 新聞 | `data/news/*.json` |
+| `fetch_refinery.py` | EIA 每週石油報告：美國煉油廠開工率、煉油投入量、餾分油（柴油）庫存與出口（每週三公布；與 Bloomberg 等媒體引用的美國數字相同，免費官方資料） | `refinery.json` |
 | `fetch_unctad.py` | UNCTADstat 船隊（載重噸、艘數、船齡）、海運貿易量、港口貨櫃吞吐量、造船與拆船；LNG 數字取自 IGU World LNG Report（程式內手動維護，每年 IGU 發布新年報後更新） | `supply.json` |
 
 「今日重點」（`brief.json`）由 `update_all.py` 的 `build_brief()` 依當天數字套模板產生，不是 AI 生成。
