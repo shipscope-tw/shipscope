@@ -27,7 +27,7 @@
 | `updater/data/brand/` | Logo 原檔 |
 | `updater/template.html` | 網頁版面與前端程式（單一檔，函式庫已內嵌）；資料在建置時注入 `/*__SNAPSHOT__*/null` 標記處 |
 | `updater/make_earnings.py`、`make_earnings_lib.py`、`earnings_extend.py`、`earnings_images.json` | 「法說・財報」頁的人工整理資料與產生程式 |
-| `.github/workflows/update.yml` | 排程：每天台北 07:45、12:45 自動執行並 commit |
+| `.github/workflows/update.yml` | 排程：每天台北 07:45、12:45 自動抓資料、commit 資料、加密網頁並發布到 GitHub Pages |
 
 | 抓取程式 | 來源 | 產出 |
 | --- | --- | --- |
@@ -113,6 +113,15 @@ BIMCO 約每季發布貨櫃、散裝、油輪展望，Clarksons 半年發布業�
 ### 專題「烏俄戰爭與歐洲柴油」
 
 內容寫在 `template.html` 的 `RUWAR`（數字、說明）與 `RUWAR_SRC`（來源連結）常數，油輪頁的「柴油」卡片也用同一份資料。柴油裂解價差、各國進口占比等都是整理日當時的公開報導數字，不會自動更新；有重大變化（例如荷姆茲恢復、歐盟新禁令）時更新數字、來源與 `asof` 日期。
+
+### 網站密碼鎖
+
+網站以 StatiCrypt 加密（AES-256，在瀏覽器端解密），打開網址要輸入密碼，可勾選「記住我（30 天）」。
+- **密碼存放：** GitHub → Settings → Secrets and variables → Actions → `SITE_PASSWORD`。改密碼只要更新這個 Secret，下次自動更新（或在 Actions 頁按 Run workflow）後生效；所有人的「記住我」會失效、需要重新輸入。
+- **發布方式：** Settings → Pages → Source 必須設為「GitHub Actions」。`update.yml` 先建置網頁、再加密，然後用 `deploy` 這一步發布；加密後的網頁不存進 repo（每次內容都不同，存進去會讓 repo 一個月多出數百 MB）。
+- **沒設定 `SITE_PASSWORD` 時**會發布未加密版本，並在 Actions 紀錄顯示警告。
+- **限制：** repo 是公開的，`updater/data` 裡的原始資料與 `template.html` 仍可被看到；密碼只擋「打開網址的人」。要整體保密需改私人 repo 搭配有權限控管的主機，或放到行內內網。
+- 本機測試加密：`npx staticrypt@3.5.4 index.html -p 測試密碼 -d _site`。
 
 ### 拖曳排序與釘選
 

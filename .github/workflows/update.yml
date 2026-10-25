@@ -6,10 +6,12 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["updater/fetchers/**", "updater/update_all.py"]
+    paths: ["updater/**", ".github/workflows/**"]
 permissions:
   contents: write
   actions: write
+  pages: write
+  id-token: write
 concurrency: { group: update, cancel-in-progress: false }
 jobs:
   update:
@@ -22,16 +24,53 @@ jobs:
       - name: Fetch data and build page
         env: { SHIPSCOPE_OUT: "${{ github.workspace }}/index.html" }
         run: python updater/update_all.py
-      - name: Commit
+      - name: Commit data
         run: |
           rm -f updater/update_log.txt
           git config user.name "shipscope-bot"
           git config user.email "shipscope-bot@users.noreply.github.com"
           git add -A index.html updater/data
           git diff --cached --quiet || git commit -m "Data update $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
+          git pull --rebase -X theirs || true
           git push
+      # 網站密碼鎖：用 repo 的 Secret「SITE_PASSWORD」加密網頁（StatiCrypt，AES-256，於瀏覽器端解密）。
+      # 加密後的網頁不存進 repo（每次內容都不同、會讓 repo 快速變大），改用 GitHub Pages 的部署功能發布。
+      # 沒設定密碼時會發布未加密版本並在紀錄中警告。
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - name: Encrypt page
+        env:
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
+          STATICRYPT_SALT: "47eb1b9155bcc1bc77ab7b2d8e15fab4"   # 固定 salt，讓「記住我」在每次更新後仍有效（salt 不是機密）
+        run: |
+          mkdir -p _site
+          if [ -z "$SITE_PASSWORD" ]; then
+            echo "::warning::SITE_PASSWORD 尚未設定，本次發布未加密的網頁"
+            cp index.html _site/index.html
+          else
+            npx --yes staticrypt@3.5.4 index.html -p "$SITE_PASSWORD" -s "$STATICRYPT_SALT" --short --remember 30 -d _site \
+              --template-title "樹說航情 ShipScope" \
+              --template-instructions "本網站為國泰世華銀行同仁自行整理之航運產業研究參考工具，請輸入密碼。" \
+              --template-button "進入" --template-placeholder "密碼" --template-remember "記住我（30 天）" \
+              --template-error "密碼錯誤，請再試一次" --template-toggle-show "顯示密碼" --template-toggle-hide "隱藏密碼" \
+              --template-color-primary "#00826b" --template-color-secondary "#eef3f1"
+          fi
+          touch _site/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: _site }
       - name: Keep schedule alive
         # GitHub 會停用 60 天無活動的公開 repo 排程；每次排程執行時重新啟用自己以重設計時
         if: github.event_name == 'schedule'
         env: { GH_TOKEN: "${{ github.token }}" }
         run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/update.yml/enable" || true
+  deploy:
+    needs: update
+    runs-on: ubuntu-latest
+    # 在 Settings → Pages 的來源改成「GitHub Actions」之前，這一步會失敗但不影響資料更新
+    continue-on-error: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
