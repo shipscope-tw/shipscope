@@ -3,6 +3,7 @@ on:
   schedule:
     - cron: "45 23 * * *"   # 07:45 台北
     - cron: "45 4 * * *"    # 12:45 台北
+    - cron: "45 8 * * *"    # 16:45 台北：補抓前一交易日較晚公布的 BDI（HandyBulk 約台北中午後才更新）、新加坡燃油等
   workflow_dispatch:
   push:
     branches: [main]

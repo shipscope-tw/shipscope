@@ -27,7 +27,7 @@
 | `updater/data/brand/` | Logo 原檔 |
 | `updater/template.html` | 網頁版面與前端程式（單一檔，函式庫已內嵌）；資料在建置時注入 `/*__SNAPSHOT__*/null` 標記處 |
 | `updater/make_earnings.py`、`make_earnings_lib.py`、`earnings_extend.py`、`earnings_images.json` | 「法說・財報」頁的人工整理資料與產生程式 |
-| `.github/workflows/update.yml` | 排程：每天台北 07:45、12:45 自動抓資料、commit 資料、加密網頁並發布到 GitHub Pages |
+| `.github/workflows/update.yml` | 排程：每天台北 07:45、12:45、16:45 自動抓資料、commit 資料、加密網頁並發布到 GitHub Pages |
 
 | 抓取程式 | 來源 | 產出 |
 | --- | --- | --- |
@@ -137,6 +137,7 @@ BIMCO 約每季發布貨櫃、散裝、油輪展望，Clarksons 半年發布業�
 ## 已知狀況
 
 - **排程延遲**：GitHub 尖峰時段排程可能晚數十分鐘才執行，屬正常。
+- **BDI 等散裝指數晚一天**：Baltic Exchange 在倫敦下午（台北晚上）公布，HandyBulk 約隔天台北中午後才更新，所以 16:45 那次更新才會抓到前一交易日的 BDI。
 - **60 天無活動會停用排程**：GitHub 對公開 repo 的規定。`update.yml` 每次排程執行時會呼叫 API 重新啟用自己（「Keep schedule alive」步驟），正常情況不會被停。若仍被停用：Actions → Update ShipScope → Enable workflow。
 - **抓取失敗不會清空資料**：網站會顯示上一次成功的數字與其資料日。
 - **IMF PortWatch 與其他 AIS 追蹤網站的艘數口徑不同**，不可混在同一條序列中比較。
