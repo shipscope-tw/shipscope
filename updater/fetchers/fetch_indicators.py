@@ -52,19 +52,37 @@ if m and dp:
     add(id="wci",name="Drewry WCI 世界貨櫃指數（綜合）",en="Drewry World Container Index",sector="貨櫃",value=int(m.group(2).replace(",","")),unit="US$/40呎櫃",date=dp[0],chg=None,chg_label="",note="；".join(f"上海→{k} ${v:,}" for k,v in rt.items()),series=[],freq="週",**wx,source="Drewry",source_url="https://www.drewry.co.uk/supply-chain-advisors/supply-chain-expertise/world-container-index-assessed-by-drewry")
 # ---- Singapore VLSFO (Ship & Bunker) ----
 t=get("https://shipandbunker.com/prices/apac/sea/sg-sin-singapore")
-for fuel,zh in [("VLSFO","新加坡 VLSFO 極低硫燃油"),("MGO","新加坡 MGO 船用柴油")]:
+MONS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+def sb_series(t,fuel):
+    """Ship & Bunker 每日價格。2026-10 起新版：一張 port-prices 表，欄位為 VLSFO/HSFO/LSMGO/MGO；舊版：每種燃料一張表（caption）。"""
+    rr=[]
+    for tb in re.findall(r'<table class="port-prices">(.*?)</table>',t,re.S):
+        hd=[re.sub(r"<[^>]+>","",h).strip() for h in re.findall(r"<th[^>]*>(.*?)</th>",tb,re.S)]
+        if fuel not in hd or hd[0]!="Date": continue
+        k=hd.index(fuel)
+        for tr in re.findall(r"<tr>(.*?)</tr>",tb,re.S):
+            td=re.findall(r"<td[^>]*>(.*?)</td>",tr,re.S)
+            m=re.search(r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2})",td[0]) if td else None
+            v=re.search(r'class="price-val">([\d,.]+)<',td[k]) if m and len(td)>k else None
+            if v: rr.append((m.group(1),m.group(2),v.group(1)))
+        if rr: return rr
     i=t.find(f'caption="{fuel} in Singapore"')
     if i>0:
         j=t.find("</table>",i); seg=re.sub(r"\s+"," ",re.sub(r"<[^>]+>"," ",t[i:(j if j>i else i+6000)]))
-        rr=re.findall(r"\b[A-Z]?\s?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}) ([\d,.]+) ([+-][\d.]+|unch)",seg)
-        if rr:
-            ser=[]
-            for mo,dd,v,c in rr:
-                mi=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].index(mo)+1
-                y=today.year if mi<=today.month else today.year-1
-                ser.append([f"{y}-{mi:02d}-{int(dd):02d}",float(v.replace(",",""))])
-            ser.sort(); last=ser[-1]
-            add(id=fuel.lower(),name=zh,en=f"Singapore {fuel}",sector="成本",value=last[1],unit="US$/公噸",date=last[0],chg=round(last[1]-ser[-2][1],2) if len(ser)>1 else None,chg_label="較前一日",series=ser,freq="日",source="Ship & Bunker",source_url="https://shipandbunker.com/prices/apac/sea/sg-sin-singapore")
+        rr=[(mo,dd,v) for mo,dd,v,c in re.findall(r"\b[A-Z]?\s?(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) (\d{1,2}) ([\d,.]+) ([+-][\d.]+|unch)",seg)]
+    return rr
+for fuel,zh in [("VLSFO","新加坡 VLSFO 極低硫燃油"),("MGO","新加坡 MGO 船用柴油")]:
+    rr=sb_series(t,fuel)
+    if rr:
+        ser=[]
+        for mo,dd,v in rr:
+            mi=MONS.index(mo)+1
+            y=today.year if mi<=today.month else today.year-1
+            ser.append([f"{y}-{mi:02d}-{int(dd):02d}",float(v.replace(",",""))])
+        ser.sort(); last=ser[-1]
+        add(id=fuel.lower(),name=zh,en=f"Singapore {fuel}",sector="成本",value=last[1],unit="US$/公噸",date=last[0],chg=round(last[1]-ser[-2][1],2) if len(ser)>1 else None,chg_label="較前一日",series=ser,freq="日",source="Ship & Bunker",source_url="https://shipandbunker.com/prices/apac/sea/sg-sin-singapore")
+    else:
+        print(f"WARN Ship & Bunker {fuel}: 找不到價格表（網頁可能改版）",file=sys.stderr)
 # ---- Trading Economics (energy & raw materials) ----
 TE=[("brent","brent-crude-oil","Brent 布蘭特原油","Brent crude","US$/桶","油輪"),("wti","crude-oil","WTI 原油","WTI crude","US$/桶","油輪"),("ttf","eu-natural-gas","TTF 歐洲天然氣","EU natural gas TTF","€/MWh","LNG"),("hh","natural-gas","Henry Hub 美國天然氣","US natural gas","US$/MMBtu","LNG"),("propane","propane","丙烷（Mont Belvieu）","Propane","US$/加侖","LPG"),("ironore","iron-ore","鐵礦砂 (62% Fe)","Iron ore","US$/公噸","散裝"),("coal","coal","Newcastle 煤炭","Coal","US$/公噸","散裝"),("soy","soybeans","黃豆","Soybeans","US¢/英斗","散裝"),("steel","steel","中國螺紋鋼","Steel rebar","CNY/公噸","散裝")]
 for id_,slug,zh,en,u,sec in TE:
