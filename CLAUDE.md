@@ -146,3 +146,6 @@ BIMCO 約每季發布貨櫃、散裝、油輪展望，Clarksons 半年發布業�
 
 - 專案屬於 GitHub 組織 `shipscope-tw`。交接時把接手者加為組織 Owner，組織至少保持兩位管理員。
 - 沒有任何外部服務帳號、API 金鑰或付費訂閱需要移交。
+- **兩步驟驗證（2FA）：** GitHub 自 2026-11-30 起要求維護者帳號開啟 2FA。接手者加入前請先開好（Settings → Password and authentication，建議驗證 App ＋ GitHub Mobile 或 Passkey 兩種以上），並把復原碼（Recovery codes）存在自己安全的地方，**不可放進本 repo**（repo 是公開的）。
+- 2FA 遺失又沒有復原碼時，GitHub 客服無法救回帳號；這也是組織要保持兩位管理員的原因，另一位仍可管理 repo、Secrets 與 Pages 設定。
+- 2FA 只影響人登入 GitHub 網頁；每日自動更新用的是 Actions 內建權限，不受影響。
