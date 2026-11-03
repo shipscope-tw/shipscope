@@ -34,19 +34,18 @@ jobs:
           git diff --cached --quiet || git commit -m "Data update $(TZ=Asia/Taipei date '+%Y-%m-%d %H:%M')"
           git pull --rebase -X theirs || true
           git push
-      # 網站密碼鎖：用 repo 的 Secret「SITE_PASSWORD」加密網頁（StatiCrypt，AES-256，於瀏覽器端解密）。
-      # 加密後的網頁不存進 repo（每次內容都不同、會讓 repo 快速變大），改用 GitHub Pages 的部署功能發布。
-      # 沒設定密碼時會發布未加密版本並在紀錄中警告。
+      # 網站目前不設密碼（2026-11-03 起），直接發布 index.html。
+      # 要恢復密碼鎖：把下面 SITE_LOCK 改成 "on"，並確認 repo Secret「SITE_PASSWORD」已設定。
       - uses: actions/setup-node@v4
         with: { node-version: "20" }
-      - name: Encrypt page
+      - name: Prepare page
         env:
+          SITE_LOCK: "off"
           SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
           STATICRYPT_SALT: "47eb1b9155bcc1bc77ab7b2d8e15fab4"   # 固定 salt，讓「記住我」在每次更新後仍有效（salt 不是機密）
         run: |
           mkdir -p _site
-          if [ -z "$SITE_PASSWORD" ]; then
-            echo "::warning::SITE_PASSWORD 尚未設定，本次發布未加密的網頁"
+          if [ "$SITE_LOCK" != "on" ] || [ -z "$SITE_PASSWORD" ]; then
             cp index.html _site/index.html
           else
             npx --yes staticrypt@3.5.4 index.html -p "$SITE_PASSWORD" -s "$STATICRYPT_SALT" --short --remember 30 -d _site \
