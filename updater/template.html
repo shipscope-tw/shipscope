@@ -1590,6 +1590,11 @@ const WORLD = {"type":"Topology","objects":{"countries":{"type":"GeometryCollect
 </script>
 <script>
 "use strict";
+/* ---------- keep in-page links local (saved copies) ---------- */
+const SELF_RE=/^https?:\/\/shipscope-tw\.github\.io\/shipscope\/?(?:index\.html)?(#[^\s]*)?$/i;
+function fixSelfLink(el){const h=el.getAttribute("href")||"";const m=h.match(SELF_RE);if(m){el.setAttribute("href",m[1]||"#overview");el.removeAttribute("target")}}
+document.addEventListener("click",e=>{const el=e.target&&e.target.closest&&e.target.closest("a[href]");if(el)fixSelfLink(el)},true);
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll('a[href*="shipscope-tw.github.io"]').forEach(fixSelfLink)});
 /* ---------- i18n ---------- */
 let LANG=(()=>{try{return localStorage.getItem("lang")||((navigator.language||"").startsWith("zh")?"zh":"en")}catch(e){return "zh"}})();
 const I18N=window.I18N||{}, I18N_T=window.I18N_T||{};
