@@ -1,5 +1,5 @@
 {
-"updated": "2026-10-16",
+"updated": "2026-11-24",
 "note": [
 "數字取自公司公告或所列新聞報導；標「推算」者為依公布的累計數相減而得。台灣公司為新台幣，其他依各公司報告幣別。",
 "Figures are from company releases or the cited press reports; items marked 'derived' are arithmetic from reported totals. Each company in its reporting currency."
@@ -132,59 +132,92 @@
 ],
 "ir": "https://www.evergreen-marine.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14，通常 11 月中公布",
-"Statutory deadline 14 Nov; usually mid-November"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "periods": [
 {
 "p": "2026Q3",
-"kind": "flash",
-"date": "2026-10-09",
+"date": "2026-11-12",
 "title": [
-"第三季營收快報＋10/8 法說會（財報尚未公布）",
-"Q3 revenue flash + 8 Oct investor call (results pending)"
+"第三季財報",
+"Q3 results"
 ],
 "kpis": [
 {
 "k": [
-"Q3 營收（7–9 月加總）",
-"Q3 revenue (Jul–Sep)"
+"營收",
+"Revenue"
 ],
 "v": [
 "1,467.8 億元",
 "NT$146.8bn"
 ],
-"yoy": 51.4,
-"qoq": 39.6,
-"note": [
-"依月營收加總；年增率以累計營收回推",
-"Sum of monthly revenue; YoY derived from YTD figures"
-],
-"derived": true
-},
-{
-"k": [
-"9 月營收",
-"September revenue"
-],
-"v": [
-"497.1 億元",
-"NT$49.7bn"
-],
-"yoy": 63.75,
+"yoy": 51.44,
 "qoq": null,
 "note": null,
 "derived": false
 },
 {
 "k": [
-"前 9 月累計營收",
-"Jan–Sep revenue"
+"稅後淨利（歸屬母公司）",
+"Net profit to owners"
+],
+"v": [
+"466.2 億元",
+"NT$46.6bn"
+],
+"yoy": 114.36,
+"qoq": null,
+"note": [
+"淨利率 31.76%",
+"Net margin 31.76%"
+],
+"derived": false
+},
+{
+"k": [
+"EPS",
+"EPS"
+],
+"v": [
+"21.53 元",
+"NT$21.53"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"公司史上單季第三高；Q2 為 7.41 元",
+"Third-highest quarter on record; Q2: NT$7.41"
+],
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"32.77 元",
+"NT$32.77"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季淨利 709.5 億元、年增 18.13%，已超過 2025 全年",
+"9M net NT$70.95bn, +18.13% YoY, above all of 2025"
+],
+"derived": false
+},
+{
+"k": [
+"前三季營收",
+"9M revenue"
 ],
 "v": [
 "3,384.5 億元",
@@ -198,8 +231,12 @@
 ],
 "hl": [
 [
-"法說會（10/8）：旺季提早且延續到 9 月，第三季運價走高；9 月營收年增 63.75%，受十一長假前出貨潮與天候改善帶動。",
-"Investor call (8 Oct): peak season came early and lasted into September, lifting Q3 rates; September revenue +63.75% YoY on pre-Golden Week shipments and better weather."
+"第三季延續第二季需求動能、整季維持旺季；地緣政治與主要港口塞港降低有效運力，使供需偏緊。",
+"Q3 carried Q2's momentum and stayed in peak season all quarter; geopolitics and congestion at major ports cut effective capacity and kept supply tight."
+],
+[
+"單季淨利年增 1.1 倍、一季賺逾兩個股本；前三季淨利率 20.96%。",
+"Quarterly net profit more than doubled YoY (over two times paid-in capital); 9M net margin 20.96%."
 ],
 [
 "貨量：遠東—美國約 +5.1%、遠東—歐洲約 +12.2%；目前運價「美線強、歐線弱」，歐線 4 月因美伊衝突大漲、7 月後逐週緩跌。",
@@ -216,8 +253,12 @@
 ],
 "gd": [
 [
-"11 月前訂艙「非常樂觀」，12 月接春節前拉貨；第四季營收預估年增微幅成長。",
-"Bookings through November are 'very optimistic', with pre-Lunar New Year cargo in December; Q4 revenue expected to grow slightly YoY."
+"公司將優化航線網絡與貨源結構，持續布局全球關鍵碼頭與物流設施；未提供數字指引。",
+"Will optimise its network and cargo mix and keep building out key terminals and logistics; no numeric guidance."
+],
+[
+"10/8 法說會：11 月前訂艙「非常樂觀」，12 月接春節前拉貨；第四季營收預估年增微幅成長。",
+"8 Oct call: Bookings through November are 'very optimistic', with pre-Lunar New Year cargo in December; Q4 revenue expected to grow slightly YoY."
 ],
 [
 "美國線「春節前看不出任何悲觀理由」；美國現貨價明顯高於去年第四季長約談判價，看好明年長約價格高於今年。",
@@ -234,20 +275,20 @@
 [
 "船隊：2030 年約 290 艘、274 萬 TEU，其中 55 艘雙燃料（約占運能 32.8%）；2025 年 11 月已訂 14 艘 1.4 萬 TEU LNG 雙燃料船（三星重工、廣船國際各 7 艘，總價 24.5–28.7 億美元）。",
 "Fleet plan: ~290 ships / 2.74m TEU by 2030, 55 dual-fuel (~32.8% of capacity); 14×14,000 TEU LNG dual-fuel ships ordered Nov 2025 (7 Samsung HI, 7 GSI; US$2.45–2.87bn)."
-],
-[
-"獲利將於 11 月中第三季財報公布。",
-"Q3 profit due mid-November."
 ]
 ],
 "src": [
 {
-"t": "中央社：長榮法說（2026/10/08）",
-"u": "https://cna.com.tw/news/afe/202610080235.aspx"
+"t": "中央社：貨櫃三雄第三季財報（2026/11/12）",
+"u": "https://www.cna.com.tw/news/afe/202611120321.aspx"
 },
 {
-"t": "Winvest 營收快訊（2026/10/09）",
-"u": "https://winvest.tw/News/Detail/95592"
+"t": "鉅亨網：長榮 Q3 獲利倍增（2026/11/12）",
+"u": "https://news.cnyes.com/news/id/6660736"
+},
+{
+"t": "中央社：長榮法說（2026/10/08）",
+"u": "https://cna.com.tw/news/afe/202610080235.aspx"
 },
 {
 "t": "Yahoo 新聞：長榮訂造 14 艘 LNG 雙燃料船",
@@ -502,28 +543,27 @@
 ],
 "ir": "https://www.yangming.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14，通常 11 月中公布並舉行法說",
-"Deadline 14 Nov; results and investor call usually mid-November"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "periods": [
 {
 "p": "2026Q3",
-"kind": "flash",
-"date": "2026-10-09",
+"date": "2026-11-12",
 "title": [
-"第三季營收快報＋9/22 法說會（財報尚未公布）",
-"Q3 revenue flash + 22 Sep investor call (results pending)"
+"第三季財報",
+"Q3 results"
 ],
 "kpis": [
 {
 "k": [
-"Q3 營收（7–9 月加總）",
-"Q3 revenue (Jul–Sep)"
+"營收",
+"Revenue"
 ],
 "v": [
 "641.5 億元",
@@ -532,29 +572,66 @@
 "yoy": 52.4,
 "qoq": 39.7,
 "note": [
-"依累計營收回推",
-"Derived from YTD revenue"
+"年增、季增依累計營收回推",
+"YoY/QoQ derived from YTD revenue"
 ],
 "derived": true
 },
 {
 "k": [
-"9 月營收",
-"September revenue"
+"稅後淨利（歸屬母公司）",
+"Net profit to owners"
 ],
 "v": [
-"217.0 億元",
-"NT$21.7bn"
+"185.7 億元",
+"NT$18.6bn"
 ],
-"yoy": 69.94,
+"yoy": null,
 "qoq": null,
-"note": null,
+"note": [
+"超過上半年合計 71.7 億元",
+"Above all of H1 (NT$7.17bn)"
+],
 "derived": false
 },
 {
 "k": [
-"前 9 月累計營收",
-"Jan–Sep revenue"
+"EPS",
+"EPS"
+],
+"v": [
+"5.32 元",
+"NT$5.32"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"創 11 季新高；去年同期 1.73 元、Q2 1.64 元",
+"11-quarter high; Q3 2025 NT$1.73, Q2 NT$1.64"
+],
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"7.37 元",
+"NT$7.37"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季淨利 257.4 億元",
+"9M net NT$25.7bn"
+],
+"derived": false
+},
+{
+"k": [
+"前三季營收",
+"9M revenue"
 ],
 "v": [
 "1,487.3 億元",
@@ -568,8 +645,8 @@
 ],
 "hl": [
 [
-"9 月營收年增近七成（整體運價上漲），第三季營收比第二季多約四成。",
-"September revenue up ~70% YoY on higher rates; Q3 revenue ~40% above Q2."
+"第三季單季獲利超過上半年合計，EPS 為 11 季以來最高；以歐美長程線為主，運價上漲時彈性大。",
+"Q3 profit exceeded all of H1 and EPS was the highest in 11 quarters; its long-haul Europe/US weighting gives high rate sensitivity."
 ],
 [
 "法說會（9/22）：上半年運量 223.6 萬 TEU、年增 3.9%（歐洲線 +10%、美國線 +7.8%）；營收比重歐洲 39%、美國 36%、亞洲 25%（中東與紅海停航使亞洲比重下降）。",
@@ -582,8 +659,16 @@
 ],
 "gd": [
 [
-"第四季歐美進入淡季，市況「緩步修正」：歐美線運價微幅修正；亞洲線進入旺季，運價有望優於第三季。",
-"Q4: Europe/US enter the slack season with a gradual correction; intra-Asia enters peak season and may beat Q3."
+"預期第四季需求相對穩定；明年農曆年較早，年底前可望出現出貨潮，港口供應鏈瓶頸持續有助市況。",
+"Expects stable Q4 demand; an earlier Lunar New Year should bring a year-end rush, and persistent port bottlenecks support the market."
+],
+[
+"將購置新加坡辦公室，作為區域營運據點。",
+"Buying an office in Singapore as a regional hub."
+],
+[
+"9/22 法說會：第四季歐美進入淡季，市況「緩步修正」：歐美線運價微幅修正；亞洲線進入旺季，運價有望優於第三季。",
+"22 Sep call: Q4: Europe/US enter the slack season with a gradual correction; intra-Asia enters peak season and may beat Q3."
 ],
 [
 "美東線因巴拿馬運河限制與亞洲塞港，艙位缺口可能持續、運價可望維持高檔；美西線不會與美東脫鉤。",
@@ -604,16 +689,16 @@
 ],
 "src": [
 {
+"t": "中央社：貨櫃三雄第三季財報（2026/11/12）",
+"u": "https://www.cna.com.tw/news/afe/202611120321.aspx"
+},
+{
 "t": "富果：陽明 9/22 法說摘要",
 "u": "https://blog.fugle.tw/post/earnings-call-2609-2026-09-22"
 },
 {
 "t": "陽明法說簡報（公開資訊觀測站）",
 "u": "https://mopsov.twse.com.tw/nas/STR/260920260922M001.pdf"
-},
-{
-"t": "Winvest 營收快訊（2026/10/09）",
-"u": "https://winvest.tw/News/Detail/96027"
 },
 {
 "t": "旺得富（2026/09/24）",
@@ -870,59 +955,86 @@
 ],
 "ir": "https://www.wanhai.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "periods": [
 {
 "p": "2026Q3",
-"kind": "flash",
-"date": "2026-10-09",
+"date": "2026-11-11",
 "title": [
-"第三季營收快報（財報尚未公布）",
-"Q3 revenue flash (results not yet released)"
+"第三季財報",
+"Q3 results"
 ],
 "kpis": [
 {
 "k": [
-"Q3 營收（7–9 月加總）",
-"Q3 revenue (Jul–Sep)"
+"營收",
+"Revenue"
 ],
 "v": [
 "596.2 億元",
 "NT$59.6bn"
 ],
 "yoy": 70.2,
-"qoq": 39.0,
-"note": [
-"依累計營收回推",
-"Derived from YTD revenue"
-],
-"derived": true
-},
-{
-"k": [
-"9 月營收",
-"September revenue"
-],
-"v": [
-"217.8 億元",
-"NT$21.8bn"
-],
-"yoy": 97.63,
 "qoq": null,
 "note": null,
 "derived": false
 },
 {
 "k": [
-"前 9 月累計營收",
-"Jan–Sep revenue"
+"稅後淨利（歸屬母公司）",
+"Net profit to owners"
+],
+"v": [
+"217.9 億元",
+"NT$21.8bn"
+],
+"yoy": 87.24,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"EPS",
+"EPS"
+],
+"v": [
+"7.77 元",
+"NT$7.77"
+],
+"yoy": 87.23,
+"qoq": 89.05,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"14.61 元",
+"NT$14.61"
+],
+"yoy": 91.23,
+"qoq": null,
+"note": [
+"前三季淨利 410.0 億元、年增 91.16%；已超過 2025 全年 EPS 11.21 元",
+"9M net NT$41.0bn, +91.16%; above FY2025 EPS of NT$11.21"
+],
+"derived": false
+},
+{
+"k": [
+"前三季營收",
+"9M revenue"
 ],
 "v": [
 "1,361.6 億元",
@@ -936,24 +1048,36 @@
 ],
 "hl": [
 [
-"9 月營收年增近一倍，為三雄中年增幅最大；7 月單月自結 EPS 2.17 元。",
-"September revenue nearly doubled YoY, the fastest of the big three; July self-reported EPS was NT$2.17."
+"單季 EPS 7.77 元，季增 89%、年增 87%；前三季 EPS 已超過去年全年。",
+"Q3 EPS NT$7.77, +89% QoQ and +87% YoY; 9M EPS already exceeds all of last year."
+],
+[
+"採購約 11 萬只新貨櫃、金額約 107 億元，為公司單筆金額與數量最大；船隊平均船齡 8.8 年（全球平均 14.1 年）。",
+"Ordering ~110k new containers for ~NT$10.7bn, its largest single purchase; average fleet age 8.8 years vs 14.1 globally."
 ]
 ],
 "gd": [
 [
-"獲利將於 11 月中公布；7 月自結數字未經查核，不宜直接乘三推估全季。",
-"Profit due mid-November; July's unaudited figure should not simply be tripled."
+"第四季亞洲區間進入傳統旺季，運價與貨量可望有撐；美線進入淡季，運價預期較第三季修正，節慶備貨與庫存回補仍有支撐。",
+"Q4: intra-Asia peak season should support rates and volumes; transpacific enters the slack season with rates expected below Q3, though holiday restocking helps."
+],
+[
+"第四季計畫出售 3 艘 5,600 TEU 船；2027–2030 年約 42 艘新船、約 47.5 萬 TEU 交付，運能朝 100 萬 TEU 邁進。",
+"Plans to sell three 5,600 TEU ships in Q4; ~42 newbuilds (~475k TEU) due 2027–2030, heading toward 1m TEU."
+],
+[
+"市場關注深圳 APEC、邁阿密 G20 及美中對港口費與關稅的協商。",
+"Watching APEC in Shenzhen, the G20 in Miami and US–China talks on port fees and tariffs."
 ]
 ],
 "src": [
 {
-"t": "Winvest 營收快訊（2026/10/09）",
-"u": "https://winvest.tw/en/News/Detail/96031"
+"t": "旺得富：萬海第三季財報（2026/11/11）",
+"u": "https://wantrich.chinatimes.com/news/20261111900458-420101"
 },
 {
-"t": "理財周刊（2026/09/04）",
-"u": "https://www.moneyweekly.com.tw/_Article?AID=246905"
+"t": "中央社：貨櫃三雄第三季財報（2026/11/12）",
+"u": "https://www.cna.com.tw/news/afe/202611120321.aspx"
 }
 ]
 },
@@ -1245,15 +1369,133 @@
 ],
 "ir": "https://investor.maersk.com/financials/financial-reports",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-05",
-"approx": false,
+"p": "2026Q4",
+"date": "2027-02",
+"approx": true,
 "note": [
-"第三季報告 11/5 公布",
-"Q3 interim report on 5 Nov"
+"2026 年報，預計 2 月初",
+"FY2026 annual report, expected early February"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-05",
+"gdir": "up",
+"title": [
+"第三季報告",
+"Q3 interim report"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"181 億美元",
+"US$18.1bn"
+],
+"yoy": 27,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"EBITDA",
+"EBITDA"
+],
+"v": [
+"47 億美元",
+"US$4.7bn"
+],
+"yoy": 75,
+"qoq": null,
+"note": [
+"低於市場預估 50.4 億美元（LSEG）",
+"Below the LSEG consensus of US$5.04bn"
+],
+"derived": false
+},
+{
+"k": [
+"EBIT",
+"EBIT"
+],
+"v": [
+"33 億美元",
+"US$3.3bn"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"EBIT 率 18.1%",
+"Margin 18.1%"
+],
+"derived": false
+},
+{
+"k": [
+"海運 EBIT",
+"Ocean EBIT"
+],
+"v": [
+"26 億美元",
+"US$2.6bn"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 5.67 億美元；Q2 為 9.35 億",
+"Q3 2025: US$567m; Q2: US$935m"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"運價較上季上升、較去年同期倍增，海運 EBIT 由 5.67 億升至 26 億美元；船舶利用率 96%，但海運貨量大致與去年持平。",
+"Rates rose QoQ and more than doubled YoY, lifting Ocean EBIT from US$567m to US$2.6bn; utilisation 96%, but Ocean volumes were roughly flat YoY."
+],
+[
+"物流與服務營收 +13%、EBIT 率 5.8%；碼頭營收創新高，吞吐量 +2.6%、利用率 85%。",
+"Logistics & Services revenue +13%, EBIT margin 5.8%; Terminals posted record revenue, volumes +2.6%, utilisation 85%."
+],
+[
+"EBITDA 低於市場預估，股價當日下跌約 11%。",
+"EBITDA missed consensus and the shares fell about 11% on the day."
+]
+],
+"gd": [
+[
+"全年基礎 EBITDA 第三度上修至 140–145 億美元（前次 105–125 億）；基礎 EBIT 80–85 億美元（前次 45–65 億）。",
+"FY underlying EBITDA raised for the third time to US$14.0–14.5bn (prior US$10.5–12.5bn); EBIT US$8.0–8.5bn (prior US$4.5–6.5bn)."
+],
+[
+"預估 2026 年全球貨櫃需求成長約 4%；分析師提醒，船舶回到蘇伊士運河與新船交付後，塞港帶來的運力吸收將逐步消退。",
+"Expects ~4% global container demand growth in 2026; analysts warn congestion-driven capacity absorption will fade as ships return to Suez and newbuilds arrive."
+],
+[
+"訂造 26 艘 18,600 TEU 雙燃料船（2029–2030 年交付）；10 億美元庫藏股持續執行。",
+"Ordered 26 dual-fuel 18,600 TEU ships for 2029–2030 delivery; US$1bn buyback continues."
+]
+],
+"src": [
+{
+"t": "Baird Maritime（2026/11/05）",
+"u": "https://www.bairdmaritime.com/shipping/boxships/maersk-shares-fall-despite-third-profit-guidance-raise-in-2026"
+},
+{
+"t": "FoodBusiness MEA：Maersk Q3",
+"u": "https://www.foodbusinessmea.com/?p=2165405"
+},
+{
+"t": "Maersk 財報下載",
+"u": "https://investor.maersk.com/financials/financial-reports"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-13",
@@ -1506,15 +1748,153 @@
 ],
 "ir": "https://www.hapag-lloyd.com/en/ir/publications/financial-report.html",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-12",
-"approx": false,
+"p": "2026Q4",
+"date": "2027-03",
+"approx": true,
 "note": [
-"第三季報告 11/12（依市場行事曆）",
-"Q3 statement on 12 Nov (market calendar)"
+"2026 年報，預計 3 月",
+"FY2026 annual report, expected March"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-12",
+"gdir": "up",
+"title": [
+"第三季報告",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"68.8 億美元",
+"US$6.88bn"
+],
+"yoy": 26,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"EBITDA",
+"EBITDA"
+],
+"v": [
+"17.3 億美元",
+"US$1.73bn"
+],
+"yoy": 100,
+"qoq": null,
+"note": [
+"去年同期 8.66 億美元",
+"Q3 2025: US$866m"
+],
+"derived": false
+},
+{
+"k": [
+"EBIT",
+"EBIT"
+],
+"v": [
+"10.9 億美元",
+"US$1.09bn"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 2.28 億美元",
+"Q3 2025: US$228m"
+],
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Group profit"
+],
+"v": [
+"9.99 億美元",
+"US$999m"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 1.72 億；前九月 8.27 億（去年 9.46 億）",
+"Q3 2025: US$172m; 9M US$827m (vs US$946m)"
+],
+"derived": false
+},
+{
+"k": [
+"平均運價",
+"Avg freight rate"
+],
+"v": [
+"1,808 美元/TEU",
+"US$1,808/TEU"
+],
+"yoy": 28,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"貨量",
+"Volume"
+],
+"v": [
+"338 萬 TEU",
+"3.38m TEU"
+],
+"yoy": -0.6,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"即期運價走強，平均運價年增 28%、貨量大致持平；單季淨利由 1.72 億升至近 10 億美元。",
+"Firm spot rates lifted the average rate 28% YoY with flat volumes; quarterly profit rose from US$172m to nearly US$1bn."
+],
+[
+"前九月淨利仍低於去年同期（上半年受荷姆茲成本拖累）；碼頭與基礎設施營收 1.97 億、EBIT 0.34 億美元。",
+"9M profit is still below last year (H1 hit by Hormuz costs); Terminal & Infrastructure revenue US$197m, EBIT US$34m."
+]
+],
+"gd": [
+[
+"11/11 再上修全年：EBITDA 46–50 億美元、EBIT 20–24 億美元（前次 39–44 億、12.5–17.5 億）。",
+"Raised FY again on 11 Nov: EBITDA US$4.6–5.0bn, EBIT US$2.0–2.4bn (prior US$3.9–4.4bn and US$1.25–1.75bn)."
+],
+[
+"公司提醒運價波動與地緣政治使展望仍有相當不確定性。",
+"Outlook remains subject to considerable uncertainty from volatile rates and geopolitics."
+],
+[
+"併購 ZIM：預計 2027 年第一季取得監管核准。",
+"ZIM takeover: regulatory approvals expected in Q1 2027."
+]
+],
+"src": [
+{
+"t": "FreightWaves（2026/11/12）",
+"u": "https://www.freightwaves.com/?p=585953"
+},
+{
+"t": "Hapag-Lloyd 財報下載",
+"u": "https://www.hapag-lloyd.com/en/ir/publications/financial-report.html"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-13",
@@ -1847,15 +2227,131 @@
 ],
 "ir": "https://www.cmacgm-group.com/en/finance",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"預計 11 月公布",
-"Expected in November"
+"2026 年報，預計 3 月",
+"FY2026 results, expected March"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-13",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"184 億美元",
+"US$18.4bn"
+],
+"yoy": 31.1,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"EBITDA",
+"EBITDA"
+],
+"v": [
+"47.8 億美元",
+"US$4.78bn"
+],
+"yoy": 61.6,
+"qoq": null,
+"note": [
+"EBITDA 率 25.9%",
+"Margin 25.9%"
+],
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net income"
+],
+"v": [
+"23.2 億美元",
+"US$2.32bn"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 7.6 億美元",
+"Q3 2025: US$760m"
+],
+"derived": false
+},
+{
+"k": [
+"海運每 TEU 收入",
+"Shipping revenue/TEU"
+],
+"v": [
+"1,891 美元",
+"US$1,891"
+],
+"yoy": 30.0,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"海運貨量",
+"Shipping volume"
+],
+"v": [
+"651 萬 TEU",
+"6.51m TEU"
+],
+"yoy": 5.5,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"海運 EBITDA 40 億美元（去年同期 22.4 億），EBITDA 率 32.4%，量價齊揚。",
+"Shipping EBITDA US$4.0bn (vs US$2.24bn), margin 32.4%, on both volumes and rates."
+],
+[
+"物流（CEVA）營收 54.6 億美元、+19.2%，但 EBITDA 3.66 億、−14.4%：貨運代理承壓、汽車產業疲弱。",
+"Logistics (CEVA) revenue US$5.46bn (+19.2%) but EBITDA US$366m (−14.4%) on forwarding pressure and weak autos."
+],
+[
+"碼頭、航空貨運等其他業務營收 +27.1%、EBITDA +41.9%。",
+"Other activities: revenue +27.1%, EBITDA +41.9%."
+]
+],
+"gd": [
+[
+"預期未來幾個月海運貨量持續成長，第二季以來上漲的運價提供支撐。",
+"Expects maritime volumes to keep growing, with rates rising since Q2 supporting the business."
+],
+[
+"中東航線受擾、營運成本上升與貿易政策變化使展望仍不確定；將以「審慎且靈活」方式經營。",
+"Middle East route disruption, higher costs and shifting trade policy keep the outlook uncertain; 'prudent and responsive' approach."
+]
+],
+"src": [
+{
+"t": "AJOT：CMA CGM Q3 2026",
+"u": "https://www.ajot.com/news/cma-cgm-q3-2026-results"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-07-28",
@@ -2102,15 +2598,136 @@
 ],
 "ir": "https://hold.coscoshipping.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-10-31",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"A 股第三季報法定期限 10/31，通常 10 月底公布",
-"A-share Q3 deadline 31 Oct; usually end-October"
+"2026 年報，預計 3 月底",
+"FY2026 annual results, expected end-March"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-10-29",
+"title": [
+"第三季報",
+"Q3 report"
+],
+"kpis": [
+{
+"k": [
+"Q3 營收",
+"Q3 revenue"
+],
+"v": [
+"756.9 億元",
+"CNY75.7bn"
+],
+"yoy": 29.4,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"Q3 歸母淨利",
+"Q3 net profit to owners"
+],
+"v": [
+"172.3 億元",
+"CNY17.2bn"
+],
+"yoy": 80.7,
+"qoq": 128.5,
+"note": [
+"季增依 Q2 75.4 億元推算",
+"QoQ derived from Q2 CNY7.54bn"
+],
+"derived": false
+},
+{
+"k": [
+"前三季營收",
+"9M revenue"
+],
+"v": [
+"1,876.1 億元",
+"CNY187.6bn"
+],
+"yoy": 11.9,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季歸母淨利",
+"9M net profit to owners"
+],
+"v": [
+"306.5 億元",
+"CNY30.7bn"
+],
+"yoy": 13.2,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"Q3 貨量",
+"Q3 volume"
+],
+"v": [
+"721 萬 TEU",
+"7.21m TEU"
+],
+"yoy": 4.46,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"淨利年增 81%、季增約 1.3 倍，為兩年來最大增幅。",
+"Net profit +81% YoY and roughly +130% QoQ, the biggest jump in two years."
+],
+[
+"跨太平洋收入 +61.2%（貨量 +13.0%）、亞歐收入 +25.7%（貨量 +14.6%）；碼頭吞吐量 876 萬 TEU、+2.4%。",
+"Transpacific revenue +61.2% (volume +13.0%), Asia–Europe +25.7% (volume +14.6%); terminal throughput 8.76m TEU, +2.4%."
+],
+[
+"9 月底資產負債率 41.4%。",
+"Debt-to-assets 41.4% at end-September."
+]
+],
+"gd": [
+[
+"地緣衝突、貿易格局變化、港口壅塞與供應鏈中斷仍將挑戰市場，中東局勢是供需關鍵。",
+"Geopolitical conflict, shifting trade patterns, congestion and supply-chain disruption will keep challenging the market; the Middle East is pivotal."
+],
+[
+"預期全球貨櫃需求維持相對韌性，受南方國家貿易與區域內市場支撐。",
+"Expects container demand to stay relatively resilient, supported by Global South and intra-regional trade."
+]
+],
+"src": [
+{
+"t": "東方財富：中遠海控三季報（2026/10/29）",
+"u": "https://finance.eastmoney.com/a/202610293914370345.html"
+},
+{
+"t": "FreightWaves（2026/11/09）",
+"u": "https://www.freightwaves.com/?p=585515"
+},
+{
+"t": "gCaptain／Bloomberg（2026/10/29）",
+"u": "https://gcaptain.com/cosco-profit-jumps-most-in-two-years-as-turmoil-supports-rates/"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-28",
@@ -2322,15 +2939,128 @@
 ],
 "ir": "https://www.one-line.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-01",
 "approx": true,
 "note": [
-"FY2026 第二季（7–9 月），預計 10 月底～11 月初",
-"FY2026 Q2 (Jul–Sep), expected late Oct–early Nov"
+"FY2026 第三季（10–12 月），預計 1 月底",
+"FY2026 Q3 (Oct–Dec), expected late January"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-04",
+"gdir": "up",
+"title": [
+"FY2026 第二季（2026 年 7–9 月）",
+"FY2026 Q2 (Jul–Sep 2026)"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"62.7 億美元",
+"US$6.27bn"
+],
+"yoy": 40.8,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net profit"
+],
+"v": [
+"13.2 億美元",
+"US$1.32bn"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 2.85 億美元",
+"Q2 FY2025: US$285m"
+],
+"derived": false
+},
+{
+"k": [
+"裝載量",
+"Liftings"
+],
+"v": [
+"340 萬 TEU",
+"3.40m TEU"
+],
+"yoy": 4.3,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"平均運價",
+"Avg freight rate"
+],
+"v": [
+"1,709 美元/TEU",
+"US$1,709/TEU"
+],
+"yoy": 36.5,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"上半年度淨利",
+"H1 FY2026 net profit"
+],
+"v": [
+"13.5 億美元",
+"US$1.35bn"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"上半年度營收 108.1 億美元",
+"H1 revenue US$10.8bn"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"淨利約為去年同期 4.6 倍；平均運價年增約 37%、裝載量 +4%；平均燃油價格每噸 749 美元（去年同期 518）。",
+"Net profit ~4.6x YoY; average rate +37%, liftings +4%; bunker averaged US$749/t (vs US$518)."
+]
+],
+"gd": [
+[
+"全年淨利預測再上修至 20 億美元（8 月為 9 億、年初 3 億）。",
+"FY net profit forecast raised again to US$2.0bn (Aug: US$900m; initial: US$300m)."
+],
+[
+"假設荷姆茲現況持續到 FY2026 結束、蘇伊士逐步恢復通航；下半年度即期運價隨淡季回落，但仍高於前次預測。",
+"Assumes current Hormuz conditions last through FY2026 and Suez transits gradually resume; H2 spot rates ease seasonally but stay above the prior forecast."
+]
+],
+"src": [
+{
+"t": "Baird Maritime（2026/11/05）",
+"u": "https://www.bairdmaritime.com/shipping/boxships/ocean-network-express-raises-forecast"
+},
+{
+"t": "AJOT：ONE Q2 FY2026",
+"u": "https://www.ajot.com/news/ocean-network-express-reports-financial-results-for-q2-fy2026"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-07-31",
@@ -2477,15 +3207,120 @@
 ],
 "ir": "https://www.hmm21.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-02",
 "approx": true,
 "note": [
-"預計 11 月中公布",
-"Expected mid-November"
+"2026 年報，預計 2 月",
+"FY2026 results, expected February"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"4.13 兆韓元",
+"KRW4.13tn"
+],
+"yoy": 52,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"營業利益",
+"Operating profit"
+],
+"v": [
+"1.40 兆韓元",
+"KRW1.40tn"
+],
+"yoy": 370,
+"qoq": 295,
+"note": [
+"營益率約 34%",
+"Margin ~34%"
+],
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net profit"
+],
+"v": [
+"1.54 兆韓元",
+"KRW1.54tn"
+],
+"yoy": 405,
+"qoq": null,
+"note": [
+"去年同期 3,040 億韓元",
+"Q3 2025: KRW304bn"
+],
+"derived": false
+},
+{
+"k": [
+"前三季營業利益",
+"9M operating profit"
+],
+"v": [
+"2.02 兆韓元",
+"KRW2.02tn"
+],
+"yoy": 76,
+"qoq": null,
+"note": [
+"前三季營收 10.25 兆、+25%",
+"9M revenue KRW10.25tn, +25%"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"運價走高帶動營業利益年增 3.7 倍、季增近 3 倍。",
+"Higher rates lifted operating profit 3.7x YoY and nearly 4x QoQ."
+],
+[
+"散裝部門前三季營業利益 3,780 億韓元、年增 4.2 倍，占總營業利益比重由 6.4% 升至 18.8%。",
+"Bulk division 9M operating profit KRW378bn (+418%), its share of the total up from 6.4% to 18.8%."
+]
+],
+"gd": [
+[
+"未提供數字指引；高利潤率能否延續到 2027 年，取決於港口壅塞是否持續與新船交付。",
+"No numeric guidance; sustaining margins into 2027 depends on whether congestion persists and on newbuild deliveries."
+],
+[
+"持續擴充汽車船、氣體船與多用途船，分散獲利來源。",
+"Adding car carriers, gas carriers and multi-purpose ships to diversify earnings."
+]
+],
+"src": [
+{
+"t": "FoodBusiness MEA：HMM Q3（2026/11/16）",
+"u": "https://www.foodbusinessmea.com/?p=2165814"
+},
+{
+"t": "Seatrade Maritime：HMM Q3",
+"u": "https://www.seatrade-maritime.com/containers/hmm-q3-profit-soars-405-"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-13",
@@ -2699,15 +3534,125 @@
 ],
 "ir": "https://investors.zim.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"預計 11 月中；因併購案不舉行法說電話會議",
-"Expected mid-Nov; no call due to the pending merger"
+"視併購完成時程而定",
+"Depends on the merger closing"
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-18",
+"gdir": "up",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"27.1 億美元",
+"US$2.71bn"
+],
+"yoy": 53,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net income"
+],
+"v": [
+"8.30 億美元",
+"US$830m"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 1.23 億美元",
+"Q3 2025: US$123m"
+],
+"derived": false
+},
+{
+"k": [
+"調整後 EBITDA",
+"Adj. EBITDA"
+],
+"v": [
+"13.3 億美元",
+"US$1.33bn"
+],
+"yoy": 124,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"平均運價",
+"Avg freight rate"
+],
+"v": [
+"2,480 美元/TEU",
+"US$2,480/TEU"
+],
+"yoy": 55,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"貨量",
+"Volume"
+],
+"v": [
+"96.2 萬 TEU",
+"962k TEU"
+],
+"yoy": 4,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"運價年增 55%、貨量 +4%，淨利約為去年同期 6.7 倍；前九月淨利 8.08 億美元。",
+"Rates +55% and volumes +4% lifted net income ~6.7x YoY; 9M net income US$808m."
+]
+],
+"gd": [
+[
+"全年調整後 EBITDA 上修至 33–35 億美元、調整後 EBIT 20–22 億美元（前次 27–30 億、14–17 億）。",
+"FY adj. EBITDA raised to US$3.3–3.5bn and adj. EBIT to US$2.0–2.2bn (prior US$2.7–3.0bn and US$1.4–1.7bn)."
+],
+[
+"配息每股 2.01 美元（約前九月淨利 30%），12/8 發放。",
+"Dividend of US$2.01/share (~30% of 9M net income), paid 8 Dec."
+],
+[
+"赫伯羅特以每股 35 美元現金收購：以色列黃金股申請將重新提出，目標 2027 年第一季完成。",
+"Hapag-Lloyd's US$35/share cash takeover: the Israeli golden-share application will be refiled; closing targeted for Q1 2027."
+]
+],
+"src": [
+{
+"t": "AJOT：ZIM Q3 2026（2026/11/18）",
+"u": "https://www.ajot.com/news/zim-q3-2026-results"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-19",
@@ -2931,12 +3876,12 @@
 ],
 "ir": "https://mops.twse.com.tw",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "logo": null,
@@ -2952,6 +3897,125 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-10",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"52.8 億元",
+"NT$5.28bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"毛利率",
+"Gross margin"
+],
+"v": [
+"36.7%",
+"36.7%"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季 34.9%",
+"9M: 34.9%"
+],
+"derived": false
+},
+{
+"k": [
+"稅後淨利",
+"Net profit"
+],
+"v": [
+"19.35 億元",
+"NT$1.94bn"
+],
+"yoy": 33,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"EPS",
+"EPS"
+],
+"v": [
+"2.29 元",
+"NT$2.29"
+],
+"yoy": 31.61,
+"qoq": null,
+"note": [
+"Q2 為 2.34 元",
+"Q2: NT$2.34"
+],
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"5.80 元",
+"NT$5.80"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季淨利 49.0 億元、營收 141.8 億元",
+"9M net NT$4.90bn, revenue NT$14.18bn"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"第三季淨利年增約三成，毛利率 36.7%。",
+"Q3 net profit up ~33% YoY with a 36.7% gross margin."
+],
+[
+"11 月至 2027 年底交 6 艘新船：11/20 交 1 艘 6.4 萬噸超輕便極限型（兩年指數連動長約），2027 年 2 艘海岬型、3 艘超輕便極限型；在建共 19 艘（含 2 艘合資風場運維母船）。",
+"Six newbuilds due Nov 2026–end-2027: a 64k dwt supramax on 20 Nov (two-year index-linked charter), then two capesizes and three supramaxes in 2027; 19 ships on order incl. two JV offshore-wind service vessels."
+]
+],
+"gd": [
+[
+"第四季：年底鐵礦砂出貨、亞洲冬季煤炭補庫與美國穀物出口支撐需求。",
+"Q4: year-end iron ore, Asian winter coal restocking and US grain exports support demand."
+],
+[
+"2027 年：西芒杜鐵礦放量、鋁土礦出口成長與長程貨比重上升；新船交付可由降速、特檢與塞港吸收。",
+"2027: Simandou ramp-up, bauxite growth and more long-haul cargo; deliveries absorbed by slow steaming, surveys and congestion."
+]
+],
+"src": [
+{
+"t": "ETtoday：裕民 Q3（2026/11/10）",
+"u": "https://finance.ettoday.net/news/3269774"
+},
+{
+"t": "經濟日報：裕民第 3 季財報",
+"u": "https://udn.com/news/story/7252/9869935"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08",
@@ -3098,12 +4162,12 @@
 ],
 "ir": "https://www.wisdomlines.com.tw",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "logo": {
@@ -3121,6 +4185,115 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"kind": "flash",
+"date": "2026-11-04",
+"title": [
+"前三季與 10 月自結數字",
+"Self-reported Jan–Sep and October figures"
+],
+"kpis": [
+{
+"k": [
+"1–9 月營收",
+"Jan–Sep revenue"
+],
+"v": [
+"157.9 億元",
+"NT$15.8bn"
+],
+"yoy": 33.78,
+"qoq": null,
+"note": [
+"自結",
+"Self-reported"
+],
+"derived": false
+},
+{
+"k": [
+"1–9 月營業利益",
+"Jan–Sep operating profit"
+],
+"v": [
+"58.8 億元",
+"NT$5.88bn"
+],
+"yoy": 170.69,
+"qoq": null,
+"note": [
+"自結",
+"Self-reported"
+],
+"derived": false
+},
+{
+"k": [
+"1–9 月每股稅前盈餘",
+"Jan–Sep pre-tax EPS"
+],
+"v": [
+"8.79 元",
+"NT$8.79"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"自結；稅前淨利 65.6 億元、年增 257%",
+"Self-reported; pre-tax profit NT$6.56bn, +257%"
+],
+"derived": false
+},
+{
+"k": [
+"1–10 月每股稅前盈餘",
+"Jan–Oct pre-tax EPS"
+],
+"v": [
+"10.11 元",
+"NT$10.11"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"10 月單月 1.32 元；10 月營益率 48%",
+"October alone NT$1.32; October operating margin 48%"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"第三季各月營業利益率都在四成以上；前三季交 7 艘新船、處分 6 艘老船，認列約 3,000 萬美元處分利益。",
+"Operating margin topped 40% in every Q3 month; 7 newbuilds delivered and 6 older ships sold in 9M, booking ~US$30m of gains."
+],
+[
+"10 月巴拿馬型、超輕便極限型日租約 20,253、23,315 美元，年增約 25%、32%。",
+"October Panamax and Supramax rates averaged ~US$20,253 and US$23,315/day, up ~25% and ~32% YoY."
+]
+],
+"gd": [
+[
+"北美穀物出口旺季支撐第四季；2027 年貿易路線與結構轉變可提高船舶周轉、支撐運價。",
+"North American grain season supports Q4; shifting trade routes in 2027 should raise vessel turnover and support rates."
+],
+[
+"關注美中經貿政策與地緣衝突；以部分指數連動租約參與上漲、部分鎖價降低波動。",
+"Watching US–China policy and geopolitics; index-linked charters capture upside while fixed charters limit volatility."
+]
+],
+"src": [
+{
+"t": "工商時報：慧洋前三季自結（2026/10/05）",
+"u": "https://www.ctee.com.tw/news/20261005701607-430201"
+},
+{
+"t": "工商時報：慧洋前十月（2026/11/05）",
+"u": "https://www.ctee.com.tw/news/20261105700247-430503"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08",
@@ -3260,12 +4433,12 @@
 ],
 "ir": "https://mops.twse.com.tw",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "logo": null,
@@ -3281,6 +4454,117 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-11",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"13.5 億元",
+"NT$1.35bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"稅後淨利",
+"Net profit"
+],
+"v": [
+"4.88 億元",
+"NT$0.49bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"EPS",
+"EPS"
+],
+"v": [
+"1.17 元",
+"NT$1.17"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"上半年 1.55 元",
+"H1: NT$1.55"
+],
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"2.72 元",
+"NT$2.72"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季營收 37.2 億元、+19%；淨利 11.3 億元、+15%",
+"9M revenue NT$3.72bn (+19%); net NT$1.13bn (+15%)"
+],
+"derived": false
+},
+{
+"k": [
+"前三季毛利率",
+"9M gross margin"
+],
+"v": [
+"45%",
+"45%"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 40%",
+"9M 2025: 40%"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"前三季毛利 16.6 億元、年增 32.4%；公司表示今年散裝市場優於年初預期，上半年「淡季不淡」。",
+"9M gross profit NT$1.66bn (+32.4%); management says dry bulk beat expectations, with no seasonal lull in H1."
+]
+],
+"gd": [
+[
+"後市關注五項變數：印度煤炭進口、南美穀物出口、亞洲區域工業原料運輸、中國煤炭進口政策、美中貿易關係。",
+"Five variables to watch: Indian coal imports, South American grain exports, intra-Asian industrial raw materials, China's coal import policy and US–China trade."
+]
+],
+"src": [
+{
+"t": "工商時報：台航前三季（2026/11/11）",
+"u": "https://www.ctee.com.tw/news/20261111701822-430503"
+},
+{
+"t": "經濟日報：台航前三季",
+"u": "https://money.udn.com/money/story/5607/9872689"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-06",
@@ -3398,12 +4682,12 @@
 ],
 "ir": "https://mops.twse.com.tw",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "logo": null,
@@ -3419,6 +4703,99 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-11",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"10.9 億元",
+"NT$1.09bn"
+],
+"yoy": 40.8,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"毛利率",
+"Gross margin"
+],
+"v": [
+"33.97%",
+"33.97%"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 11.09%",
+"Q3 2025: 11.09%"
+],
+"derived": false
+},
+{
+"k": [
+"EPS",
+"EPS"
+],
+"v": [
+"0.71 元",
+"NT$0.71"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"Q2 為 0.42 元",
+"Q2: NT$0.42"
+],
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"1.02 元",
+"NT$1.02"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季淨利 3.98 億元；營收 27.1 億元、+16.6%",
+"9M net NT$398m; revenue NT$2.71bn, +16.6%"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"第三季毛利 3.71 億元、約為去年同期 4.3 倍，毛利率由 11% 升至 34%。",
+"Q3 gross profit NT$371m, ~4.3x YoY; gross margin up from 11% to 34%."
+]
+],
+"gd": [
+[
+"公司未提供數字指引。",
+"No numeric guidance."
+]
+],
+"src": [
+{
+"t": "MoneyDJ：四維航 115 年第 3 季損益表",
+"u": "https://tw.stock.yahoo.com/news/%E5%9B%9B%E7%B6%AD%E8%88%AA-115%E5%B9%B4%E7%AC%AC3%E5%AD%A3%E7%B6%9C%E5%90%88%E6%90%8D%E7%9B%8A%E8%A1%A8-%E6%AF%8F%E8%82%A1%E7%9B%88%E9%A4%980-71%E5%85%83-060400058.html"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08",
@@ -3507,12 +4884,12 @@
 ],
 "ir": "https://mops.twse.com.tw",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "logo": null,
@@ -3528,6 +4905,107 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-13",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"EPS",
+"EPS"
+],
+"v": [
+"2.16 元",
+"NT$2.16"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"Q2 為 1.50 元",
+"Q2: NT$1.50"
+],
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"4.90 元",
+"NT$4.90"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季淨利",
+"9M net profit"
+],
+"v": [
+"9.67 億元",
+"NT$0.97bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季營收",
+"9M revenue"
+],
+"v": [
+"40.7 億元",
+"NT$4.07bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"10 月營收",
+"October revenue"
+],
+"v": [
+"年增 36.67%",
+"+36.67% YoY"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"單季 EPS 2.16 元，高於第二季 1.50 元；前三季淨利 9.67 億元。",
+"Q3 EPS NT$2.16, up from NT$1.50 in Q2; 9M net profit NT$967m."
+]
+],
+"gd": [
+[
+"公司未提供數字指引。",
+"No numeric guidance."
+]
+],
+"src": [
+{
+"t": "MoneyDJ：中航前三季合併獲利（2026/11/13）",
+"u": "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=ed4a8bd7-aee7-41fe-8e92-1e105ab21910"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08",
@@ -3635,12 +5113,12 @@
 ],
 "ir": "https://mops.twse.com.tw",
 "next": {
-"p": "2026Q3",
-"date": "2026-11-14",
+"p": "2026Q4",
+"date": "2027-03",
 "approx": true,
 "note": [
-"法定公告期限 11/14",
-"Statutory deadline 14 Nov"
+"2026 年報，法定期限 3/31",
+"FY2026 annual results; statutory deadline 31 Mar"
 ]
 },
 "logo": null,
@@ -3656,6 +5134,119 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-13",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"EPS（推算）",
+"EPS (derived)"
+],
+"v": [
+"約 1.18 元",
+"~NT$1.18"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前三季 4.85 元減上半年 3.67 元",
+"9M NT$4.85 minus H1 NT$3.67"
+],
+"derived": true
+},
+{
+"k": [
+"前三季淨利（歸屬母公司）",
+"9M net profit to owners"
+],
+"v": [
+"28.4 億元",
+"NT$2.84bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季 EPS",
+"9M EPS"
+],
+"v": [
+"4.85 元",
+"NT$4.85"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季營業利益",
+"9M operating profit"
+],
+"v": [
+"17.1 億元",
+"NT$1.71bn"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"10 月營收",
+"October revenue"
+],
+"v": [
+"7.88 億元",
+"NT$0.79bn"
+],
+"yoy": 91.7,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"第三季未再有大額處分利益，推算單季 EPS 約 1.18 元（上半年含兩艘船處分利益）。",
+"No large disposal gains in Q3; derived Q3 EPS ~NT$1.18 (H1 included gains on two ship sales)."
+],
+[
+"10 月營收年增 91.7%；POOL 內 VLCC 10 月日租約 36.7 萬美元。",
+"October revenue +91.7% YoY; pooled VLCCs earned ~US$367k/day in October."
+]
+],
+"gd": [
+[
+"11–12 月 VLCC 已以約 50 萬美元/日成交，較 10 月高約三成六，公司預期第四季業績大幅提高。",
+"Pooled VLCCs fixed ~US$500k/day for Nov–Dec, ~36% above October; management expects a much stronger Q4."
+],
+[
+"已出售 VLCC 永生輪，明年 1 月底交船（原長約日租 10.4 萬美元），公司表示對獲利影響不大。",
+"Sold the VLCC Yung Sheng for end-January delivery (was on a US$104k/day charter); limited earnings impact, per the company."
+]
+],
+"src": [
+{
+"t": "MoneyDJ：新興前三季合併獲利",
+"u": "https://tw.stock.yahoo.com/news/%E6%96%B0%E8%88%88%E5%89%8D%E4%B8%89%E5%AD%A3%E5%90%88%E4%BD%B5%E7%8D%B2%E5%88%A928-36%E5%84%84%E5%85%83-%E6%AF%8F%E8%82%A1%E7%A8%85%E5%BE%8C4-85%E5%85%83-060000552.html"
+},
+{
+"t": "ETtoday：新興 10 月營收（2026/11/10）",
+"u": "https://finance.ettoday.net/news/3269637"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-11",
@@ -3787,12 +5378,12 @@
 ],
 "ir": "https://www.starbulk.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-02",
 "approx": true,
 "note": [
-"預計 11 月",
-"Expected November"
+"第四季財報，預計 2 月",
+"Q4 results, expected February"
 ]
 },
 "logo": {
@@ -3810,6 +5401,118 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-19",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"3.67 億美元",
+"US$367m"
+],
+"yoy": 39,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net income"
+],
+"v": [
+"1.42 億美元",
+"US$142m"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"去年同期 1,850 萬美元",
+"Q3 2025: US$18.5m"
+],
+"derived": false
+},
+{
+"k": [
+"調整後 EBITDA",
+"Adj. EBITDA"
+],
+"v": [
+"1.95 億美元",
+"US$195m"
+],
+"yoy": 124,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"平均日租（TCE）",
+"TCE/day"
+],
+"v": [
+"24,616 美元",
+"US$24,616"
+],
+"yoy": 48,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"季配息",
+"Dividend"
+],
+"v": [
+"每股 1.00 美元",
+"US$1.00/sh"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"前季 0.90；2022 年第三季以來最高",
+"Prior 0.90; highest since Q3 2022"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"日均 TCE 年增 48%；船塢與營運成本下降；平均船隊 134.8 艘（去年同期 141.4）。",
+"TCE +48% YoY; dry-docking and operating costs fell; average fleet 134.8 ships (vs 141.4)."
+],
+[
+"8 艘 Kamsarmax 新船計畫已於 11 月全數交付。",
+"The eight-ship Kamsarmax newbuild programme was completed in November."
+]
+],
+"gd": [
+[
+"執行長對散裝市場維持「具建設性」看法：延噸海里成長、港口壅塞、航線干擾與季節因素。",
+"CEO remains 'constructive': tonne-mile growth, congestion, route disruption and seasonality."
+],
+[
+"配息 12/11 發放，連續第 23 季。",
+"Dividend paid 11 Dec, the 23rd in a row."
+]
+],
+"src": [
+{
+"t": "Cyprus Mail（2026/11/19）",
+"u": "https://cyprus-mail.com/2026/11/19/star-bulk-nets-141-9m-on-higher-freight-rates-sets-1-dividend-and-takes-final-newbuild"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-05",
@@ -3937,12 +5640,12 @@
 ],
 "ir": "https://www.pacificbasin.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-10",
+"p": "2026Q4",
+"date": "2027-02",
 "approx": true,
 "note": [
-"第三季營運更新，預計 10 月",
-"Q3 trading update, expected October"
+"2026 全年業績，預計 2 月底",
+"FY2026 results, expected late February"
 ]
 },
 "logo": null,
@@ -3958,6 +5661,90 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-10",
+"title": [
+"第三季營運更新",
+"Q3 trading update"
+],
+"kpis": [
+{
+"k": [
+"輕便型 TCE",
+"Handysize TCE"
+],
+"v": [
+"16,020 美元/日",
+"US$16,020/day"
+],
+"yoy": 37,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"超輕便極限型 TCE",
+"Supramax TCE"
+],
+"v": [
+"17,990 美元/日",
+"US$17,990/day"
+],
+"yoy": 34,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"第四季已鎖定：輕便型",
+"Q4 covered: Handysize"
+],
+"v": [
+"65%、16,480 美元/日",
+"65% at US$16,480/day"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"第四季已鎖定：超輕便極限型",
+"Q4 covered: Supramax"
+],
+"v": [
+"76%、18,960 美元/日",
+"76% at US$18,960/day"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"全球散裝需求強勁，地緣與天候干擾、航程拉長與塞港使有效運力偏緊。",
+"Robust dry bulk demand, with geopolitical and weather disruption, longer routes and congestion tightening effective supply."
+]
+],
+"gd": [
+[
+"第四季已鎖定天數的日租較第三季再高 2.9%（輕便型）與 5.4%（超輕便極限型）。",
+"Q4 covered rates are 2.9% (Handysize) and 5.4% (Supramax) above Q3."
+]
+],
+"src": [
+{
+"t": "同花順／華泰證券研報引述（2026/10/19）",
+"u": "https://news.10jqka.com.cn/field/sr/20261019/60187773.shtml"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-06",
@@ -4081,12 +5868,12 @@
 ],
 "ir": "https://www.frontline.bm",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-02",
 "approx": true,
 "note": [
-"預計 11 月",
-"Expected November"
+"第四季財報，預計 2 月",
+"Q4 results, expected February"
 ]
 },
 "logo": {
@@ -4104,6 +5891,139 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-20",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"9.21 億美元",
+"US$921m"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net income"
+],
+"v": [
+"6.41 億美元",
+"US$641m"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"含出售 2 艘 VLCC 利益 1.11 億；EPS 2.88 美元",
+"Incl. US$111m gain on two VLCC sales; EPS US$2.88"
+],
+"derived": false
+},
+{
+"k": [
+"調整後淨利",
+"Adj. net income"
+],
+"v": [
+"5.31 億美元",
+"US$531m"
+],
+"yoy": null,
+"qoq": -8.5,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"VLCC 日租",
+"VLCC TCE"
+],
+"v": [
+"148,500 美元",
+"US$148,500"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"Suezmax 日租",
+"Suezmax TCE"
+],
+"v": [
+"102,500 美元",
+"US$102,500"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"LR2 日租",
+"LR2 TCE"
+],
+"v": [
+"67,800 美元",
+"US$67,800"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"季配息",
+"Dividend"
+],
+"v": [
+"每股 2.38 美元",
+"US$2.38/sh"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"調整後淨利季減約 8.5%，主因日租較第二季回落；出售兩艘 2017 年 VLCC 認列 1.11 億美元利益。",
+"Adjusted profit fell ~8.5% QoQ on lower TCEs; two 2017-built VLCC sales added a US$111m gain."
+]
+],
+"gd": [
+[
+"第四季現貨已訂：VLCC 68% 天數、562,600 美元/日；Suezmax 69%、324,300；LR2/Aframax 68%、190,800。公司提醒因空載天數，全季平均將低於目前已訂水準。",
+"Q4 spot booked: VLCC 68% at US$562,600/day; Suezmax 69% at US$324,300; LR2/Aframax 68% at US$190,800. Full-quarter averages will be lower because of ballast days."
+],
+[
+"未來將提高 12 個月以上期租比重；目前 17 艘（15 艘 VLCC、2 艘 Suezmax）簽長期租約。",
+"Plans much higher time-charter cover; 17 ships (15 VLCCs, 2 Suezmaxes) are on charters over 12 months."
+]
+],
+"src": [
+{
+"t": "Baird Maritime（2026/11/23）",
+"u": "https://www.bairdmaritime.com/amp/story/shipping/tankers/frontline-books-record-tanker-rates"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-28",
@@ -4235,12 +6155,12 @@
 ],
 "ir": "https://www.dhtankers.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-02",
 "approx": true,
 "note": [
-"預計 11 月初",
-"Expected early November"
+"第四季財報，預計 2 月",
+"Q4 results, expected February"
 ]
 },
 "logo": {
@@ -4258,6 +6178,114 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-09",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"3.32 億美元",
+"US$332m"
+],
+"yoy": 210,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net income"
+],
+"v": [
+"2.71 億美元",
+"US$271m"
+],
+"yoy": null,
+"qoq": 37,
+"note": [
+"含出售 DHT Bauhinia 利益 3,420 萬美元",
+"Incl. US$34.2m gain on selling DHT Bauhinia"
+],
+"derived": false
+},
+{
+"k": [
+"VLCC 綜合日租",
+"VLCC combined TCE"
+],
+"v": [
+"141,300 美元",
+"US$141,300"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"VLCC 現貨日租",
+"VLCC spot TCE"
+],
+"v": [
+"167,100 美元",
+"US$167,100"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"季配息",
+"Dividend"
+],
+"v": [
+"每股 1.45 美元",
+"US$1.45/sh"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"配發 100% 一般淨利",
+"100% of ordinary net income"
+],
+"derived": false
+}
+],
+"hl": [
+[
+"淨利約為去年同期 6 倍；扣除售船與衍生品評價後一般淨利 2.35 億美元。",
+"Net income ~6x YoY; ordinary net income US$235m excluding the ship-sale and derivative gains."
+]
+],
+"gd": [
+[
+"第四季：現貨已訂 68% 天數、579,900 美元/日；含期租共 86%、267,500 美元/日。",
+"Q4: 68% of spot days booked at US$579,900/day; 86% including time charters at US$267,500/day."
+],
+[
+"11 月再向韓華海洋訂 1 艘 VLCC，2029 年 4 月交船。",
+"Ordered another VLCC from Hanwha Ocean in November for April 2029 delivery."
+]
+],
+"src": [
+{
+"t": "Baird Maritime（2026/11/09）",
+"u": "https://www.bairdmaritime.com/shipping/tankers/dht-holdings-third-quarter-profit"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-06",
@@ -4384,12 +6412,12 @@
 ],
 "ir": "https://www.flexlng.com",
 "next": {
-"p": "2026Q3",
-"date": "2026-11",
+"p": "2026Q4",
+"date": "2027-02",
 "approx": true,
 "note": [
-"預計 11 月",
-"Expected November"
+"第四季財報，預計 2 月",
+"Q4 results, expected February"
 ]
 },
 "logo": {
@@ -4407,6 +6435,98 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"date": "2026-11-11",
+"title": [
+"第三季財報",
+"Q3 results"
+],
+"kpis": [
+{
+"k": [
+"營收",
+"Revenue"
+],
+"v": [
+"9,740 萬美元",
+"US$97.4m"
+],
+"yoy": null,
+"qoq": -8.9,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"平均日租（TCE）",
+"TCE/day"
+],
+"v": [
+"78,875 美元",
+"US$78,875"
+],
+"yoy": null,
+"qoq": -8.4,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"淨利",
+"Net income"
+],
+"v": [
+"4,280 萬美元",
+"US$42.8m"
+],
+"yoy": null,
+"qoq": -4.7,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"季配息",
+"Dividend"
+],
+"v": [
+"每股 0.75 美元",
+"US$0.75/sh"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"日租較第二季回落，主因 Flex Volunteer 第二季享有較高現貨價；仍為歷來最高第三季營收。",
+"TCE eased from Q2 mainly because Flex Volunteer earned a higher spot rate in Q2; still a record third-quarter revenue."
+],
+[
+"Flex Enterprise 售後租回預計第四季完成，可釋出約 3,400 萬美元流動性。",
+"A Flex Enterprise sale-and-leaseback, due in Q4, should release ~US$34m of liquidity."
+]
+],
+"gd": [
+[
+"維持全年指引區間，但預期落在中低端。",
+"FY guidance ranges kept, now expected toward the middle-to-lower end."
+],
+[
+"執行長：今年剩餘時間現貨運價預期平淡但可能波動；新船持續交付、中東 LNG 出口減少為主要變數。",
+"CEO: spot rates muted but potentially volatile for the rest of 2026; newbuild deliveries and lower Middle East LNG exports are key."
+]
+],
+"src": [
+{
+"t": "Baird Maritime（2026/11/11）",
+"u": "https://www.bairdmaritime.com/shipping/tankers/flex-lng-third-quarter-results"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-19",
@@ -4539,11 +6659,11 @@
 "ir": "https://www.bwlpg.com",
 "next": {
 "p": "2026Q3",
-"date": "2026-11",
-"approx": true,
+"date": "2026-11-24",
+"approx": false,
 "note": [
-"預計 11 月",
-"Expected November"
+"完整第三季財報 11/24 公布",
+"Full Q3 results on 24 Nov"
 ]
 },
 "logo": {
@@ -4561,6 +6681,80 @@
 ]
 },
 "periods": [
+{
+"p": "2026Q3",
+"kind": "flash",
+"date": "2026-10-19",
+"title": [
+"第三季 LPG 貿易業務快報（完整財報 11/24）",
+"Q3 product services update (full results 24 Nov)"
+],
+"kpis": [
+{
+"k": [
+"產品服務毛交易結果",
+"Product services gross trading result"
+],
+"v": [
+"約 1.64 億美元",
+"~US$164m"
+],
+"yoy": null,
+"qoq": null,
+"note": [
+"已實現 1.46 億、未實現 +0.18 億",
+"Realised US$146m, unrealised +US$18m"
+],
+"derived": false
+},
+{
+"k": [
+"產品服務估計淨利",
+"Product services est. net profit"
+],
+"v": [
+"約 1.18 億美元",
+"~US$118m"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+},
+{
+"k": [
+"前三季已實現交易利益",
+"9M realised trading gains"
+],
+"v": [
+"約 2.63 億美元",
+"~US$263m"
+],
+"yoy": null,
+"qoq": null,
+"note": null,
+"derived": false
+}
+],
+"hl": [
+[
+"LPG 貿易業務第三季表現強勁；航運本業數字待 11/24 完整財報。",
+"Strong Q3 in LPG trading; shipping figures await the full report on 24 Nov."
+]
+],
+"gd": [
+[
+"第二季財報時已鎖定第三季約 92% 天數、平均約 88,000 美元/日。",
+"At Q2 results, ~92% of Q3 days were fixed at ~US$88,000/day."
+]
+],
+"src": [
+{
+"t": "Grafa：BW LPG Q3 貿易結果（2026/10/19）",
+"u": "https://grafa.com/en/news/united-states/bw-lpg-q3-2026-164-million-trading-result"
+}
+]
+},
 {
 "p": "2026Q2",
 "date": "2026-08-28",

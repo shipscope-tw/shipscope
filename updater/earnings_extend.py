@@ -31,7 +31,7 @@ for cid, (cat, logo, ph) in meta.items():
 # ---------- richer notes: Evergreen ----------
 ev = C["evergreen"]
 ev["fleet"] = ["242 艘、約 204 萬 TEU，全球第 7（市占 5.9%）；規劃 2030 年約 290 艘、274 萬 TEU", "242 ships, ~2.04m TEU, world No.7 (5.9%); plans ~290 ships / 2.74m TEU by 2030"]
-q3 = ev["periods"][0]
+q3 = {}  # 10/8 法說會筆記；第三季財報公布後併入該期
 q3["title"] = ["第三季營收快報＋10/8 法說會（財報尚未公布）", "Q3 revenue flash + 8 Oct investor call (results pending)"]
 q3["hl"] = L(
  ["法說會（10/8）：旺季提早且延續到 9 月，第三季運價走高；9 月營收年增 63.75%，受十一長假前出貨潮與天候改善帶動。", "Investor call (8 Oct): peak season came early and lasted into September, lifting Q3 rates; September revenue +63.75% YoY on pre-Golden Week shipments and better weather."],
@@ -47,10 +47,23 @@ q3["gd"] = L(
  ["獲利將於 11 月中第三季財報公布。", "Q3 profit due mid-November."])
 q3["src"] = [S("中央社：長榮法說（2026/10/08）", "https://cna.com.tw/news/afe/202610080235.aspx"), S("Winvest 營收快訊（2026/10/09）", "https://winvest.tw/News/Detail/95592"), S("Yahoo 新聞：長榮訂造 14 艘 LNG 雙燃料船", "https://tw.news.yahoo.com/%E9%95%B7%E6%A6%AE%E6%B5%B7%E9%81%8B%E6%96%A5%E8%B3%87990%E5%84%84%E5%85%83-%E8%B2%B7%E6%96%B0%E8%88%B9-%E6%96%B0%E6%AB%83-224738464.html")]
 
+def merge_call(c, notes, skip, tag=None):
+    """Fold investor-call notes into the latest period: the flash period if results are still pending, else the results."""
+    p0 = c["periods"][0]
+    if p0.get("kind") == "flash":
+        p0.update(notes); return
+    p0["hl"] = p0.get("hl", []) + [h for h in notes["hl"] if not any(k in h[0] for k in skip)]
+    extra = [list(g) for g in notes["gd"] if not any(k in g[0] for k in skip)]
+    if extra and tag:
+        extra[0] = [tag[0] + extra[0][0], tag[1] + extra[0][1]]
+    p0["gd"] = p0.get("gd", []) + extra
+    p0["src"] = p0.get("src", []) + [x for x in notes["src"] if "Winvest" not in x["t"]]
+merge_call(ev, q3, ["11 月中", "9 月營收年增 63.75%"], ["10/8 法說會：", "8 Oct call: "])
+
 # ---------- Yang Ming: 9/22 investor call ----------
 ym = C["yangming"]
 ym["fleet"] = ["第三季 99 艘、約 77.3 萬 TEU，全球第 9（市占 2.2%）；運費收入歐洲線 39%、美國線 36%", "Q3: 99 ships, ~773k TEU, world No.9 (2.2%); freight revenue 39% Europe, 36% US"]
-yq3 = ym["periods"][0]
+yq3 = {}  # 9/22 法說會筆記；第三季財報公布後併入該期
 yq3["title"] = ["第三季營收快報＋9/22 法說會（財報尚未公布）", "Q3 revenue flash + 22 Sep investor call (results pending)"]
 yq3["hl"] = L(
  ["9 月營收年增近七成（整體運價上漲），第三季營收比第二季多約四成。", "September revenue up ~70% YoY on higher rates; Q3 revenue ~40% above Q2."],
@@ -63,6 +76,8 @@ yq3["gd"] = L(
  ["新船：共 24 艘貨櫃輪與 4 艘散裝輪；其中 5 艘 1.5 萬 TEU LNG 雙燃料船 2026 年底前交完，其餘 2028–2030 年交付；2026 年採購 15 萬 TEU 自有櫃。", "Newbuilds: 24 container ships and 4 bulkers; five 15,000 TEU LNG dual-fuel ships delivered by end-2026, the rest in 2028–2030; buying 150k TEU of own boxes in 2026."],
  ["紅海未明朗前不考慮復航；2027 年運價走勢預計 2027 年第一季才較清楚，研究機構對供需預測分歧大。", "No Red Sea return until safe; 2027 rate direction clearer in Q1 2027, with wide divergence in supply-demand forecasts."])
 yq3["src"] = [S("富果：陽明 9/22 法說摘要", "https://blog.fugle.tw/post/earnings-call-2609-2026-09-22"), S("陽明法說簡報（公開資訊觀測站）", "https://mopsov.twse.com.tw/nas/STR/260920260922M001.pdf"), S("Winvest 營收快訊（2026/10/09）", "https://winvest.tw/News/Detail/96027"), S("旺得富（2026/09/24）", "https://wantrich.chinatimes.com/news/20260924900003-420101")]
+
+merge_call(ym, yq3, ["11 月中", "9 月營收年增近七成"], ["9/22 法說會：", "22 Sep call: "])
 
 # ---------- Wan Hai: route mix and outlook ----------
 wh = C["wanhai"]
@@ -215,6 +230,114 @@ for c in new:
     c.setdefault("privnote", None); E["companies"].append(c)
 C = {c["id"]: c for c in E["companies"]}
 C["msc"]["photo"] = photo("msc", cap=["MSC Irina（24,346 TEU）", "MSC Irina (24,346 TEU)"])
+
+# ---------- 2026 第三季更新（2026-11-24 整理）：新增期間放在最前面，並更新下次公布日 ----------
+NEXT_TW = {"p": "2026Q4", "date": "2027-03", "approx": True, "note": ["2026 年報，法定期限 3/31", "FY2026 annual results; statutory deadline 31 Mar"]}
+NEXT_FEB = {"p": "2026Q4", "date": "2027-02", "approx": True, "note": ["第四季財報，預計 2 月", "Q4 results, expected February"]}
+Q3_2026 = {
+ "uming": (NEXT_TW, {"p": "2026Q3", "date": "2026-11-10", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "52.8 億元", "NT$5.28bn"), K("毛利率", "Gross margin", "36.7%", "36.7%", None, None, "前三季 34.9%", "9M: 34.9%"),
+            K("稅後淨利", "Net profit", "19.35 億元", "NT$1.94bn", 33), K("EPS", "EPS", "2.29 元", "NT$2.29", 31.61, None, "Q2 為 2.34 元", "Q2: NT$2.34"),
+            K("前三季 EPS", "9M EPS", "5.80 元", "NT$5.80", None, None, "前三季淨利 49.0 億元、營收 141.8 億元", "9M net NT$4.90bn, revenue NT$14.18bn")],
+   "hl": L(["第三季淨利年增約三成，毛利率 36.7%。", "Q3 net profit up ~33% YoY with a 36.7% gross margin."],
+           ["11 月至 2027 年底交 6 艘新船：11/20 交 1 艘 6.4 萬噸超輕便極限型（兩年指數連動長約），2027 年 2 艘海岬型、3 艘超輕便極限型；在建共 19 艘（含 2 艘合資風場運維母船）。", "Six newbuilds due Nov 2026–end-2027: a 64k dwt supramax on 20 Nov (two-year index-linked charter), then two capesizes and three supramaxes in 2027; 19 ships on order incl. two JV offshore-wind service vessels."]),
+   "gd": L(["第四季：年底鐵礦砂出貨、亞洲冬季煤炭補庫與美國穀物出口支撐需求。", "Q4: year-end iron ore, Asian winter coal restocking and US grain exports support demand."],
+           ["2027 年：西芒杜鐵礦放量、鋁土礦出口成長與長程貨比重上升；新船交付可由降速、特檢與塞港吸收。", "2027: Simandou ramp-up, bauxite growth and more long-haul cargo; deliveries absorbed by slow steaming, surveys and congestion."]),
+   "src": [S("ETtoday：裕民 Q3（2026/11/10）", "https://finance.ettoday.net/news/3269774"), S("經濟日報：裕民第 3 季財報", "https://udn.com/news/story/7252/9869935")]}),
+ "wisdom": (NEXT_TW, {"p": "2026Q3", "kind": "flash", "date": "2026-11-04", "title": ["前三季與 10 月自結數字", "Self-reported Jan–Sep and October figures"],
+   "kpis": [K("1–9 月營收", "Jan–Sep revenue", "157.9 億元", "NT$15.8bn", 33.78, None, "自結", "Self-reported"),
+            K("1–9 月營業利益", "Jan–Sep operating profit", "58.8 億元", "NT$5.88bn", 170.69, None, "自結", "Self-reported"),
+            K("1–9 月每股稅前盈餘", "Jan–Sep pre-tax EPS", "8.79 元", "NT$8.79", None, None, "自結；稅前淨利 65.6 億元、年增 257%", "Self-reported; pre-tax profit NT$6.56bn, +257%"),
+            K("1–10 月每股稅前盈餘", "Jan–Oct pre-tax EPS", "10.11 元", "NT$10.11", None, None, "10 月單月 1.32 元；10 月營益率 48%", "October alone NT$1.32; October operating margin 48%")],
+   "hl": L(["第三季各月營業利益率都在四成以上；前三季交 7 艘新船、處分 6 艘老船，認列約 3,000 萬美元處分利益。", "Operating margin topped 40% in every Q3 month; 7 newbuilds delivered and 6 older ships sold in 9M, booking ~US$30m of gains."],
+           ["10 月巴拿馬型、超輕便極限型日租約 20,253、23,315 美元，年增約 25%、32%。", "October Panamax and Supramax rates averaged ~US$20,253 and US$23,315/day, up ~25% and ~32% YoY."]),
+   "gd": L(["北美穀物出口旺季支撐第四季；2027 年貿易路線與結構轉變可提高船舶周轉、支撐運價。", "North American grain season supports Q4; shifting trade routes in 2027 should raise vessel turnover and support rates."],
+           ["關注美中經貿政策與地緣衝突；以部分指數連動租約參與上漲、部分鎖價降低波動。", "Watching US–China policy and geopolitics; index-linked charters capture upside while fixed charters limit volatility."]),
+   "src": [S("工商時報：慧洋前三季自結（2026/10/05）", "https://www.ctee.com.tw/news/20261005701607-430201"), S("工商時報：慧洋前十月（2026/11/05）", "https://www.ctee.com.tw/news/20261105700247-430503")]}),
+ "taiwannav": (NEXT_TW, {"p": "2026Q3", "date": "2026-11-11", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "13.5 億元", "NT$1.35bn"), K("稅後淨利", "Net profit", "4.88 億元", "NT$0.49bn"),
+            K("EPS", "EPS", "1.17 元", "NT$1.17", None, None, "上半年 1.55 元", "H1: NT$1.55"),
+            K("前三季 EPS", "9M EPS", "2.72 元", "NT$2.72", None, None, "前三季營收 37.2 億元、+19%；淨利 11.3 億元、+15%", "9M revenue NT$3.72bn (+19%); net NT$1.13bn (+15%)"),
+            K("前三季毛利率", "9M gross margin", "45%", "45%", None, None, "去年同期 40%", "9M 2025: 40%")],
+   "hl": L(["前三季毛利 16.6 億元、年增 32.4%；公司表示今年散裝市場優於年初預期，上半年「淡季不淡」。", "9M gross profit NT$1.66bn (+32.4%); management says dry bulk beat expectations, with no seasonal lull in H1."]),
+   "gd": L(["後市關注五項變數：印度煤炭進口、南美穀物出口、亞洲區域工業原料運輸、中國煤炭進口政策、美中貿易關係。", "Five variables to watch: Indian coal imports, South American grain exports, intra-Asian industrial raw materials, China's coal import policy and US–China trade."]),
+   "src": [S("工商時報：台航前三季（2026/11/11）", "https://www.ctee.com.tw/news/20261111701822-430503"), S("經濟日報：台航前三季", "https://money.udn.com/money/story/5607/9872689")]}),
+ "shihwei": (NEXT_TW, {"p": "2026Q3", "date": "2026-11-11", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "10.9 億元", "NT$1.09bn", 40.8), K("毛利率", "Gross margin", "33.97%", "33.97%", None, None, "去年同期 11.09%", "Q3 2025: 11.09%"),
+            K("EPS", "EPS", "0.71 元", "NT$0.71", None, None, "Q2 為 0.42 元", "Q2: NT$0.42"),
+            K("前三季 EPS", "9M EPS", "1.02 元", "NT$1.02", None, None, "前三季淨利 3.98 億元；營收 27.1 億元、+16.6%", "9M net NT$398m; revenue NT$2.71bn, +16.6%")],
+   "hl": L(["第三季毛利 3.71 億元、約為去年同期 4.3 倍，毛利率由 11% 升至 34%。", "Q3 gross profit NT$371m, ~4.3x YoY; gross margin up from 11% to 34%."]),
+   "gd": L(["公司未提供數字指引。", "No numeric guidance."]),
+   "src": [S("MoneyDJ：四維航 115 年第 3 季損益表", "https://tw.stock.yahoo.com/news/%E5%9B%9B%E7%B6%AD%E8%88%AA-115%E5%B9%B4%E7%AC%AC3%E5%AD%A3%E7%B6%9C%E5%90%88%E6%90%8D%E7%9B%8A%E8%A1%A8-%E6%AF%8F%E8%82%A1%E7%9B%88%E9%A4%980-71%E5%85%83-060400058.html")]}),
+ "cmt": (NEXT_TW, {"p": "2026Q3", "date": "2026-11-13", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("EPS", "EPS", "2.16 元", "NT$2.16", None, None, "Q2 為 1.50 元", "Q2: NT$1.50"),
+            K("前三季 EPS", "9M EPS", "4.90 元", "NT$4.90"), K("前三季淨利", "9M net profit", "9.67 億元", "NT$0.97bn"),
+            K("前三季營收", "9M revenue", "40.7 億元", "NT$4.07bn"), K("10 月營收", "October revenue", "年增 36.67%", "+36.67% YoY")],
+   "hl": L(["單季 EPS 2.16 元，高於第二季 1.50 元；前三季淨利 9.67 億元。", "Q3 EPS NT$2.16, up from NT$1.50 in Q2; 9M net profit NT$967m."]),
+   "gd": L(["公司未提供數字指引。", "No numeric guidance."]),
+   "src": [S("MoneyDJ：中航前三季合併獲利（2026/11/13）", "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=ed4a8bd7-aee7-41fe-8e92-1e105ab21910")]}),
+ "sincere": (NEXT_TW, {"p": "2026Q3", "date": "2026-11-13", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("EPS（推算）", "EPS (derived)", "約 1.18 元", "~NT$1.18", None, None, "前三季 4.85 元減上半年 3.67 元", "9M NT$4.85 minus H1 NT$3.67", True),
+            K("前三季淨利（歸屬母公司）", "9M net profit to owners", "28.4 億元", "NT$2.84bn"), K("前三季 EPS", "9M EPS", "4.85 元", "NT$4.85"),
+            K("前三季營業利益", "9M operating profit", "17.1 億元", "NT$1.71bn"), K("10 月營收", "October revenue", "7.88 億元", "NT$0.79bn", 91.7)],
+   "hl": L(["第三季未再有大額處分利益，推算單季 EPS 約 1.18 元（上半年含兩艘船處分利益）。", "No large disposal gains in Q3; derived Q3 EPS ~NT$1.18 (H1 included gains on two ship sales)."],
+           ["10 月營收年增 91.7%；POOL 內 VLCC 10 月日租約 36.7 萬美元。", "October revenue +91.7% YoY; pooled VLCCs earned ~US$367k/day in October."]),
+   "gd": L(["11–12 月 VLCC 已以約 50 萬美元/日成交，較 10 月高約三成六，公司預期第四季業績大幅提高。", "Pooled VLCCs fixed ~US$500k/day for Nov–Dec, ~36% above October; management expects a much stronger Q4."],
+           ["已出售 VLCC 永生輪，明年 1 月底交船（原長約日租 10.4 萬美元），公司表示對獲利影響不大。", "Sold the VLCC Yung Sheng for end-January delivery (was on a US$104k/day charter); limited earnings impact, per the company."]),
+   "src": [S("MoneyDJ：新興前三季合併獲利", "https://tw.stock.yahoo.com/news/%E6%96%B0%E8%88%88%E5%89%8D%E4%B8%89%E5%AD%A3%E5%90%88%E4%BD%B5%E7%8D%B2%E5%88%A928-36%E5%84%84%E5%85%83-%E6%AF%8F%E8%82%A1%E7%A8%85%E5%BE%8C4-85%E5%85%83-060000552.html"), S("ETtoday：新興 10 月營收（2026/11/10）", "https://finance.ettoday.net/news/3269637")]}),
+ "starbulk": (NEXT_FEB, {"p": "2026Q3", "date": "2026-11-19", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "3.67 億美元", "US$367m", 39), K("淨利", "Net income", "1.42 億美元", "US$142m", None, None, "去年同期 1,850 萬美元", "Q3 2025: US$18.5m"),
+            K("調整後 EBITDA", "Adj. EBITDA", "1.95 億美元", "US$195m", 124), K("平均日租（TCE）", "TCE/day", "24,616 美元", "US$24,616", 48),
+            K("季配息", "Dividend", "每股 1.00 美元", "US$1.00/sh", None, None, "前季 0.90；2022 年第三季以來最高", "Prior 0.90; highest since Q3 2022")],
+   "hl": L(["日均 TCE 年增 48%；船塢與營運成本下降；平均船隊 134.8 艘（去年同期 141.4）。", "TCE +48% YoY; dry-docking and operating costs fell; average fleet 134.8 ships (vs 141.4)."],
+           ["8 艘 Kamsarmax 新船計畫已於 11 月全數交付。", "The eight-ship Kamsarmax newbuild programme was completed in November."]),
+   "gd": L(["執行長對散裝市場維持「具建設性」看法：延噸海里成長、港口壅塞、航線干擾與季節因素。", "CEO remains 'constructive': tonne-mile growth, congestion, route disruption and seasonality."],
+           ["配息 12/11 發放，連續第 23 季。", "Dividend paid 11 Dec, the 23rd in a row."]),
+   "src": [S("Cyprus Mail（2026/11/19）", "https://cyprus-mail.com/2026/11/19/star-bulk-nets-141-9m-on-higher-freight-rates-sets-1-dividend-and-takes-final-newbuild")]}),
+ "pacificbasin": ({"p": "2026Q4", "date": "2027-02", "approx": True, "note": ["2026 全年業績，預計 2 月底", "FY2026 results, expected late February"]},
+   {"p": "2026Q3", "date": "2026-10", "title": ["第三季營運更新", "Q3 trading update"],
+   "kpis": [K("輕便型 TCE", "Handysize TCE", "16,020 美元/日", "US$16,020/day", 37), K("超輕便極限型 TCE", "Supramax TCE", "17,990 美元/日", "US$17,990/day", 34),
+            K("第四季已鎖定：輕便型", "Q4 covered: Handysize", "65%、16,480 美元/日", "65% at US$16,480/day"), K("第四季已鎖定：超輕便極限型", "Q4 covered: Supramax", "76%、18,960 美元/日", "76% at US$18,960/day")],
+   "hl": L(["全球散裝需求強勁，地緣與天候干擾、航程拉長與塞港使有效運力偏緊。", "Robust dry bulk demand, with geopolitical and weather disruption, longer routes and congestion tightening effective supply."]),
+   "gd": L(["第四季已鎖定天數的日租較第三季再高 2.9%（輕便型）與 5.4%（超輕便極限型）。", "Q4 covered rates are 2.9% (Handysize) and 5.4% (Supramax) above Q3."]),
+   "src": [S("同花順／華泰證券研報引述（2026/10/19）", "https://news.10jqka.com.cn/field/sr/20261019/60187773.shtml")]}),
+ "frontline": (NEXT_FEB, {"p": "2026Q3", "date": "2026-11-20", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "9.21 億美元", "US$921m"), K("淨利", "Net income", "6.41 億美元", "US$641m", None, None, "含出售 2 艘 VLCC 利益 1.11 億；EPS 2.88 美元", "Incl. US$111m gain on two VLCC sales; EPS US$2.88"),
+            K("調整後淨利", "Adj. net income", "5.31 億美元", "US$531m", None, -8.5), K("VLCC 日租", "VLCC TCE", "148,500 美元", "US$148,500"),
+            K("Suezmax 日租", "Suezmax TCE", "102,500 美元", "US$102,500"), K("LR2 日租", "LR2 TCE", "67,800 美元", "US$67,800"), K("季配息", "Dividend", "每股 2.38 美元", "US$2.38/sh")],
+   "hl": L(["調整後淨利季減約 8.5%，主因日租較第二季回落；出售兩艘 2017 年 VLCC 認列 1.11 億美元利益。", "Adjusted profit fell ~8.5% QoQ on lower TCEs; two 2017-built VLCC sales added a US$111m gain."]),
+   "gd": L(["第四季現貨已訂：VLCC 68% 天數、562,600 美元/日；Suezmax 69%、324,300；LR2/Aframax 68%、190,800。公司提醒因空載天數，全季平均將低於目前已訂水準。", "Q4 spot booked: VLCC 68% at US$562,600/day; Suezmax 69% at US$324,300; LR2/Aframax 68% at US$190,800. Full-quarter averages will be lower because of ballast days."],
+           ["未來將提高 12 個月以上期租比重；目前 17 艘（15 艘 VLCC、2 艘 Suezmax）簽長期租約。", "Plans much higher time-charter cover; 17 ships (15 VLCCs, 2 Suezmaxes) are on charters over 12 months."]),
+   "src": [S("Baird Maritime（2026/11/23）", "https://www.bairdmaritime.com/amp/story/shipping/tankers/frontline-books-record-tanker-rates")]}),
+ "dht": (NEXT_FEB, {"p": "2026Q3", "date": "2026-11-09", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "3.32 億美元", "US$332m", 210), K("淨利", "Net income", "2.71 億美元", "US$271m", None, 37, "含出售 DHT Bauhinia 利益 3,420 萬美元", "Incl. US$34.2m gain on selling DHT Bauhinia"),
+            K("VLCC 綜合日租", "VLCC combined TCE", "141,300 美元", "US$141,300"), K("VLCC 現貨日租", "VLCC spot TCE", "167,100 美元", "US$167,100"),
+            K("季配息", "Dividend", "每股 1.45 美元", "US$1.45/sh", None, None, "配發 100% 一般淨利", "100% of ordinary net income")],
+   "hl": L(["淨利約為去年同期 6 倍；扣除售船與衍生品評價後一般淨利 2.35 億美元。", "Net income ~6x YoY; ordinary net income US$235m excluding the ship-sale and derivative gains."]),
+   "gd": L(["第四季：現貨已訂 68% 天數、579,900 美元/日；含期租共 86%、267,500 美元/日。", "Q4: 68% of spot days booked at US$579,900/day; 86% including time charters at US$267,500/day."],
+           ["11 月再向韓華海洋訂 1 艘 VLCC，2029 年 4 月交船。", "Ordered another VLCC from Hanwha Ocean in November for April 2029 delivery."]),
+   "src": [S("Baird Maritime（2026/11/09）", "https://www.bairdmaritime.com/shipping/tankers/dht-holdings-third-quarter-profit")]}),
+ "flexlng": (NEXT_FEB, {"p": "2026Q3", "date": "2026-11-11", "title": ["第三季財報", "Q3 results"],
+   "kpis": [K("營收", "Revenue", "9,740 萬美元", "US$97.4m", None, -8.9), K("平均日租（TCE）", "TCE/day", "78,875 美元", "US$78,875", None, -8.4),
+            K("淨利", "Net income", "4,280 萬美元", "US$42.8m", None, -4.7), K("季配息", "Dividend", "每股 0.75 美元", "US$0.75/sh")],
+   "hl": L(["日租較第二季回落，主因 Flex Volunteer 第二季享有較高現貨價；仍為歷來最高第三季營收。", "TCE eased from Q2 mainly because Flex Volunteer earned a higher spot rate in Q2; still a record third-quarter revenue."],
+           ["Flex Enterprise 售後租回預計第四季完成，可釋出約 3,400 萬美元流動性。", "A Flex Enterprise sale-and-leaseback, due in Q4, should release ~US$34m of liquidity."]),
+   "gd": L(["維持全年指引區間，但預期落在中低端。", "FY guidance ranges kept, now expected toward the middle-to-lower end."],
+           ["執行長：今年剩餘時間現貨運價預期平淡但可能波動；新船持續交付、中東 LNG 出口減少為主要變數。", "CEO: spot rates muted but potentially volatile for the rest of 2026; newbuild deliveries and lower Middle East LNG exports are key."]),
+   "src": [S("Baird Maritime（2026/11/11）", "https://www.bairdmaritime.com/shipping/tankers/flex-lng-third-quarter-results")]}),
+ "bwlpg": ({"p": "2026Q3", "date": "2026-11-24", "approx": False, "note": ["完整第三季財報 11/24 公布", "Full Q3 results on 24 Nov"]},
+   {"p": "2026Q3", "kind": "flash", "date": "2026-10-19", "title": ["第三季 LPG 貿易業務快報（完整財報 11/24）", "Q3 product services update (full results 24 Nov)"],
+   "kpis": [K("產品服務毛交易結果", "Product services gross trading result", "約 1.64 億美元", "~US$164m", None, None, "已實現 1.46 億、未實現 +0.18 億", "Realised US$146m, unrealised +US$18m"),
+            K("產品服務估計淨利", "Product services est. net profit", "約 1.18 億美元", "~US$118m"),
+            K("前三季已實現交易利益", "9M realised trading gains", "約 2.63 億美元", "~US$263m")],
+   "hl": L(["LPG 貿易業務第三季表現強勁；航運本業數字待 11/24 完整財報。", "Strong Q3 in LPG trading; shipping figures await the full report on 24 Nov."]),
+   "gd": L(["第二季財報時已鎖定第三季約 92% 天數、平均約 88,000 美元/日。", "At Q2 results, ~92% of Q3 days were fixed at ~US$88,000/day."]),
+   "src": [S("Grafa：BW LPG Q3 貿易結果（2026/10/19）", "https://grafa.com/en/news/united-states/bw-lpg-q3-2026-164-million-trading-result")]}),
+}
+for cid, (nxt, per) in Q3_2026.items():
+    c = C[cid]
+    c["next"] = nxt
+    c["periods"] = [per] + [p for p in c["periods"] if p["p"] != per["p"]]
 
 # tabs
 E["tabs"] = [
